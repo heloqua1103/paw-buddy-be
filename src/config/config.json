@@ -1,0 +1,27 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "paw-buddy",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "timezone": "+07:00",
+    "logging": false
+  },
+  "test": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "timezone": "+07:00"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "timezone": "+07:00"
+  }
+}
