@@ -8,3 +8,12 @@ export const register = async (req, res) => {
     console.log(error);
   }
 };
+
+export const login = async (req, res) => {
+  try {
+    const response = await services.login(req.body);
+    res.status(201).json(response);
+  } catch (error) {
+    console.log(error);
+  }
+};

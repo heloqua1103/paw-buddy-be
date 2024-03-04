@@ -56,3 +56,32 @@ export const register = ({ username, password }) =>
       reject(error);
     }
   });
+
+export const login = ({ username, password }) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const user = await db.User.findOne({
+        where: {
+          username: username,
+        },
+      });
+      const isChecked = user && bcrypt.compareSync(password, user.password);
+      const [accessToken, refreshToken] = await signAccessAndRefreshToken(
+        user.id,
+        user.username,
+        user.role
+      );
+      await db.User.update(
+        { refreshToken: refreshToken },
+        { where: { id: user.id } }
+      );
+      resolve({
+        err: user ? true : false,
+        message: user ? "Login successfull" : "username or password incorrect",
+        accessToken: accessToken ? accessToken : null,
+        user: isChecked ? user : null,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
