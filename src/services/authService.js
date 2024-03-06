@@ -3,7 +3,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
-var salt = bcrypt.genSaltSync(10);
+
+const salt = bcrypt.genSaltSync(10);
 
 const signAccessToken = (id, username, role) => {
   return jwt.sign({ id, username, role }, process.env.JWT_SECRET_ACCESS_TOKEN, {
