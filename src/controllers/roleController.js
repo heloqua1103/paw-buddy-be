@@ -8,3 +8,13 @@ export const createRole = async (req, res) => {
     console.log(error);
   }
 };
+
+export const updateRole = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await services.updateRole(req.body, id);
+    res.status(201).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
