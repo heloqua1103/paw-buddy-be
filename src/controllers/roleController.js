@@ -18,3 +18,13 @@ export const updateRole = async (req, res) => {
     console.log(error);
   }
 };
+
+export const deleteRole = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await services.deleteRole(id);
+    res.status(201).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -6,7 +6,6 @@ export const createRole = (body) =>
       const result = await db.Role.create({
         name_role: body.name,
       });
-      console.log(result);
       resolve({
         err: result ? true : false,
         message: result ? "Create role successfully" : "Create role failed",
@@ -23,10 +22,22 @@ export const updateRole = (body, id) =>
         { name_role: body.name },
         { where: { id: id } }
       );
-      console.log(result);
       resolve({
         err: result ? true : false,
         message: result ? "Update role successfully" : "Update role failed",
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const deleteRole = (id) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const result = await db.Role.destroy({ where: { id: id } });
+      resolve({
+        err: result ? true : false,
+        message: result ? "Delete role successfully" : "Delete role failed",
       });
     } catch (error) {
       reject(error);
