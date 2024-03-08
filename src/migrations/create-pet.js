@@ -12,7 +12,7 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
       },
-      name_role: {
+      name_pet: {
         type: Sequelize.STRING,
       },
       species: {
@@ -23,6 +23,9 @@ module.exports = {
       },
       gender: {
         type: Sequelize.BOOLEAN,
+      },
+      date_of_birth: {
+        type: Sequelize.DATE,
       },
       weight: {
         type: Sequelize.FLOAT,
