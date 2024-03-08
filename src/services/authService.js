@@ -6,10 +6,14 @@ dotenv.config();
 
 const salt = bcrypt.genSaltSync(10);
 
-const signAccessToken = (id, username, role) => {
-  return jwt.sign({ id, username, role }, process.env.JWT_SECRET_ACCESS_TOKEN, {
-    expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
-  });
+const signAccessToken = (id, username, roleId) => {
+  return jwt.sign(
+    { id, username, roleId },
+    process.env.JWT_SECRET_ACCESS_TOKEN,
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
+    }
+  );
 };
 
 const signRefreshToken = (id) => {
@@ -18,9 +22,9 @@ const signRefreshToken = (id) => {
   });
 };
 
-const signAccessAndRefreshToken = (id, username, role) => {
+const signAccessAndRefreshToken = (id, username, roleId) => {
   return Promise.all([
-    signAccessToken(id, username, role),
+    signAccessToken(id, username, roleId),
     signRefreshToken(id),
   ]);
 };
@@ -42,7 +46,7 @@ export const register = ({ username, password }) =>
       const [accessToken, refreshToken] = await signAccessAndRefreshToken(
         user[0].dataValues.id,
         user[0].dataValues.username,
-        user[0].dataValues.role
+        user[0].dataValues.roleId
       );
       await db.User.update(
         { refreshToken: refreshToken },
@@ -70,7 +74,7 @@ export const login = ({ username, password }) =>
       const [accessToken, refreshToken] = await signAccessAndRefreshToken(
         user.id,
         user.username,
-        user.role
+        user.roleId
       );
       await db.User.update(
         { refreshToken: refreshToken },
