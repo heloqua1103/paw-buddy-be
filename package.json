@@ -23,12 +23,15 @@
     "nodemon": "^3.1.0",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
+    "redis": "^4.6.13",
     "sequelize": "^6.37.1",
     "sequelize-cli": "^6.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
     "@babel/node": "^7.23.9",
-    "@babel/preset-env": "^7.23.9"
+    "@babel/preset-env": "^7.23.9",
+    "compression": "^1.7.4",
+    "morgan": "^1.10.0"
   }
 }
