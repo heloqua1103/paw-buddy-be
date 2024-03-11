@@ -5,7 +5,9 @@ import verifyToken from "../middlewares/verify_token";
 const router = express.Router();
 
 router.use(verifyToken);
+
 router.post("/create-pet", controllers.createPet);
-// router.post("/login", controllers.login);
+router.put("/update-pet", controllers.updatePet);
+router.delete("/delete-pet", controllers.deletePet);
 
 module.exports = router;
