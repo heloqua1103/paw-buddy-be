@@ -1,16 +1,28 @@
 import db from "../models";
 
-// export const createUser = (body) =>
-//   new Promise(async (resolve, reject) => {
-//     try {
-//       const user = await db.User.findOrCreate({
-//         where: { username: body.username, password: body.password },
-//       });
-//       resolve({
-//         err: user[1] ? true : false,
-//         message: user[1] ? "User created" : "User already exists",
-//       });
-//     } catch (error) {
-//       reject(error);
-//     }
-//   });
+export const getMe = (id) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const result = await db.User.findOne({
+        where: id,
+        include: [
+          {
+            model: db.Role,
+            as: "roleData",
+            attributes: ["id", "name_role"],
+          },
+          {
+            model: db.Pet,
+            as: "petData",
+          },
+        ],
+      });
+      resolve({
+        err: result ? true : false,
+        message: result ? "Successfully" : "Something went wrong!",
+        data: result ? result : null,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
