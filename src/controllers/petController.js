@@ -41,3 +41,22 @@ export const deletePet = async (req, res) => {
     console.log(error);
   }
 };
+
+export const getAllPets = async (req, res) => {
+  try {
+    const result = await services.getAllPets(req.query);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPetsOfUser = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const result = await services.getPetsOfUser(req.query, id);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};

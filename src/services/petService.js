@@ -54,3 +54,55 @@ export const deletePet = (petId, userId) =>
       reject(error);
     }
   });
+
+export const getAllPets = ({ order, page, limit, ...query }) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: false, nest: true };
+      const offset = !page || +page <= 1 ? 0 : +page - 1;
+      const fLimit = +limit || +process.env.LIMIT_PET;
+      queries.distinct = true;
+      if (limit) {
+        queries.offset = offset * fLimit;
+        queries.limit = fLimit;
+      }
+      if (order) queries.order = [order];
+      const result = await db.Pet.findAll({
+        where: query,
+        ...queries,
+      });
+      resolve({
+        err: result ? true : false,
+        message: result ? "Get pet successfully" : "Get pet failed",
+        data: result ? result : [],
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const getPetsOfUser = ({ order, page, limit, ...query }, userId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: false, nest: true };
+      const offset = !page || +page <= 1 ? 0 : +page - 1;
+      const fLimit = +limit || +process.env.LIMIT_PET;
+      queries.distinct = true;
+      if (limit) {
+        queries.offset = offset * fLimit;
+        queries.limit = fLimit;
+      }
+      if (order) queries.order = [order];
+      const result = await db.Pet.findAll({
+        where: { user_id: userId, ...query },
+        ...queries,
+      });
+      resolve({
+        err: result ? true : false,
+        message: result ? "Get pet successfully" : "Get pet failed",
+        data: result ? result : [],
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
