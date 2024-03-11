@@ -17,3 +17,12 @@ export const login = async (req, res) => {
     console.log(error);
   }
 };
+
+export const refreshToken = async (req, res) => {
+  try {
+    const response = await services.refreshToken();
+    res.status(201).json(response);
+  } catch (error) {
+    console.log(error);
+  }
+};

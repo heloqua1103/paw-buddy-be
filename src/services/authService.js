@@ -90,3 +90,41 @@ export const login = ({ username, password }) =>
       reject(error);
     }
   });
+
+export const refreshToken = (refresh_token) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const result = await db.User.findOne({
+        where: { refresh_token },
+      });
+      if (response) {
+        jwt.verify(
+          refresh_token,
+          process.env.JWT_SECRET_REFRESH_TOKEN,
+          (err) => {
+            if (err)
+              resolve({
+                success: false,
+                mess: "Refresh token expired. Require login again!!",
+              });
+            else {
+              const accessToken = signAccessToken(
+                response.id,
+                response.username,
+                response.roleId
+              );
+              resolve({
+                success: accessToken ? true : false,
+                mess: accessToken ? "Ok" : "Fail to generate new access token",
+                // access_token: accessToken ? `Bearer ${accessToken}`: accessToken,
+                token: accessToken ? `${accessToken}` : accessToken,
+                refresh_token: refresh_token,
+              });
+            }
+          }
+        );
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
