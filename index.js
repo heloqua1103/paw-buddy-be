@@ -5,6 +5,7 @@ import initRoutes from "./src/routes";
 import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
+import serverless from "serverless-http";
 dotenv.config();
 
 const app = express();
@@ -31,6 +32,8 @@ require("./src/dbs/connect_DB");
 // initRedis.initRedis();
 
 initRoutes(app);
+
+// module.exports.handler = serverless(app);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

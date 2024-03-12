@@ -29,6 +29,11 @@ const signAccessAndRefreshToken = (id, username, roleId) => {
   ]);
 };
 
+const checkEmail = async (email) => {
+  const user = await db.User.findOne({ where: { email: email } });
+  return Boolean(user);
+};
+
 const hashPassword = (password) => bcrypt.hashSync(password, salt);
 
 export const register = ({ username, password }) =>
