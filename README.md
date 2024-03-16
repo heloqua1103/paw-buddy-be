@@ -51,7 +51,12 @@ npm start
 
 ## Test
 
-- Download [Postman][]
+- Download [Postman][https://www.postman.com/downloads/]
+- Open Postman
+- Import files into the Postman folder.
+
+<img src="https://imgur.com/a/bnSlZWt">
+<img src="https://imgur.com/a/ryk5YmF">
 
 ## Authors
 
