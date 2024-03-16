@@ -58,7 +58,7 @@ export const register = ({ username, password }) =>
         { where: { id: user[0].dataValues.id } }
       );
       resolve({
-        err: user[1] ? true : false,
+        success: user[1] ? true : false,
         message: user[1] ? "Registration successfull" : "User already exists",
         accessToken: user[1] ? accessToken : null,
       });
@@ -86,7 +86,7 @@ export const login = ({ username, password }) =>
         { where: { id: user.id } }
       );
       resolve({
-        err: user ? true : false,
+        success: user ? true : false,
         message: user ? "Login successfull" : "username or password incorrect",
         accessToken: accessToken ? accessToken : null,
         user: isChecked ? user : null,

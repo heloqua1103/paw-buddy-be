@@ -17,7 +17,7 @@ export const getAllUsers = ({ order, page, limit, ...query }) =>
         ...queries,
       });
       resolve({
-        err: result ? true : false,
+        success: result ? true : false,
         message: result ? "Successfully" : "Something went wrong!",
         data: result ? result : null,
       });
@@ -44,7 +44,7 @@ export const getMe = (id) =>
         ],
       });
       resolve({
-        err: result ? true : false,
+        success: result ? true : false,
         message: result ? "Successfully" : "Something went wrong!",
         data: result ? result : null,
       });
@@ -70,7 +70,7 @@ export const changePassword = (body, userId) =>
             )
         : "Mật khẩu không đúng";
       resolve({
-        err: result[0] > 0 ? true : false,
+        success: result[0] > 0 ? true : false,
         message: result[0] > 0 ? "Successfully" : "Something went wrong!",
       });
     } catch (error) {
