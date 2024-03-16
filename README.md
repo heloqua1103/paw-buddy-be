@@ -49,6 +49,10 @@ LIMIT_PET = 10
 npm start
 ```
 
+## Test
+
+- Download [Postman][]
+
 ## Authors
 
 - [Nguyen Trung Hieu](https://github.com/heloqua1103)
