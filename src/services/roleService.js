@@ -7,7 +7,7 @@ export const createRole = (body) =>
         name_role: body.name,
       });
       resolve({
-        err: result ? true : false,
+        success: result ? true : false,
         message: result ? "Create role successfully" : "Create role failed",
       });
     } catch (error) {
@@ -23,7 +23,7 @@ export const updateRole = (body, id) =>
         { where: { id: id } }
       );
       resolve({
-        err: result ? true : false,
+        success: result ? true : false,
         message: result ? "Update role successfully" : "Update role failed",
       });
     } catch (error) {
@@ -36,7 +36,7 @@ export const deleteRole = (id) =>
     try {
       const result = await db.Role.destroy({ where: { id: id } });
       resolve({
-        err: result ? true : false,
+        success: result ? true : false,
         message: result ? "Delete role successfully" : "Delete role failed",
       });
     } catch (error) {

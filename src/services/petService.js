@@ -10,7 +10,7 @@ export const createPet = (body, userId, fileData) =>
       const result = await db.Pet.create({ ...body, user_id: userId });
       if (fileData && !result) cloudinary.uploader.destroy(fileData.filename);
       resolve({
-        err: result ? true : false,
+        success: result ? true : false,
         message: result ? "Create pet successfully" : "Create pet failed",
       });
     } catch (error) {
@@ -31,7 +31,7 @@ export const updatePet = (body, userId, fileData) =>
       if (fileData && !result[0] === 0)
         cloudinary.uploader.destroy(fileData.filename);
       resolve({
-        err: result[0] > 0 ? true : false,
+        success: result[0] > 0 ? true : false,
         message:
           result[0] > 0 ? "Update pet successfully" : "Update pet failed",
       });
@@ -47,7 +47,7 @@ export const deletePet = (petId, userId) =>
         where: { id: petId, user_id: userId },
       });
       resolve({
-        err: result ? true : false,
+        success: result ? true : false,
         message: result ? "Delete pet successfully" : "Delete pet failed",
       });
     } catch (error) {
@@ -72,7 +72,7 @@ export const getAllPets = ({ order, page, limit, ...query }) =>
         ...queries,
       });
       resolve({
-        err: result ? true : false,
+        success: result ? true : false,
         message: result ? "Get pet successfully" : "Get pet failed",
         data: result ? result : [],
       });
@@ -98,7 +98,7 @@ export const getPetsOfUser = ({ order, page, limit, ...query }, userId) =>
         ...queries,
       });
       resolve({
-        err: result ? true : false,
+        success: result ? true : false,
         message: result ? "Get pet successfully" : "Get pet failed",
         data: result ? result : [],
       });
