@@ -55,8 +55,12 @@ npm start
 - Open Postman
 - Import files into the Postman folder.
 
-<img src="https://imgur.com/a/bnSlZWt">
-<img src="https://imgur.com/a/ryk5YmF">
+<div style="justify-content: center;
+    display: flex;
+    align-items: center; flex-direction: column; gap: 10px">
+<img width="400px" src="https://i.imgur.com/lTNfQMH.jpeg">
+<img width="400px" src="https://i.imgur.com/8zIbwC0.jpeg">
+</div>
 
 ## Authors
 
