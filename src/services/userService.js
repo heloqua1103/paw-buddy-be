@@ -1,4 +1,5 @@
 import db from "../models";
+import cloudinary from "cloudinary";
 
 export const getAllUsers = ({ order, page, limit, ...query }) =>
   new Promise(async (resolve, reject) => {
@@ -26,7 +27,7 @@ export const getAllUsers = ({ order, page, limit, ...query }) =>
     }
   });
 
-export const getMe = (id) =>
+export const getUser = (id) =>
   new Promise(async (resolve, reject) => {
     try {
       const result = await db.User.findAndCountAll({
@@ -52,6 +53,46 @@ export const getMe = (id) =>
       reject(error);
     }
   });
+
+export const updateUser = (body, userId, fileData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      console.log(fileData);
+      const fileImage = await db.User.findOne({
+        where: { id: userId },
+      });
+      cloudinary.api.delete_resources(fileImage.dataValues.fileName);
+      if (fileData) {
+        body.avatar = fileData?.path;
+        body.fileName = fileData?.filename;
+      }
+      const fieldsToExclude = [
+        "password",
+        "username",
+        "roleId",
+        "id",
+        "refreshToken",
+      ];
+      const myFields = Object.keys(db.User.rawAttributes).filter(
+        (s) => !fieldsToExclude.includes(s)
+      );
+      const response = await db.User.update(body, {
+        where: { id: userId },
+        fields: myFields,
+      });
+      resolve({
+        success: response[0] > 0 ? true : false,
+        message:
+          response[0] > 0 ? "Updated successfully" : "Something went wrong!",
+      });
+      if (fileData && !response[0] === 0)
+        cloudinary.uploader.destroy(fileData.filename);
+    } catch (error) {
+      reject(error);
+      if (fileData) cloudinary.uploader.destroy(fileData.filename);
+    }
+  });
+};
 
 export const changePassword = (body, userId) =>
   new Promise(async (resolve, reject) => {
