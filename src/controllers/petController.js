@@ -9,7 +9,7 @@ export const createPet = async (req, res) => {
       if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
     const { id } = req.user;
-    const result = await services.createPet(req.body, id, fileData);
+    const result = await services.createPet(id, req.body, fileData);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -24,7 +24,7 @@ export const updatePet = async (req, res) => {
       if (fileData) cloudinary.uploader.destroy(fileData.filename);
     }
     const { id } = req.user;
-    const result = await services.updatePet(req.body, id, fileData);
+    const result = await services.updatePet(id, req.body, fileData);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
