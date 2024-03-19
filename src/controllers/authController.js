@@ -26,3 +26,13 @@ export const refreshToken = async (req, res) => {
     console.log(error);
   }
 };
+
+export const logout = async (req, res) => {
+  try {
+    const { refresh_token } = req.body;
+    const response = await services.logout(refresh_token);
+    res.status(201).json(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
