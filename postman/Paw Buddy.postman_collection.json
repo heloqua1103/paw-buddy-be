@@ -11,6 +11,19 @@
 			"item": [
 				{
 					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"access_token\", pm.response.json().accessToken);\r",
+									"pm.environment.set(\"refresh_token\", pm.response.json().refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -18,13 +31,18 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "username",
-									"value": "hieu1708",
+									"key": "email",
+									"value": "nguyenhieu11032002@gmail.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
 									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "fullName",
+									"value": "nguyen hieu",
 									"type": "text"
 								}
 							]
@@ -51,9 +69,11 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"access_token\", pm.response.json().accessToken);"
+									"pm.environment.set(\"access_token\", pm.response.json().accessToken);",
+									"pm.environment.set(\"refresh_token\", pm.response.json().refreshToken);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -64,8 +84,8 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "username",
-									"value": "hieu1708",
+									"key": "email",
+									"value": "nguyenhieu11032002@gmail.com",
 									"type": "text"
 								},
 								{
@@ -427,6 +447,77 @@
 								"v1",
 								"users",
 								"get-me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateMe",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone",
+									"value": "0908655291",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/home/hector/Pictures/Screenshots/Screenshot from 2024-03-19 13-37-08.png",
+									"disabled": true
+								},
+								{
+									"key": "fullName",
+									"value": "hieu",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/users/update-me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"update-me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "refresh_token",
+									"value": "{{refresh_token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
 							]
 						}
 					},
