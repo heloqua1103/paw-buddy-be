@@ -129,3 +129,11 @@ export const refreshToken = (refresh_token) =>
       reject(e);
     }
   });
+
+export const logout = async (refresh_token) => {
+  console.log("refresh_token", refresh_token);
+  await db.User.update(
+    { refreshToken: null },
+    { where: { refreshToken: refresh_token } }
+  );
+};
