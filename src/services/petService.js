@@ -1,6 +1,6 @@
 import db from "../models";
 
-export const createPet = (body, userId, fileData) =>
+export const createPet = (userId, body, fileData) =>
   new Promise(async (resolve, reject) => {
     try {
       if (fileData) {
@@ -18,7 +18,7 @@ export const createPet = (body, userId, fileData) =>
     }
   });
 
-export const updatePet = (body, userId, fileData) =>
+export const updatePet = (userId, body, fileData) =>
   new Promise(async (resolve, reject) => {
     try {
       if (fileData) {

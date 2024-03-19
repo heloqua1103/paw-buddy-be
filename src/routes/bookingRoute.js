@@ -1,11 +1,11 @@
-import express from "express";
-import * as controllers from "../controllers";
-import verifyToken from "../middlewares/verify_token";
+// import express from "express";
+// import * as controllers from "../controllers";
+// import verifyToken from "../middlewares/verify_token";
 
-const router = express.Router();
+// const router = express.Router();
 
-router.use(verifyToken);
+// router.use(verifyToken);
 
-// router.post("/create-pet", uploadPet.single("photo"), controllers.createPet);
+// router.post("/create-booking", controllers.createBooking);
 
-module.exports = router;
+// module.exports = router;
