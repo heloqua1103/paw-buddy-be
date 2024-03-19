@@ -32,7 +32,7 @@ const checkEmail = async (email) => {
 
 const hashPassword = (password) => bcrypt.hashSync(password, salt);
 
-export const register = ({ email, password }) =>
+export const register = ({ email, password, fullName }) =>
   new Promise(async (resolve, reject) => {
     try {
       const user = await db.User.findOrCreate({
@@ -42,6 +42,7 @@ export const register = ({ email, password }) =>
         defaults: {
           email: email,
           password: hashPassword(password),
+          fullName: fullName,
         },
       });
       const [accessToken, refreshToken] = await signAccessAndRefreshToken(
