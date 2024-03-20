@@ -2,29 +2,38 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Bookings", {
+    await queryInterface.createTable("Vacxins", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      veterinarian_id: {
+      name_vacxinemail: {
+        type: Sequelize.STRING,
+      },
+      type_disease: {
+        type: Sequelize.STRING,
+      },
+      manufacturer: {
+        type: Sequelize.STRING,
+      },
+      number_of_doses: {
         type: Sequelize.INTEGER,
       },
-      service_id: {
-        type: Sequelize.INTEGER,
+      vaccination_schedule: {
+        type: Sequelize.STRING,
       },
-      pet_id: {
-        type: Sequelize.INTEGER,
+      contraindication: {
+        type: Sequelize.STRING,
       },
-      date: {
-        type: Sequelize.DATEONLY,
+      side_effect: {
+        type: Sequelize.STRING,
       },
-      time: {
-        type: Sequelize.TIME,
+      price: {
+        type: Sequelize.FLOAT,
       },
-      status: {
+      quantity: {
         type: Sequelize.INTEGER,
       },
       note: {
@@ -43,6 +52,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Bookings");
+    await queryInterface.dropTable("Vacxins");
   },
 };

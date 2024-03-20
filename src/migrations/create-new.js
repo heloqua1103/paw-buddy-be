@@ -2,33 +2,39 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Bookings", {
+    await queryInterface.createTable("Newspapers", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      veterinarian_id: {
+      creator_id: {
         type: Sequelize.INTEGER,
       },
-      service_id: {
+      title: {
+        type: Sequelize.STRING,
+      },
+      content: {
+        type: Sequelize.TEXT,
+      },
+      author: {
+        type: Sequelize.STRING,
+      },
+      resource: {
+        type: Sequelize.STRING,
+      },
+      image: {
+        type: Sequelize.STRING,
+      },
+      view: {
         type: Sequelize.INTEGER,
       },
-      pet_id: {
+      type_new: {
         type: Sequelize.INTEGER,
-      },
-      date: {
-        type: Sequelize.DATEONLY,
-      },
-      time: {
-        type: Sequelize.TIME,
       },
       status: {
         type: Sequelize.INTEGER,
-      },
-      note: {
-        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
@@ -43,6 +49,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Bookings");
+    await queryInterface.dropTable("Newspapers");
   },
 };

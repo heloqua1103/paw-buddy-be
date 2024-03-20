@@ -9,26 +9,23 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      provider_id: {
-        type: Sequelize.INTEGER,
-      },
-      pet_id: {
-        type: Sequelize.INTEGER,
-      },
-      service_id: {
+      name_service: {
         type: Sequelize.INTEGER,
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       price: {
         type: Sequelize.FLOAT,
       },
-      duration: {
-        type: Sequelize.DATE,
-      },
       photo: {
         type: Sequelize.STRING,
+      },
+      species: {
+        type: Sequelize.FLOAT,
+      },
+      note: {
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
