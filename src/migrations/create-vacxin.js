@@ -2,14 +2,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Vacxins", {
+    await queryInterface.createTable("Vaccines", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name_vacxinemail: {
+      name_vaccine: {
         type: Sequelize.STRING,
       },
       type_disease: {
@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       number_of_doses: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       vaccination_schedule: {
         type: Sequelize.STRING,
@@ -35,6 +35,9 @@ module.exports = {
       },
       quantity: {
         type: Sequelize.INTEGER,
+      },
+      status: {
+        type: Sequelize.BOOLEAN,
       },
       note: {
         type: Sequelize.TEXT,
@@ -52,6 +55,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Vacxins");
+    await queryInterface.dropTable("Vaccines");
   },
 };

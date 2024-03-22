@@ -1,0 +1,80 @@
+[
+  {
+    "name_vaccine": "Nobivac DHPPi",
+    "type_disease": "Adenovirus",
+    "manufacturer": "Ceva Animal Health",
+    "number_of_doses": "3",
+    "vaccination_schedule": "6-8, 10-12, 16 weeks",
+    "contraindication": "Chó con dưới 6 tuần tuổi, chó đang mắc bệnh truyền nhiễm",
+    "side_effect": "Đau nhức, mệt mỏi",
+    "price": 280000,
+    "quantity": 110,
+    "status": true,
+    "note": "Bảo vệ 90-95% khỏi Adenovirus"
+  },
+  {
+    "name_vaccine": "Eurican Parvo-Bordetella",
+    "type_disease": "Parainfluenza",
+    "manufacturer": "Merial Animal Health",
+    "number_of_doses": "2",
+    "vaccination_schedule": "6-8, 10-12 weeks",
+    "contraindication": "Chó con dưới 6 tuần tuổi, chó đang mắc bệnh truyền nhiễm",
+    "side_effect": "Đau nhức, hắt hơi",
+    "price": 300000,
+    "quantity": 90,
+    "status": true,
+    "note": "Bảo vệ khỏi Parainfluenza"
+  },
+  {
+    "name_vaccine": "Rabivac",
+    "type_disease": "Dại",
+    "manufacturer": "Intervet",
+    "number_of_doses": "1",
+    "vaccination_schedule": "3 tháng tuổi trở lên",
+    "contraindication": "Chó con dưới 3 tháng tuổi, chó đang mắc bệnh truyền nhiễm",
+    "side_effect": "Đau nhức, sưng tấy tại chỗ tiêm",
+    "price": 480000,
+    "quantity": 20,
+    "status": true,
+    "note": "Bảo vệ khỏi Dại"
+  },
+  {
+    "name_vaccine": "Borrelia",
+    "type_disease": "Lyme",
+    "manufacturer": "Ceva Animal Health",
+    "number_of_doses": "3",
+    "vaccination_schedule": "6-8, 10-12, 16 weeks",
+    "contraindication": "Chó con dưới 6 tuần tuổi, chó đang mắc bệnh truyền nhiễm",
+    "side_effect": "Đau nhức, mệt mỏi",
+    "price": 420000,
+    "quantity": 60,
+    "status": true,
+    "note": "Giảm nguy cơ mắc Lyme"
+  },
+  {
+    "name_vaccine": "Leptodora",
+    "type_disease": "Leptospirosis",
+    "manufacturer": "Intervet",
+    "number_of_doses": "2",
+    "vaccination_schedule": "Hàng năm",
+    "contraindication": "Chó con dưới 8 tuần tuổi, chó đang mắc bệnh truyền nhiễm",
+    "side_effect": "Đau nhức, mệt mỏi",
+    "price": 360000,
+    "quantity": 40,
+    "status": true,
+    "note": "Bảo vệ 80-90% khỏi Leptospirosis"
+  },
+  {
+    "name_vaccine": "Recombitek",
+    "type_disease": "West Nile",
+    "manufacturer": "Merial Animal Health",
+    "number_of_doses": "3",
+    "vaccination_schedule": "Hàng năm",
+    "contraindication": "Chó con dưới 8 tuần tuổi, chó đang mắc bệnh truyền nhiễm",
+    "side_effect": "Đau nhức, mệt mỏi",
+    "price": 380000,
+    "quantity": 30,
+    "status": true,
+    "note": "Bảo vệ 80-90% khỏi West Nile"
+  }
+]

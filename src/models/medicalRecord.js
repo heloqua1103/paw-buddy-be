@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       exam_date: DataTypes.DATE,
       diagnosis: DataTypes.STRING,
       medications: DataTypes.ARRAY(DataTypes.INTEGER),
+      vaccines: DataTypes.ARRAY(DataTypes.INTEGER),
     },
     {
       sequelize,

@@ -3,6 +3,7 @@ import auth from "./authRoute";
 import role from "./roleRoute";
 import pet from "./petRoute";
 import booking from "./bookingRoute";
+import vaccine from "./vaccineRoute";
 import insert from "./insertRoute";
 
 const initRoutes = (app) => {
@@ -11,6 +12,7 @@ const initRoutes = (app) => {
   app.use("/api/v1/roles", role);
   app.use("/api/v1/pets", pet);
   // app.use("/api/v1/booking", booking);
+  app.use("/api/v1/vaccine", vaccine);
   app.use("/api/v1/insert", insert);
 };
 
