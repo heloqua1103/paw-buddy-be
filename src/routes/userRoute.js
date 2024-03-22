@@ -8,8 +8,11 @@ const router = express.Router();
 
 router.use(verifyToken);
 
+// Get all information of user
 router.get("/get-me", controllers.getUser);
+// Change password
 router.post("/change-paswrord", controllers.changePassword);
+// Update user information
 router.put("/update-me", uploadUser.single("avatar"), controllers.updateUser);
 
 router.use(isAdmin);

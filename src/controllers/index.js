@@ -5,3 +5,5 @@ export * from "./petController";
 export * from "./insertController";
 export * from "./bookingController";
 export * from "./vaccineController";
+export * from "./medicalRecordController";
+export * from "./medicineController";

@@ -1,6 +1,7 @@
 import dataPetServices from "./petService.json";
 import dataVaccines from "./vaccine.json";
 import dataRoles from "./role.json";
+import dataMedicines from "./medicineData.json";
 import db from "../models";
 
 require("../dbs/connect_DB");
@@ -35,5 +36,18 @@ dataVaccines.forEach(async (vaccine) => {
     quantity: vaccine.quantity,
     status: vaccine.status,
     note: vaccine.note,
+  });
+});
+
+dataMedicines.forEach(async (medicine) => {
+  await db.Medicine.create({
+    name_medicine: medicine.name_medicine,
+    ingredient: medicine.ingredient,
+    intended_use: medicine.intended_use,
+    guide: medicine.guide,
+    contraindication: medicine.contraindication,
+    side_effect: medicine.side_effect,
+    price: medicine.price,
+    quantity: medicine.quantity,
   });
 });

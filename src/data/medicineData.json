@@ -1,0 +1,57 @@
+[
+  {
+    "name_medicine": "Heartgard Plus",
+    "ingredient": "Ivermectin, Pyrantel",
+    "intended_use": "Prevent and treat parasitic infections and intestinal bacteria",
+    "guide": "Administer once a month as directed",
+    "indication": "Prevent and treat parasitic infections caused by Dirofilaria immitis and intestinal bacteria",
+    "contraindication": "Not recommended for pregnant or lactating dogs, or dogs weighing less than 6 weeks",
+    "side_effect": "May cause issues like vomiting, diarrhea, fatigue",
+    "price": 35.99,
+    "quantity": 1
+  },
+  {
+    "name_medicine": "Rimadyl",
+    "ingredient": "Carprofen",
+    "intended_use": "Treat inflammation and pain due to joint inflammation and infectious diseases",
+    "guide": "Administer as directed by the veterinarian, usually every 12 hours",
+    "indication": "Treat joint inflammation and pain in dogs",
+    "contraindication": "Not recommended for dogs with a history of allergies to these medications or dogs with gastrointestinal issues",
+    "side_effect": "May cause issues like nausea, vomiting, diarrhea",
+    "price": 1.25,
+    "quantity": 1
+  },
+  {
+    "name_medicine": "K9 Advantix II",
+    "ingredient": "Imidacloprid, Permethrin, Pyriproxyfen",
+    "intended_use": "Prevent and control external parasitic infestations on dogs",
+    "guide": "Administer once every 4 weeks, applied to the dog's back",
+    "indication": "Prevent and control external parasitic infestations such as fleas, ticks, and flies",
+    "contraindication": "Not recommended for dogs with a history of allergies to the components of the medication or for dogs under 7 weeks old",
+    "side_effect": "May cause skin irritation, nervous system disorders, or vomiting if ingested",
+    "price": 48.99,
+    "quantity": 1
+  },
+  {
+    "name_medicine": "Sentinel Spectrum",
+    "ingredient": "Milbemycin oxime, Lufenuron, Praziquantel",
+    "intended_use": "Prevent and treat internal and external parasitic infections, as well as control intestinal bacteria",
+    "guide": "Administer once a month, usually in the evening after feeding",
+    "indication": "Prevent and treat internal and external parasitic infections, as well as control intestinal bacteria",
+    "contraindication": "Not recommended for dogs under 6 weeks old or pregnant or lactating dogs",
+    "side_effect": "May cause nausea, vomiting, or increased appetite",
+    "price": 54.99,
+    "quantity": 1
+  },
+  {
+    "name_medicine": "Cerenia",
+    "ingredient": "Maropitant citrate",
+    "intended_use": "Treat and prevent nausea and vomiting in dogs",
+    "guide": "Administer as directed by the veterinarian, usually every 24 hours",
+    "indication": "Treat and prevent nausea and vomiting in dogs, including nausea associated with chemotherapy",
+    "contraindication": "Not recommended for dogs under 8 weeks old or for pregnant or lactating dogs",
+    "side_effect": "May cause drowsiness, fatigue, or discomfort at the injection site",
+    "price": 3.99,
+    "quantity": 1
+  }
+]

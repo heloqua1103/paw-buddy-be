@@ -5,3 +5,5 @@ export * from "./petService";
 export * from "./insertService";
 export * from "./bookingService";
 export * from "./vaccineService";
+export * from "./medicalRecordService";
+export * from "./medicineService";
