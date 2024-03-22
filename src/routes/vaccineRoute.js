@@ -6,9 +6,11 @@ import verifyToken from "../middlewares/verify_token";
 const router = express.Router();
 
 router.use(verifyToken);
+
 router.use(isAdmin);
 router.post("/create-vaccine", controllers.createVaccine);
 router.put("/update-vaccine/:vaccineId", controllers.updateVaccine);
 router.delete("/delete-vaccine/:vaccineId", controllers.deleteVaccine);
+router.get("/get-all-vaccine", controllers.getAllVaccines);
 
 module.exports = router;

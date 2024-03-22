@@ -10,10 +10,10 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name_service: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       description: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       price: {
         type: Sequelize.FLOAT,
@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       species: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.STRING,
       },
       note: {
         type: Sequelize.TEXT,

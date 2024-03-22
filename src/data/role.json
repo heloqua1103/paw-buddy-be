@@ -1,0 +1,11 @@
+[
+  {
+    "name_role": "admin"
+  },
+  {
+    "name_role": "veterinarian"
+  },
+  {
+    "name_role": "user"
+  }
+]

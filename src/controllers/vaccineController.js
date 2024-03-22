@@ -28,3 +28,12 @@ export const deleteVaccine = async (req, res) => {
     console.log(error);
   }
 };
+
+export const getAllVaccines = async (req, res) => {
+  try {
+    const result = await services.getAllVaccines(req.query);
+    res.status(201).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
