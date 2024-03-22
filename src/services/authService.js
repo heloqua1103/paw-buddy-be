@@ -32,32 +32,47 @@ const checkEmail = async (email) => {
 
 const hashPassword = (password) => bcrypt.hashSync(password, salt);
 
-export const register = ({ email, password, fullName }) =>
+export const register = ({ email, password, fullName, confirm_password }) =>
   new Promise(async (resolve, reject) => {
     try {
-      const user = await db.User.findOrCreate({
-        where: {
-          email: email,
-        },
-        defaults: {
-          email: email,
-          password: hashPassword(password),
-          fullName: fullName,
-        },
-      });
-      const [accessToken, refreshToken] = await signAccessAndRefreshToken(
-        user[0].dataValues.id,
-        user[0].dataValues.email,
-        user[0].dataValues.roleId
-      );
-      await db.User.update(
-        { refreshToken: refreshToken },
-        { where: { id: user[0].dataValues.id } }
-      );
+      if (password === confirm_password) {
+        const user = await db.User.findOrCreate({
+          where: {
+            email: email,
+          },
+          defaults: {
+            email: email,
+            password: hashPassword(password),
+            fullName: fullName,
+          },
+        });
+        if (user[1]) {
+          const [accessToken, refreshToken] = await signAccessAndRefreshToken(
+            user[0].dataValues.id,
+            user[0].dataValues.email,
+            user[0].dataValues.roleId
+          );
+          await db.User.update(
+            { refreshToken: refreshToken },
+            { where: { id: user[0].dataValues.id } }
+          );
+          resolve({
+            success: user[1] ? true : false,
+            message: user[1]
+              ? "Registration successfull"
+              : "User already exists",
+            accessToken: user[1] ? accessToken : null,
+          });
+        }
+      } else {
+        resolve({
+          success: false,
+          message: "Password and confirm password do not match",
+        });
+      }
       resolve({
-        success: user[1] ? true : false,
-        message: user[1] ? "Registration successfull" : "User already exists",
-        accessToken: user[1] ? accessToken : null,
+        success: false,
+        message: "User already exists",
       });
     } catch (error) {
       reject(error);
@@ -73,20 +88,26 @@ export const login = ({ email, password }) =>
         },
       });
       const isChecked = user && bcrypt.compareSync(password, user.password);
-      const [accessToken, refreshToken] = await signAccessAndRefreshToken(
-        user.id,
-        user.email,
-        user.roleId
-      );
-      await db.User.update(
-        { refreshToken: refreshToken },
-        { where: { id: user.id } }
-      );
+      if (user && isChecked) {
+        const [accessToken, refreshToken] = await signAccessAndRefreshToken(
+          user.id,
+          user.email,
+          user.roleId
+        );
+        await db.User.update(
+          { refreshToken: refreshToken },
+          { where: { id: user.id } }
+        );
+        resolve({
+          success: user ? true : false,
+          message: user ? "Login successfull" : "email or password incorrect",
+          accessToken: accessToken ? accessToken : null,
+          user: isChecked ? user : null,
+        });
+      }
       resolve({
-        success: user ? true : false,
-        message: user ? "Login successfull" : "email or password incorrect",
-        accessToken: accessToken ? accessToken : null,
-        user: isChecked ? user : null,
+        success: false,
+        message: "email or password incorrect",
       });
     } catch (error) {
       reject(error);

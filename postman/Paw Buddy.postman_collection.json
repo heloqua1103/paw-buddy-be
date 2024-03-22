@@ -43,6 +43,12 @@
 								{
 									"key": "fullName",
 									"value": "nguyen hieu",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "confirm_password",
+									"value": "123456",
 									"type": "text"
 								}
 							]
@@ -548,6 +554,175 @@
 					"listen": "test",
 					"script": {
 						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Vaccine",
+			"item": [
+				{
+					"name": "CreateVaccine",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name_vaccine",
+									"value": "Nobivac Parvo",
+									"type": "text"
+								},
+								{
+									"key": "type_disease",
+									"value": "Carre",
+									"type": "text"
+								},
+								{
+									"key": "manufacturer",
+									"value": "Ceva Animal Health",
+									"type": "text"
+								},
+								{
+									"key": "number_of_doses",
+									"value": "2ml",
+									"type": "text"
+								},
+								{
+									"key": "vaccination_schedule",
+									"value": "Tiêm dưới da",
+									"type": "text"
+								},
+								{
+									"key": "contraindication",
+									"value": "Chó con dưới 8 tuần tuổi, chó đang mắc bệnh truyền nhiễm",
+									"type": "text"
+								},
+								{
+									"key": "side_effect",
+									"value": "Đau nhức tại chỗ tiêm, mệt mỏi, chán ăn",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "300000",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "150",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "note",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/vaccine/create-vaccine",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccine",
+								"create-vaccine"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateVaccine",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "number_of_doses",
+									"value": "3ml",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/vaccine/update-vaccine/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccine",
+								"update-vaccine",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteVaccine",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/vaccine/delete-vaccine/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccine",
+								"delete-vaccine",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
 						"exec": [
 							""
 						]

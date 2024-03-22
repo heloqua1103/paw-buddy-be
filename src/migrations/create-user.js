@@ -29,6 +29,9 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
       },
+      address: {
+        type: Sequelize.STRING,
+      },
       avatar: {
         type: Sequelize.STRING,
       },

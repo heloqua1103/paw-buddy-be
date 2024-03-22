@@ -24,6 +24,9 @@ module.exports = {
       medications: {
         type: Sequelize.ARRAY(Sequelize.INTEGER),
       },
+      vaccines: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+      },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",

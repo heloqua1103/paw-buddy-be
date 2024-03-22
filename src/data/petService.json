@@ -1,0 +1,42 @@
+[
+  {
+    "name_service": "General health examination",
+    "description": "The veterinarian will conduct a comprehensive examination of the dog, including checking the heart, lungs, digestion, skin, eyes, ears, etc. to detect potential health problems early on.",
+    "price": 200000,
+    "photo": "https://www.shutterstock.com/search/pet-health-checkup",
+    "species": "Dog",
+    "note": "This service should be performed every 6 months to ensure the best health for your dog."
+  },
+  {
+    "name_service": "7-in-1 vaccination",
+    "description": "Fully vaccinate your dog against dangerous infectious diseases such as Distemper, Parvovirus, Leptospirosis, Adenovirus, Parainfluenza, Corona, and Kennel cough.",
+    "price": 500000,
+    "photo": "https://www.lcsupply.com/products/nobivac-canine-1-dappvl2-7-way-vaccine",
+    "species": "Dog",
+    "note": "Revaccination should be done according to the veterinarian's recommended schedule."
+  },
+  {
+    "name_service": "Nail trimming",
+    "description": "Trim your dog's nails neatly and cleanly to help them walk comfortably and avoid scratching their skin.",
+    "price": 50000,
+    "photo": "https://www.istockphoto.com/photos/dog-nail-trim",
+    "species": "Dog",
+    "note": "It is recommended to trim your dog's nails every 2-4 weeks."
+  },
+  {
+    "name_service": "Bathing and brushing",
+    "description": "Use specialized dog bathing and brushing products to clean their skin and coat, remove dirt and fleas, and keep them fragrant and clean.",
+    "price": 150000,
+    "photo": "https://www.istockphoto.com/photos/dog-bath",
+    "species": "Dog",
+    "note": "It is recommended to bathe and brush your dog every 1-2 weeks."
+  },
+  {
+    "name_service": "Spaying/neutering surgery",
+    "description": "Remove the ovaries/testicles of the dog to prevent reproduction.",
+    "price": 1500000,
+    "photo": "https://seniortailwaggers.com/normal-dog-spay-neuter-recovery/",
+    "species": "Dog",
+    "note": "Consult your veterinarian before performing surgery on your dog."
+  }
+]
