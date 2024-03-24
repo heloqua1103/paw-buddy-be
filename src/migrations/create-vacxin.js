@@ -31,13 +31,13 @@ module.exports = {
         type: Sequelize.STRING,
       },
       price: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL,
       },
-      quantity: {
+      stock: {
         type: Sequelize.INTEGER,
       },
-      status: {
-        type: Sequelize.BOOLEAN,
+      expiry_date: {
+        type: Sequelize.DATE,
       },
       note: {
         type: Sequelize.TEXT,

@@ -15,10 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       name_service: DataTypes.STRING,
       description: DataTypes.STRING,
-      price: DataTypes.FLOAT,
+      price: DataTypes.DECIMAL,
       photo: DataTypes.STRING,
-      species: DataTypes.STRING,
+      species: DataTypes.INTEGER,
       note: DataTypes.TEXT,
+      estimated_duration: DataTypes.INTEGER,
+      category_id: DataTypes.INTEGER,
     },
     {
       sequelize,

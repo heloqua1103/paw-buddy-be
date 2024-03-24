@@ -13,10 +13,16 @@ module.exports = {
         type: Sequelize.DATE,
       },
       transaction_type: {
+        type: Sequelize.ENUM("SALE", "SERVICE", "REFUND"),
+      },
+      customer_id: {
+        type: Sequelize.INTEGER,
+      },
+      service_id: {
         type: Sequelize.INTEGER,
       },
       money: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL,
       },
       note: {
         type: Sequelize.TEXT,

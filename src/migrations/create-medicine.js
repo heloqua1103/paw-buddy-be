@@ -31,10 +31,16 @@ module.exports = {
         type: Sequelize.STRING,
       },
       price: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL,
       },
-      quantity: {
+      stock: {
         type: Sequelize.INTEGER,
+      },
+      unit: {
+        type: Sequelize.STRING,
+      },
+      expiry_date: {
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,

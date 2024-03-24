@@ -7,3 +7,4 @@ export * from "./bookingController";
 export * from "./vaccineController";
 export * from "./medicalRecordController";
 export * from "./medicineController";
+export * from "./saleController";

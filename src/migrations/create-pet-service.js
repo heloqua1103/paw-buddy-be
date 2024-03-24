@@ -16,16 +16,22 @@ module.exports = {
         type: Sequelize.STRING,
       },
       price: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL,
       },
       photo: {
         type: Sequelize.STRING,
       },
       species: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       note: {
         type: Sequelize.TEXT,
+      },
+      estimated_duration: {
+        type: Sequelize.INTEGER,
+      },
+      category_id: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

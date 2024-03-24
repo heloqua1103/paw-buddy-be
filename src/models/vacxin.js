@@ -20,9 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       vaccination_schedule: DataTypes.STRING,
       contraindication: DataTypes.STRING,
       side_effect: DataTypes.STRING,
-      price: DataTypes.FLOAT,
-      quantity: DataTypes.INTEGER,
-      status: DataTypes.BOOLEAN,
+      price: DataTypes.DECIMAL,
+      stock: DataTypes.INTEGER,
+      expiry_date: DataTypes.DATE,
       note: DataTypes.TEXT,
     },
     {

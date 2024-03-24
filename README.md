@@ -43,10 +43,16 @@ LIMIT_PET = 10
 - Run the server in development mode
 
 1. Open project in vscode
-2. Run the server
+2. Insert data into the database
 
 ```bash
-npm start
+npm run insert
+```
+
+3. Run the server
+
+```bash
+npm run start
 ```
 
 ## Test

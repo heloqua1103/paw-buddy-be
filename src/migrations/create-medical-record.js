@@ -21,11 +21,17 @@ module.exports = {
       diagnosis: {
         type: Sequelize.STRING,
       },
-      medications: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
+      symptoms: {
+        type: Sequelize.TEXT,
       },
-      vaccines: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
+      treatment_plan: {
+        type: Sequelize.TEXT,
+      },
+      next_appointment_date: {
+        type: Sequelize.DATE,
+      },
+      vaccine_id: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

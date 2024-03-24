@@ -2,39 +2,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Newspapers", {
+    await queryInterface.createTable("TimeSlots", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      creator_id: {
-        type: Sequelize.INTEGER,
+      start_time: {
+        type: Sequelize.TIME,
       },
-      title: {
-        type: Sequelize.STRING,
-      },
-      content: {
-        type: Sequelize.TEXT,
-      },
-      author: {
-        type: Sequelize.STRING,
-      },
-      resource: {
-        type: Sequelize.STRING,
-      },
-      image: {
-        type: Sequelize.STRING,
-      },
-      view: {
-        type: Sequelize.INTEGER,
-      },
-      type_new: {
-        type: Sequelize.INTEGER,
-      },
-      status: {
-        type: Sequelize.INTEGER,
+      end_time: {
+        type: Sequelize.TIME,
       },
       createdAt: {
         allowNull: false,
@@ -49,6 +28,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Newspapers");
+    await queryInterface.dropTable("TimeSlots");
   },
 };

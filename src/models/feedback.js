@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       point: DataTypes.FLOAT,
       comment: DataTypes.TEXT,
       service_id: DataTypes.INTEGER,
+      booking_id: DataTypes.INTEGER,
+      rating_type: DataTypes.ENUM("SERVICE", "CLINIC"),
     },
     {
       sequelize,

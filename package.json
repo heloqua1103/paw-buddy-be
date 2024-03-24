@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec babel-node index.js",
     "build": "netlify deploy --prod",
-    "insert": "nodemon --exec babel-node ./src/data/insertData.js"
+    "insert": "node ./src/data/insertData.js"
   },
   "author": "",
   "license": "ISC",

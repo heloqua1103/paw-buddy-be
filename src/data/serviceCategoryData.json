@@ -1,0 +1,17 @@
+[
+  {
+    "type_service": "Medical Care"
+  },
+  {
+    "type_service": "Grooming"
+  },
+  {
+    "type_service": "Surgery"
+  },
+  {
+    "type_service": "Training"
+  },
+  {
+    "type_service": "Boarding"
+  }
+]

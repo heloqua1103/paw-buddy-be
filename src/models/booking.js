@@ -17,9 +17,11 @@ module.exports = (sequelize, DataTypes) => {
       service_id: DataTypes.INTEGER,
       pet_id: DataTypes.INTEGER,
       date: DataTypes.DATE,
-      time: DataTypes.STRING,
-      status: DataTypes.INTEGER,
+      time: DataTypes.TIME,
+      status: DataTypes.ENUM("pending", "confirmed", "cancelled", "completed"),
+      time_slot_id: DataTypes.INTEGER,
       note: DataTypes.TEXT,
+      time_slot_id: DataTypes.INTEGER,
     },
     {
       sequelize,
