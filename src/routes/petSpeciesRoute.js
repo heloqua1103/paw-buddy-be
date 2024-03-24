@@ -6,12 +6,10 @@ import verifyToken from "../middlewares/verify_token";
 const router = express.Router();
 
 router.use(verifyToken);
-
-router.get("/get-all-vaccine", controllers.getAllVaccines);
-
 router.use(isAdmin);
-router.post("/create-vaccine", controllers.createVaccine);
-router.put("/update-vaccine/:vaccineId", controllers.updateVaccine);
-router.delete("/delete-vaccine/:vaccineId", controllers.deleteVaccine);
+router.post("/create-species", controllers.createSpecies);
+router.put("/update-species/:id", controllers.updateSpecies);
+router.delete("/delete-species/:id", controllers.deleteSpecies);
+router.get("/get-all-species", controllers.getAllSpecies);
 
 module.exports = router;

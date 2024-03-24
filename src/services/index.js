@@ -7,4 +7,4 @@ export * from "./bookingService";
 export * from "./vaccineService";
 export * from "./medicalRecordService";
 export * from "./medicineService";
-export * from "./saleService";
+export * from "./petSpeciesService";

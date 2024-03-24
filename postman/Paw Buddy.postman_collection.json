@@ -248,7 +248,7 @@
 							"urlencoded": [
 								{
 									"key": "name_pet",
-									"value": "ki12",
+									"value": "ki1",
 									"type": "text"
 								},
 								{
@@ -613,17 +613,17 @@
 									"type": "text"
 								},
 								{
-									"key": "quantity",
+									"key": "stock",
 									"value": "150",
 									"type": "text"
 								},
 								{
-									"key": "status",
-									"value": "1",
+									"key": "note",
+									"value": "",
 									"type": "text"
 								},
 								{
-									"key": "note",
+									"key": "expiry_date",
 									"value": "",
 									"type": "text"
 								}
@@ -691,6 +691,327 @@
 								"vaccine",
 								"delete-vaccine",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllVaccines",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/vaccine/get-all-vaccine?limit=2&page=1&order[]=id&order[]=DESC",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"vaccine",
+								"get-all-vaccine"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "order[]",
+									"value": "id"
+								},
+								{
+									"key": "order[]",
+									"value": "DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Medicine",
+			"item": [
+				{
+					"name": "CreateMedicine",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name_medicine\": \"Heartgard Plus\",\r\n    \"ingredient\": \"Ivermectin, Pyrantel\",\r\n    \"intended_use\": \"Prevent and treat parasitic infections and intestinal bacteria\",\r\n    \"guide\": \"Administer once a month as directed\",\r\n    \"indication\": \"Prevent and treat parasitic infections caused by Dirofilaria immitis and intestinal bacteria\",\r\n    \"contraindication\": \"Not recommended for pregnant or lactating dogs, or dogs weighing less than 6 weeks\",\r\n    \"side_effect\": \"May cause issues like vomiting, diarrhea, fatigue\",\r\n    \"price\": 35.99,\r\n    \"stock\": 100,\r\n    \"unit\": \"tablets\",\r\n    \"expiry_date\": \"2024-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/medicine/create-medicine",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medicine",
+								"create-medicine"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateMedicine",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name_medicine\": \"Heartgard Plus\",\r\n    \"ingredient\": \"Ivermectin, Pyrantel\",\r\n    \"intended_use\": \"Prevent and treat parasitic infections and intestinal bacteria\",\r\n    \"guide\": \"Administer once a month as directed\",\r\n    \"indication\": \"Prevent and treat parasitic infections caused by Dirofilaria immitis and intestinal bacteria\",\r\n    \"contraindication\": \"Not recommended for pregnant or lactating dogs, or dogs weighing less than 6 weeks\",\r\n    \"side_effect\": \"May cause issues like vomiting, diarrhea, fatigue\",\r\n    \"price\": 35.99,\r\n    \"stock\": 100,\r\n    \"unit\": \"tablets\",\r\n    \"expiry_date\": \"2024-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/medicine/update-medicine/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medicine",
+								"update-medicine",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteMedicine",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/medicine/delete-medicine/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medicine",
+								"delete-medicine",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllMedicines",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/medicine/get-all-medicine?page=1&limit=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medicine",
+								"get-all-medicine"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Species",
+			"item": [
+				{
+					"name": "CreateSpecies",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "dog",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/species/create-species",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"species",
+								"create-species"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateSpecies",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/species/update-species/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"species",
+								"update-species",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteSpecies",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/species/delete-species/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"species",
+								"delete-species",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllSpecies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/species/get-all-species",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"species",
+								"get-all-species"
 							]
 						}
 					},

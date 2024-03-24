@@ -23,8 +23,9 @@ export const updateRole = (body, id) =>
         { where: { id: id } }
       );
       resolve({
-        success: result ? true : false,
-        message: result ? "Update role successfully" : "Update role failed",
+        success: result[0] > 0 ? true : false,
+        message:
+          result[0] > 0 ? "Update role successfully" : "Update role failed",
       });
     } catch (error) {
       reject(error);
