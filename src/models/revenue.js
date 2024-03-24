@@ -14,8 +14,10 @@ module.exports = (sequelize, DataTypes) => {
   Revenue.init(
     {
       transaction_date: DataTypes.DATE,
-      transaction_type: DataTypes.INTEGER,
-      money: DataTypes.FLOAT,
+      transaction_type: DataTypes.ENUM("SALE", "SERVICE", "REFUND"),
+      customer_id: DataTypes.INTEGER,
+      service_id: DataTypes.INTEGER,
+      money: DataTypes.DECIMAL,
       note: DataTypes.TEXT,
     },
     {

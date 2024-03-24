@@ -2,30 +2,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Points", {
+    await queryInterface.createTable("PetMedications", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_id: {
+      medical_record_id: {
         type: Sequelize.INTEGER,
       },
-      date_receive_point: {
-        type: Sequelize.DATE,
+      medication_id: {
+        type: Sequelize.INTEGER,
       },
-      reason_receive_point: {
+      dosage: {
         type: Sequelize.STRING,
-      },
-      point: {
-        type: Sequelize.INTEGER,
-      },
-      point_used: {
-        type: Sequelize.INTEGER,
-      },
-      note: {
-        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +31,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Points");
+    await queryInterface.dropTable("PetMedications");
   },
 };

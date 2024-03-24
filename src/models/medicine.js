@@ -20,8 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       indication: DataTypes.STRING,
       contraindication: DataTypes.STRING,
       side_effect: DataTypes.STRING,
-      price: DataTypes.FLOAT,
-      quantity: DataTypes.INTEGER,
+      price: DataTypes.DECIMAL,
+      stock: DataTypes.INTEGER,
+      unit: DataTypes.STRING,
+      expiry_date: DataTypes.DATE,
     },
     {
       sequelize,

@@ -32,42 +32,33 @@ const checkEmail = async (email) => {
 
 const hashPassword = (password) => bcrypt.hashSync(password, salt);
 
-export const register = ({ email, password, fullName, confirm_password }) =>
+export const register = ({ email, password, fullName }) =>
   new Promise(async (resolve, reject) => {
     try {
-      if (password === confirm_password) {
-        const user = await db.User.findOrCreate({
-          where: {
-            email: email,
-          },
-          defaults: {
-            email: email,
-            password: hashPassword(password),
-            fullName: fullName,
-          },
-        });
-        if (user[1]) {
-          const [accessToken, refreshToken] = await signAccessAndRefreshToken(
-            user[0].dataValues.id,
-            user[0].dataValues.email,
-            user[0].dataValues.roleId
-          );
-          await db.User.update(
-            { refreshToken: refreshToken },
-            { where: { id: user[0].dataValues.id } }
-          );
-          resolve({
-            success: user[1] ? true : false,
-            message: user[1]
-              ? "Registration successfull"
-              : "User already exists",
-            accessToken: user[1] ? accessToken : null,
-          });
-        }
-      } else {
+      const user = await db.User.findOrCreate({
+        where: {
+          email: email,
+        },
+        defaults: {
+          email: email,
+          password: hashPassword(password),
+          fullName: fullName,
+        },
+      });
+      if (user[1]) {
+        const [accessToken, refreshToken] = await signAccessAndRefreshToken(
+          user[0].dataValues.id,
+          user[0].dataValues.email,
+          user[0].dataValues.roleId
+        );
+        await db.User.update(
+          { refreshToken: refreshToken },
+          { where: { id: user[0].dataValues.id } }
+        );
         resolve({
-          success: false,
-          message: "Password and confirm password do not match",
+          success: user[1] ? true : false,
+          message: user[1] ? "Registration successfull" : "User already exists",
+          accessToken: user[1] ? accessToken : null,
         });
       }
       resolve({

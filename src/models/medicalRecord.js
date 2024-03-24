@@ -17,8 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       vet_id: DataTypes.INTEGER,
       exam_date: DataTypes.DATE,
       diagnosis: DataTypes.STRING,
-      medications: DataTypes.ARRAY(DataTypes.INTEGER),
-      vaccines: DataTypes.ARRAY(DataTypes.INTEGER),
+      symptoms: DataTypes.TEXT,
+      treatment_plan: DataTypes.TEXT,
+      next_appointment_date: DataTypes.DATE,
+      vaccine_id: DataTypes.INTEGER,
     },
     {
       sequelize,

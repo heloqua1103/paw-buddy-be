@@ -25,10 +25,13 @@ module.exports = {
         type: Sequelize.TIME,
       },
       status: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.ENUM("pending", "confirmed", "cancelled", "completed"),
       },
       note: {
         type: Sequelize.TEXT,
+      },
+      time_slot_id: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

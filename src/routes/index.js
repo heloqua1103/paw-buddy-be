@@ -7,6 +7,7 @@ import vaccine from "./vaccineRoute";
 import insert from "./insertRoute";
 import medicalRecord from "./medicalRecordRoute";
 import medicine from "./medicineRoute";
+import sale from "./saleRoute";
 
 const initRoutes = (app) => {
   app.use("/api/v1/users", user);
@@ -17,6 +18,7 @@ const initRoutes = (app) => {
   app.use("/api/v1/medicine", medicine);
   app.use("/api/v1/vaccine", vaccine);
   app.use("/api/v1/medicalRecord", medicalRecord);
+  app.use("/api/v1/sale", sale);
 
   app.use("/api/v1/insert", insert);
 };

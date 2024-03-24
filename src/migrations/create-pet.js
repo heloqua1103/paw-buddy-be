@@ -33,6 +33,10 @@ module.exports = {
       photo: {
         type: Sequelize.STRING,
       },
+      is_neutered: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",

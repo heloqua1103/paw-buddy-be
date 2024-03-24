@@ -1,8 +1,9 @@
-import dataPetServices from "./petService.json";
-import dataVaccines from "./vaccine.json";
-import dataRoles from "./role.json";
-import dataMedicines from "./medicineData.json";
-import db from "../models";
+const dataVaccines = require("./vaccine.json");
+const dataPetServices = require("./petService.json");
+const dataMedicines = require("./medicineData.json");
+const dataRoles = require("./role.json");
+const dataServiceCategory = require("./serviceCategoryData.json");
+const db = require("../models");
 
 require("../dbs/connect_DB");
 
@@ -20,6 +21,8 @@ dataPetServices.forEach(async (petService) => {
     photo: petService.photo,
     species: petService.species,
     note: petService.note,
+    estimated_duration: petService.estimated_duration,
+    category_id: petService.category_id,
   });
 });
 
@@ -45,9 +48,18 @@ dataMedicines.forEach(async (medicine) => {
     ingredient: medicine.ingredient,
     intended_use: medicine.intended_use,
     guide: medicine.guide,
+    indication: medicine.indication,
     contraindication: medicine.contraindication,
     side_effect: medicine.side_effect,
     price: medicine.price,
-    quantity: medicine.quantity,
+    stock: medicine.stock,
+    unit: medicine.unit,
+    expiry_date: medicine.expiry_date,
+  });
+});
+
+dataServiceCategory.forEach(async (serviceCategory) => {
+  await db.ServiceCategory.create({
+    type_service: serviceCategory.type_service,
   });
 });

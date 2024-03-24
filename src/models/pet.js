@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       date_of_birth: DataTypes.DATE,
       weight: DataTypes.FLOAT,
       photo: DataTypes.STRING,
+      is_neutered: DataTypes.BOOLEAN,
     },
     {
       sequelize,

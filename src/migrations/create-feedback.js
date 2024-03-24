@@ -21,6 +21,12 @@ module.exports = {
       service_id: {
         type: Sequelize.INTEGER,
       },
+      booking_id: {
+        type: Sequelize.INTEGER,
+      },
+      rating_type: {
+        type: Sequelize.ENUM("SERVICE", "CLINIC"),
+      },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",
