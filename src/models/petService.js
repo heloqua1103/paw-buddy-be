@@ -9,6 +9,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      PetService.belongsTo(models.ServiceCategory, {
+        foreignKey: "category_id",
+        targetKey: "id",
+        as: "dataCategory",
+      });
+      PetService.belongsTo(models.PetSpecies, {
+        foreignKey: "species",
+        targetKey: "id",
+        as: "dataSpecies",
+      });
     }
   }
   PetService.init(
