@@ -70,6 +70,17 @@ export const getAllPets = ({ order, page, limit, ...query }) =>
       const result = await db.Pet.findAll({
         where: query,
         ...queries,
+        include: [
+          {
+            model: db.PetSpecies,
+            as: "speciesData",
+          },
+          {
+            model: db.User,
+            as: "userData",
+            attributes: ["id", "fullName", "email", "phone"],
+          },
+        ],
       });
       resolve({
         success: result ? true : false,
@@ -96,6 +107,12 @@ export const getPetsOfUser = ({ order, page, limit, ...query }, userId) =>
       const result = await db.Pet.findAll({
         where: { user_id: userId, ...query },
         ...queries,
+        include: [
+          {
+            model: db.PetSpecies,
+            as: "speciesData",
+          },
+        ],
       });
       resolve({
         success: result ? true : false,
