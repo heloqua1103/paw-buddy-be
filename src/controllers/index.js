@@ -9,3 +9,4 @@ export * from "./medicalRecordController";
 export * from "./medicineController";
 export * from "./petSpeciesController";
 export * from "./serviceCategoryController";
+export * from "./petServiceController";
