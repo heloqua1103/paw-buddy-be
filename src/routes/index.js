@@ -8,6 +8,7 @@ import insert from "./insertRoute";
 import medicalRecord from "./medicalRecordRoute";
 import medicine from "./medicineRoute";
 import species from "./petSpeciesRoute";
+import serviceCategory from "./serviceCategoryRoute";
 
 const initRoutes = (app) => {
   app.use("/api/v1/users", user);
@@ -19,7 +20,7 @@ const initRoutes = (app) => {
   app.use("/api/v1/vaccine", vaccine);
   app.use("/api/v1/species", species);
   app.use("/api/v1/medicalRecord", medicalRecord);
-
+  app.use("/api/v1/serviceCategory", serviceCategory);
   app.use("/api/v1/insert", insert);
 };
 
