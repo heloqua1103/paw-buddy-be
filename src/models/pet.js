@@ -9,13 +9,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Pet.belongsTo(models.PetSpecies, {
+        foreignKey: "species",
+        targetKey: "id",
+        as: "speciesData",
+      });
+      Pet.belongsTo(models.User, {
+        foreignKey: "user_id",
+        targetKey: "id",
+        as: "userData",
+      });
     }
   }
   Pet.init(
     {
       user_id: DataTypes.INTEGER,
       name_pet: DataTypes.STRING,
-      species: DataTypes.STRING,
+      species: DataTypes.INTEGER,
       breed: DataTypes.STRING,
       gender: DataTypes.BOOLEAN,
       date_of_birth: DataTypes.DATE,
