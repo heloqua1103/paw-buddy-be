@@ -57,7 +57,6 @@ export const getUser = (id) =>
 export const updateUser = (body, userId, fileData) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(fileData);
       const fileImage = await db.User.findOne({
         where: { id: userId },
       });

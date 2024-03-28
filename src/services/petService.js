@@ -55,7 +55,7 @@ export const deletePet = (petId, userId) =>
     }
   });
 
-export const getAllPets = ({ order, page, limit, ...query }) =>
+export const getAllPets = ({ order, page, limit, neutered, ...query }) =>
   new Promise(async (resolve, reject) => {
     try {
       const queries = { raw: false, nest: true };
@@ -74,6 +74,7 @@ export const getAllPets = ({ order, page, limit, ...query }) =>
           {
             model: db.PetSpecies,
             as: "speciesData",
+            attributes: ["name"],
           },
           {
             model: db.User,

@@ -2,18 +2,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("TimeSlots", {
+    await queryInterface.createTable("Breeds", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      start_time: {
-        type: Sequelize.TIME,
+      breed: {
+        type: Sequelize.STRING,
       },
-      end_time: {
-        type: Sequelize.TIME,
+      image: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -28,6 +28,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("TimeSlots");
+    await queryInterface.dropTable("Breeds");
   },
 };
