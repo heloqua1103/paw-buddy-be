@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      veterinarian_id: {
+      user_id: {
         type: Sequelize.INTEGER,
       },
       service_id: {
@@ -21,7 +21,10 @@ module.exports = {
       date: {
         type: Sequelize.DATEONLY,
       },
-      time: {
+      start_time: {
+        type: Sequelize.TIME,
+      },
+      end_time: {
         type: Sequelize.TIME,
       },
       status: {
@@ -29,9 +32,6 @@ module.exports = {
       },
       note: {
         type: Sequelize.TEXT,
-      },
-      time_slot_id: {
-        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

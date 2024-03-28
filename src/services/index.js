@@ -10,3 +10,4 @@ export * from "./medicineService";
 export * from "./petSpeciesService";
 export * from "./serviceCategoryService";
 export * from "./serviceOfPetService";
+export * from "./breedService";

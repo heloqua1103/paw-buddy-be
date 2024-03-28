@@ -1,0 +1,78 @@
+[
+	{
+		"breed": "Labrador Retriever",
+		"image": "labrador-retriever-1210559_1920.jpg"
+	},
+	{
+		"breed": "German Shepherd",
+		"image": "german-shepherd-170582_1280.jpg"
+	},
+	{
+		"breed": "Golden Retriever",
+		"image": "dog-6945696_1280.jpg"
+	},
+	{
+		"breed": "French Bulldog",
+		"image": "bulldog-2668260_1280.jpg"
+	},
+	{
+		"breed": "Bulldog",
+		"image": "english-bulldog-5422018_1280.jpg"
+	},
+	{
+		"breed": "Beagle",
+		"image": "beagle-3877115_1280.jpg"
+	},
+	{
+		"breed": "Poodle",
+		"image": "puppy-3979350_1280.jpg"
+	},
+	{
+		"breed": "Yorkshire Terrier",
+		"image": "animal-1283027_960_720.jpg"
+	},
+	{
+		"breed": "Boxer",
+		"image": "boxer-3644625_1280.jpg"
+	},
+	{
+		"breed": "Dachshund",
+		"image": "dachshund-1519374_1280.jpg"
+	},
+	{
+		"breed": "Domestic Shorthair",
+		"image": "british-shorthair-6815375_1280.jpg"
+	},
+	{
+		"breed": "Domestic Longhair",
+		"image": "domestic-longhair-cat-2918490_1280.jpg"
+	},
+	{
+		"breed": "Siamese",
+		"image": "cat-2068462_1280.jpg"
+	},
+	{
+		"breed": "Maine Coon",
+		"image": "maine-coon-4379230_1280.jpg"
+	},
+	{
+		"breed": "Ragdoll",
+		"image": "ragdoll-4306109_1280.jpg"
+	},
+	{
+		"breed": "British Shorthair",
+		"image": "british-shorthair-8032816_1280.jpg"
+	},
+	{
+		"breed": "Sphynx",
+		"image": "cat-7762862_1280.jpg"
+	},
+	{
+		"breed": "Bengal",
+		"image": "cat-877110_960_720.jpg"
+	},
+	{
+		"breed": "Scottish Fold",
+		"image": "cat-6744439_1280.jpg"
+	}
+]

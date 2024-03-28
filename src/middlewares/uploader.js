@@ -33,12 +33,22 @@ const serviceStorage = new CloudinaryStorage({
   },
 });
 
+const breedStorage = new CloudinaryStorage({
+  cloudinary,
+  allowedFormats: ["jpg", "png"],
+  params: {
+    folder: "PB_breed",
+  },
+});
+
 const uploadPet = multer({ storage: petStorage });
 const uploadUser = multer({ storage: userStorage });
 const uploadService = multer({ storage: serviceStorage });
+const breedService = multer({ storage: breedStorage });
 
 module.exports = {
   uploadPet,
   uploadUser,
   uploadService,
+  breedService,
 };

@@ -13,13 +13,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   Booking.init(
     {
-      veterinarian_id: DataTypes.INTEGER,
+      user_id: DataTypes.INTEGER,
       service_id: DataTypes.INTEGER,
       pet_id: DataTypes.INTEGER,
       date: DataTypes.DATE,
-      time: DataTypes.TIME,
       status: DataTypes.ENUM("pending", "confirmed", "cancelled", "completed"),
-      time_slot_id: DataTypes.INTEGER,
+      start_time: DataTypes.TIME,
+      end_time: DataTypes.TIME,
       note: DataTypes.TEXT,
       time_slot_id: DataTypes.INTEGER,
     },
