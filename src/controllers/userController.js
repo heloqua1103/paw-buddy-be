@@ -24,7 +24,7 @@ export const getUser = async (req, res) => {
 export const changePassword = async (req, res) => {
   try {
     const { id } = req.user;
-    const result = await services.changePassword(id);
+    const result = await services.changePassword(id, req.body);
     res.status(201).json(result);
   } catch (error) {
     console.log(error);

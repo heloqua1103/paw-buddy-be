@@ -21,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
       start_time: DataTypes.TIME,
       end_time: DataTypes.TIME,
       note: DataTypes.TEXT,
-      time_slot_id: DataTypes.INTEGER,
     },
     {
       sequelize,

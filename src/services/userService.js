@@ -93,7 +93,7 @@ export const updateUser = (body, userId, fileData) => {
   });
 };
 
-export const changePassword = (body, userId) =>
+export const changePassword = (userId, body) =>
   new Promise(async (resolve, reject) => {
     try {
       const user = await db.User.findOne({
