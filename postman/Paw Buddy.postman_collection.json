@@ -284,6 +284,16 @@
 									"key": "is_neutered",
 									"value": "false",
 									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "Medium",
+									"type": "text"
+								},
+								{
+									"key": "adoption",
+									"value": "2024-01-20",
+									"type": "text"
 								}
 							]
 						},
