@@ -43,8 +43,7 @@
 								{
 									"key": "fullName",
 									"value": "nguyen hieu",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								},
 								{
 									"key": "confirm_password",
@@ -244,36 +243,46 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
+							"mode": "formdata",
+							"formdata": [
 								{
 									"key": "name_pet",
-									"value": "ki1",
+									"value": "ki",
 									"type": "text"
 								},
 								{
 									"key": "species",
-									"value": "dog",
-									"type": "text"
-								},
-								{
-									"key": "breed",
-									"value": "chihuahua",
-									"type": "text"
-								},
-								{
-									"key": "gender",
 									"value": "1",
 									"type": "text"
 								},
 								{
+									"key": "breed",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "false",
+									"type": "text"
+								},
+								{
 									"key": "date_of_birth",
-									"value": "11-03-2002",
+									"value": "2023-04-22",
 									"type": "text"
 								},
 								{
 									"key": "weight",
-									"value": "3.8",
+									"value": "1.8",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"value": "https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg",
+									"type": "text"
+								},
+								{
+									"key": "is_neutered",
+									"value": "false",
 									"type": "text"
 								}
 							]
@@ -369,7 +378,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/pets/get-all-pet",
+							"raw": "{{url}}/api/v1/pets/get-all-pet?limit&page&is_neutered=false",
 							"host": [
 								"{{url}}"
 							],
@@ -378,6 +387,20 @@
 								"v1",
 								"pets",
 								"get-all-pet"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": null
+								},
+								{
+									"key": "page",
+									"value": null
+								},
+								{
+									"key": "is_neutered",
+									"value": "false"
+								}
 							]
 						}
 					},
@@ -1205,6 +1228,312 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "Service",
+			"item": [
+				{
+					"name": "CreateService",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_service",
+									"value": "Dental Cleaning1",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Professional cleaning to maintain dental health",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "43",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/home/hector/Pictures/Screenshots/Screenshot from 2024-03-25 13-57-11.png"
+								},
+								{
+									"key": "note",
+									"value": "Recommended annually to prevent dental issues and maintain overall health.",
+									"type": "text"
+								},
+								{
+									"key": "species",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "estimated_duration",
+									"value": "30",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/service/create-service",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"service",
+								"create-service"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateService",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_service",
+									"value": "Dental Cleaning12",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/service/update-service/14",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"service",
+								"update-service",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteService",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/service/delete-service/14",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"service",
+								"delete-service",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllService",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/service/get-all-service?limit&page",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"service",
+								"get-all-service"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": null
+								},
+								{
+									"key": "page",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "CreateBooking",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "service_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "pet_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2024-01-03",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "pending",
+									"type": "text"
+								},
+								{
+									"key": "start_time",
+									"value": "08:30:00",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/booking/create-booking",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"booking",
+								"create-booking"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Breed",
+			"item": [
+				{
+					"name": "GetAllBreeds",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/breed/?limit=3&page=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"breed",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

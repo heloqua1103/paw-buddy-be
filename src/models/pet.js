@@ -29,6 +29,8 @@ module.exports = (sequelize, DataTypes) => {
       breed: DataTypes.INTEGER,
       gender: DataTypes.BOOLEAN,
       date_of_birth: DataTypes.DATE,
+      adoption: DataTypes.DATE,
+      size: DataTypes.ENUM("Small", "Medium", "Large"),
       weight: DataTypes.FLOAT,
       photo: DataTypes.STRING,
       is_neutered: DataTypes.BOOLEAN,
