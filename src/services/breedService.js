@@ -1,91 +1,34 @@
-import db from "../models";
+import axios from "axios";
 
-export const createBreed = (body, fileData) =>
+export const getBreed = ({ limit, page, order, ...query }) =>
   new Promise(async (resolve, reject) => {
     try {
-      console.log(fileData);
-      if (fileData) {
-        body.image = fileData?.path;
-        body.fileNameImage = fileData?.filename;
-      }
-      const result = await db.Breed.findOrCreate({
-        where: { breed: body.breed },
-        defaults: { ...body },
-      });
-      if (fileData && result[1] < 0)
-        cloudinary.uploader.destroy(fileData.filename);
-      resolve({
-        success: result[1] > 0 ? true : false,
-        message: result[1] > 0 ? "Successfully!" : "Something went wrong!",
-        data: result[1] > 0 ? result[0] : null,
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
-
-export const updateBreed = (breedId, body, fileData) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      if (fileData) {
-        body.image = fileData?.path;
-        body.fileNameImage = fileData?.filename;
-      }
-      const result = await db.Breed.update(
-        {
-          ...body,
-        },
-        {
-          where: { id: breedId },
-        }
-      );
-      if (fileData && result[0] < 0)
-        cloudinary.uploader.destroy(fileData.filename);
-      resolve({
-        success: result[0] > 0 ? true : false,
-        message: result[0] > 0 ? "Successfully!" : "Something went wrong!",
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
-
-export const deleteBreed = (breedId) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const result = await db.Breed.destroy({
-        where: { id: breedId },
-      });
-
-      resolve({
-        success: result ? true : false,
-        message: result ? "Successfully!" : "Something went wrong!",
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
-
-export const getAllBreeds = ({ limit, page, order, ...query }) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
-      const fLimit = +limit || +process.env.LIMIT_PET;
-      queries.distinct = true;
-      if (limit) {
-        queries.offset = offset * fLimit;
-        queries.limit = fLimit;
-      }
-      if (order) queries.order = [order];
-      const result = await db.Breed.findAll({
-        where: query,
-        ...queries,
-      });
+      const fLimit = +limit || +process.env.LIMIT_BREED;
+      const data = await axios
+        .get("https://api.thedogapi.com/v1/breeds", {
+          headers: {
+            "x-api-key": process.env.API_KEY,
+          },
+          params: {
+            limit: fLimit,
+            page: offset,
+          },
+        })
+        .then((res) => res.data)
+        .catch((error) => console.log(error));
+      const breeds = data.map((item) => ({
+        id: item.id,
+        name: item.name,
+        life_span: item.life_span,
+        weight: item.weight,
+        height: item.height,
+        image: item.image.url,
+      }));
       resolve({
-        success: result ? true : false,
-        message: result ? "Successfully!" : "Something went wrong!",
-        data: result ? result : null,
+        success: data ? true : false,
+        message: data ? "Successfully" : "Something went wrong",
+        data: breeds,
       });
     } catch (error) {
       reject(error);

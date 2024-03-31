@@ -4,16 +4,8 @@ const dataMedicines = require("./medicineData.json");
 const dataRoles = require("./role.json");
 const dataServiceCategory = require("./serviceCategoryData.json");
 const db = require("../models");
-const dataBreeds = require("./breeds/breeds.json");
 
 require("../dbs/connect_DB");
-
-dataBreeds.forEach(async (breed) => {
-  await db.Breed.create({
-    breed: breed.breed,
-    image: breed.image,
-  });
-});
 
 dataRoles.forEach(async (role) => {
   await db.Role.create({

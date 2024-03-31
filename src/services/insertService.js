@@ -1,44 +1,33 @@
+import axios from "axios";
 import db from "../models";
 
-const data = [
-  {
-    name_role: "admin",
-  },
-  {
-    name_role: "veterinarian",
-  },
-  {
-    name_role: "user",
-  },
-];
-
-export const insertRoles = (body) =>
+export const test = (body) =>
   new Promise(async (resolve, reject) => {
     try {
-      // data.forEach(async (item) => {
-      //   await db.Role.create(item);
-      // });
-      // const result = await db.Feedback.create({ ...body });
-      // await db.MedicalRecord.create({
-      //   pet_id: 1,
-      //   vet_id: 1,
-      //   exam_date: "2021-09-01",
-      //   diagnosis: "sick",
-      //   symptoms: "fever",
-      //   treatment_plan: "drink medicine",
-      //   medications: [1, 2],
-      //   vaccines: [1, 2],
-      // });
-      // const result = await db.MedicalRecord.findAll({
-      //   include: [
-      //     {
-      //       model: db.Vaccine,
-      //       as: "dataVaccine",
-      //     },
-      //   ],
-      // });
+      const data = await axios
+        .get("https://api.thedogapi.com/v1/breeds", {
+          headers: {
+            "x-api-key":
+              "live_hWLw1JXcmuQClo9t7sNpIAsFDe3F9yB9kEmuNXJsMxvux8pF0rEOUCgJnhdhiF5o",
+          },
+          params: {
+            limit: 2,
+            page: 0,
+          },
+        })
+        .then((res) => res.data)
+        .catch((error) => console.log(error));
+      const breeds = data.map((item) => ({
+        id: item.id,
+        name: item.name,
+        life_span: item.life_span,
+        weight: item.weight,
+        height: item.height,
+        image: item.image.url,
+      }));
       resolve({
         message: "Data inserted successfully",
+        data: breeds,
       });
     } catch (error) {
       reject(error);
