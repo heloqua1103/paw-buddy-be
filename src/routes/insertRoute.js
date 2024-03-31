@@ -3,6 +3,6 @@ import * as controllers from "../controllers";
 
 const router = express.Router();
 
-router.post("/insert-role", controllers.insertRoles);
+router.get("/test", controllers.test);
 
 module.exports = router;
