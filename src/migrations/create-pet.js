@@ -27,6 +27,12 @@ module.exports = {
       date_of_birth: {
         type: Sequelize.DATE,
       },
+      adoption: {
+        type: Sequelize.DATE,
+      },
+      size: {
+        type: Sequelize.ENUM("Small", "Medium", "Large"),
+      },
       weight: {
         type: Sequelize.FLOAT,
       },
