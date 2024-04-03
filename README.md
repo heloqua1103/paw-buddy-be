@@ -70,6 +70,14 @@ npm run start
 <img width="400px" src="https://i.imgur.com/8zIbwC0.jpeg">
 </div>
 
+- Use environment
+
+<div style="justify-content: center;
+    display: flex;
+    align-items: center; flex-direction: column">
+<img width="400px" src="https://imgur.com/Zu5Jbnk.jpeg"/>
+</div>
+
 ## Authors
 
 - [Nguyen Trung Hieu](https://github.com/heloqua1103)
