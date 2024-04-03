@@ -13,5 +13,6 @@ router.delete("/cancel-booking/:id", controllers.cancelBooking);
 
 router.use(isAdmin);
 router.put("/approve-booking", controllers.approveBooking);
+router.get("/get-booking", controllers.getAllBookings);
 
 module.exports = router;

@@ -30,9 +30,19 @@ export const cancelBooking = async (req, res) => {
   }
 };
 
+// Admin
 export const approveBooking = async (req, res) => {
   try {
     const result = await services.approveBooking(req.body);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAllBookings = async (req, res) => {
+  try {
+    const result = await services.getAllBookings(req.query);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
