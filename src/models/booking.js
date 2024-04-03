@@ -12,17 +12,17 @@ module.exports = (sequelize, DataTypes) => {
       Booking.belongsTo(models.User, {
         foreignKey: "user_id",
         targetKey: "id",
-        as: "userData",
+        as: "dataUser",
       });
       Booking.belongsTo(models.PetService, {
         foreignKey: "service_id",
         targetKey: "id",
-        as: "serviceData",
+        as: "dataService",
       });
       Booking.belongsTo(models.Pet, {
         foreignKey: "pet_id",
         targetKey: "id",
-        as: "petData",
+        as: "dataPet",
       });
     }
   }

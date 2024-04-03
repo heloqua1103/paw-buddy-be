@@ -1,5 +1,8 @@
 import moment from "moment";
 import db from "../models";
+import { CronJob } from "cron";
+
+let job;
 
 export const createBooking = (userId, body) =>
   new Promise(async (resolve, reject) => {
@@ -24,6 +27,16 @@ export const createBooking = (userId, body) =>
         user_id: userId,
         end_time: newTimeString,
       });
+      const time = new Date(`${result.date} ${result.start_time}`);
+      job = new CronJob(
+        time,
+        function () {
+          cancelBooking(result.id);
+        },
+        null,
+        true,
+        "Asia/Ho_Chi_Minh"
+      );
       resolve({
         success: result ? true : false,
         message: result ? "Successfully" : "Something went wrong!",
@@ -39,7 +52,11 @@ export const updateBooking = (bookingId, body) =>
     try {
       const duration = await db.PetService.findOne({
         where: { id: +body.service_id },
-        attributes: ["estimated_duration", "status"],
+        attributes: ["estimated_duration"],
+      });
+      const booking = await db.Booking.findOne({
+        where: { id: +bookingId },
+        attributes: ["status"],
       });
       let [hours, minutes, seconds] = body.start_time.split(":").map(Number);
       let newMinutes = minutes + duration.dataValues.estimated_duration;
@@ -52,18 +69,29 @@ export const updateBooking = (bookingId, body) =>
       const newTimeString = `${hours.toString().padStart(2, "0")}:${newMinutes
         .toString()
         .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-      if (duration.dataValues.status === "pending") {
+      if (booking.dataValues.status === "pending") {
         const newBooking = await db.Booking.update(
           { ...body, end_time: newTimeString },
           { where: { id: +bookingId } }
+        );
+        const time = new Date(`${body.date} ${body.start_time}`);
+        if (job && job.running) job.stop();
+        job = new CronJob(
+          time,
+          function () {
+            cancelBooking(+bookingId);
+          },
+          null,
+          true,
+          "Asia/Ho_Chi_Minh"
         );
         resolve({
           success: newBooking[0] > 0 ? true : false,
           message: newBooking[0] > 0 ? "Successfully" : "Something went wrong!",
         });
       } else if (
-        duration.dataValues.status === "confirmed" ||
-        duration.dataValues.status === "completed"
+        booking.dataValues.status === "confirmed" ||
+        booking.dataValues.status === "completed"
       ) {
         resolve({
           success: false,
@@ -113,6 +141,7 @@ export const cancelBooking = (bookingId) =>
     }
   });
 
+// Admin
 export const approveBooking = (body) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -123,6 +152,48 @@ export const approveBooking = (body) =>
       resolve({
         success: result[0] > 0 ? true : false,
         message: result[0] > 0 ? "Successfully" : "Something went wrong!",
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const getAllBookings = ({ limit, page, order, ...query }) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const queries = { raw: false, nest: true };
+      const offset = !page || +page <= 1 ? 0 : +page - 1;
+      const fLimit = +limit || +process.env.LIMIT_PET;
+      queries.distinct = true;
+      if (limit) {
+        queries.offset = offset * fLimit;
+        queries.limit = fLimit;
+      }
+      if (order) queries.order = [order];
+      const result = await db.Booking.findAll({
+        where: query,
+        ...queries,
+        include: [
+          {
+            model: db.User,
+            as: "dataUser",
+            attributes: ["id", "fullName", "email", "phone"],
+          },
+          {
+            model: db.PetService,
+            as: "dataService",
+          },
+          {
+            model: db.Pet,
+            as: "dataPet",
+            exclude: ["user_id"],
+          },
+        ],
+      });
+      resolve({
+        success: result ? true : false,
+        message: result ? "Get pet successfully" : "Get pet failed",
+        data: result ? result : [],
       });
     } catch (error) {
       reject(error);
