@@ -34,6 +34,8 @@ export const changePassword = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const fileData = req.file;
+    if (!fileData)
+      return res.status(400).json({ message: "Image is required" });
     const { error } = joi.object().validate({ avatar: fileData?.path });
     if (error) {
       if (fileData) cloudinary.uploader.destroy(fileData.filename);
