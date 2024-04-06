@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       breed: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       gender: {
         type: Sequelize.BOOLEAN,
