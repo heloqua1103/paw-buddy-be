@@ -20,7 +20,7 @@ export const login = async (req, res) => {
 
 export const refreshToken = async (req, res) => {
   try {
-    const response = await services.refreshToken();
+    const response = await services.refreshToken(req.body);
     res.status(201).json(response);
   } catch (error) {
     console.log(error);
