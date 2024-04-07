@@ -33,17 +33,9 @@ const serviceStorage = new CloudinaryStorage({
   },
 });
 
-function isImage(req, file, cb) {
-  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-}
-
-const uploadPet = multer({ storage: petStorage, fileFilter: isImage });
-const uploadUser = multer({ storage: userStorage, fileFilter: isImage });
-const uploadService = multer({ storage: serviceStorage, fileFilter: isImage });
+const uploadPet = multer({ storage: petStorage });
+const uploadUser = multer({ storage: userStorage });
+const uploadService = multer({ storage: serviceStorage });
 
 module.exports = {
   uploadPet,

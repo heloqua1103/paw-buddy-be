@@ -4,8 +4,6 @@ import joi from "joi";
 export const createService = async (req, res) => {
   try {
     const fileData = req.file;
-    if (!fileData)
-      return res.status(400).json({ message: "Image is required" });
     const { error } = joi.object().validate({ image: fileData?.path });
     if (error) {
       if (fileData) cloudinary.uploader.destroy(fileData.filename);
@@ -21,8 +19,6 @@ export const updateService = async (req, res) => {
   try {
     const { serviceId } = req.params;
     const fileData = req.file;
-    if (!fileData)
-      return res.status(400).json({ message: "Image is required" });
     const { error } = joi.object().validate({ image: fileData?.path });
     if (error) {
       if (fileData) cloudinary.uploader.destroy(fileData.filename);
