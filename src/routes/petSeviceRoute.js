@@ -7,8 +7,10 @@ import { uploadService } from "../middlewares/uploader";
 const router = express.Router();
 
 router.use(verifyToken);
-router.use(isAdmin);
 
+router.get("/get-all-service", controllers.getAllService);
+
+router.use(isAdmin);
 router.post(
   "/create-service",
   uploadService.single("photo"),
@@ -20,8 +22,6 @@ router.put(
   uploadService.single("photo"),
   controllers.updateService
 );
-
-router.get("/get-all-service", controllers.getAllService);
 
 router.delete("/delete-service/:serviceId", controllers.deleteService);
 
