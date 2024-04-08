@@ -6,10 +6,9 @@ import { uploadService } from "../middlewares/uploader";
 
 const router = express.Router();
 
-router.use(verifyToken);
-
 router.get("/get-all-service", controllers.getAllService);
 
+router.use(verifyToken);
 router.use(isAdmin);
 router.post(
   "/create-service",
