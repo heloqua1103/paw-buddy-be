@@ -1,18 +1,22 @@
 import db from "../models";
 
-export const createService = (body, fileData) =>
+export const createService = (body, photo, logo) =>
   new Promise(async (resolve, reject) => {
     try {
-      if (fileData) {
-        body.photo = fileData?.path;
-        body.fileNameImage = fileData?.filename;
+      if (photo && logo) {
+        body.photo = photo[0]?.path;
+        body.fileNameImage = photo[0]?.filename;
+        body.logo = logo[0]?.path;
+        body.fileNameLogo = logo[0]?.filename;
       }
       const result = await db.PetService.findOrCreate({
         where: { name_service: body.name_service },
         defaults: { ...body },
       });
-      if (fileData && result[1] < 0)
-        cloudinary.uploader.destroy(fileData.filename);
+      if (photo && logo && result[1] < 0) {
+        photo.forEach((file) => cloudinary.uploader.destroy(file.filename));
+        logo.forEach((file) => cloudinary.uploader.destroy(file.filename));
+      }
       resolve({
         success: result[1] > 0 ? true : false,
         message: result[1] > 0 ? "Successfully!" : "Something went wrong!",

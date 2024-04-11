@@ -2,7 +2,7 @@ import express from "express";
 import * as controllers from "../controllers";
 import verifyToken from "../middlewares/verify_token";
 import { isAdmin } from "../middlewares/verify_roles";
-import { uploadService } from "../middlewares/uploader";
+import { uploadService, logoService } from "../middlewares/uploader";
 
 const router = express.Router();
 
@@ -12,7 +12,11 @@ router.use(verifyToken);
 router.use(isAdmin);
 router.post(
   "/create-service",
-  uploadService.single("photo"),
+  // uploadService.single("photo"),
+  logoService.fields([
+    { name: "photo", maxCount: 1 },
+    { name: "logo", maxCount: 1 },
+  ]),
   controllers.createService
 );
 

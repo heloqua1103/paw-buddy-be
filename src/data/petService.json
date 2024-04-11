@@ -7,7 +7,8 @@
     "species": 1,
     "note": "Recommended annually for dogs of all ages to maintain overall health.",
     "estimated_duration": 30,
-    "category_id": 1
+    "category_id": 1,
+    "logo": "https://via.placeholder.com/150"
   },
   {
     "name_service": "Vaccination Package",
@@ -17,7 +18,8 @@
     "species": 1,
     "note": "Includes vaccinations for rabies, distemper, parvovirus, and adenovirus.",
     "estimated_duration": 45,
-    "category_id": 1
+    "category_id": 1,
+    "logo": "https://via.placeholder.com/150"
   },
   {
     "name_service": "Dental Cleaning",
@@ -27,7 +29,8 @@
     "species": 1,
     "note": "Recommended annually to prevent dental issues and maintain overall health.",
     "estimated_duration": 60,
-    "category_id": 2
+    "category_id": 2,
+    "logo": "https://via.placeholder.com/150"
   },
   {
     "name_service": "Spaying/Neutering",
@@ -37,7 +40,8 @@
     "species": 1,
     "note": "Recommended for population control and to reduce certain health risks.",
     "estimated_duration": 180,
-    "category_id": 3
+    "category_id": 3,
+    "logo": "https://via.placeholder.com/150"
   },
   {
     "name_service": "Behavioral Training",
@@ -47,17 +51,8 @@
     "species": 1,
     "note": "Tailored training to address specific behavioral problems.",
     "estimated_duration": 60,
-    "category_id": 4
-  },
-  {
-    "name_service": "Dental Cleaning",
-    "description": "Professional dental cleaning including tartar removal and oral examination.",
-    "price": 120.0,
-    "photo": "dental_cleaning.jpg",
-    "species": 1,
-    "note": "Recommended annually for maintaining good oral health.",
-    "estimated_duration": 90,
-    "category_id": 1
+    "category_id": 4,
+    "logo": "https://via.placeholder.com/150"
   },
   {
     "name_service": "Puppy Grooming Package",
@@ -67,7 +62,8 @@
     "species": 1,
     "note": "Introduce grooming to puppies in a positive manner.",
     "estimated_duration": 60,
-    "category_id": 2
+    "category_id": 2,
+    "logo": "https://via.placeholder.com/150"
   },
   {
     "name_service": "Orthopedic Surgery",
@@ -77,7 +73,8 @@
     "species": 1,
     "note": "Consult with a veterinarian for orthopedic concerns.",
     "estimated_duration": 240,
-    "category_id": 3
+    "category_id": 3,
+    "logo": "https://via.placeholder.com/150"
   },
   {
     "name_service": "Agility Training",
@@ -87,7 +84,8 @@
     "species": 1,
     "note": "Ideal for energetic dogs and those involved in agility competitions.",
     "estimated_duration": 90,
-    "category_id": 4
+    "category_id": 4,
+    "logo": "https://via.placeholder.com/150"
   },
   {
     "name_service": "Luxury Suite Boarding",
@@ -97,7 +95,8 @@
     "species": 1,
     "note": "Treat your dog to a luxurious stay while you're away.",
     "estimated_duration": 1,
-    "category_id": 5
+    "category_id": 5,
+    "logo": "https://via.placeholder.com/150"
   },
   {
     "name_service": "Basic Wellness Exam",
@@ -107,7 +106,8 @@
     "species": 1,
     "note": "Recommended annually to ensure your dog's overall health.",
     "estimated_duration": 60,
-    "category_id": 1
+    "category_id": 1,
+    "logo": "https://via.placeholder.com/150"
   },
   {
     "name_service": "Full Grooming Package",
@@ -117,7 +117,8 @@
     "species": 1,
     "note": "Keep your dog looking and feeling their best with a full grooming session.",
     "estimated_duration": 120,
-    "category_id": 2
+    "category_id": 2,
+    "logo": "https://via.placeholder.com/150"
   },
   {
     "name_service": "Obedience Training",
@@ -127,6 +128,7 @@
     "species": 1,
     "note": "Ideal for puppies and adult dogs to learn manners and build a stronger bond with their owner.",
     "estimated_duration": 180,
-    "category_id": 4
+    "category_id": 4,
+    "logo": "https://via.placeholder.com/150"
   }
 ]
