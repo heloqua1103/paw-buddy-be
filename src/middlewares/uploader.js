@@ -33,12 +33,28 @@ const serviceStorage = new CloudinaryStorage({
   },
 });
 
+const logoStorage = new CloudinaryStorage({
+  cloudinary,
+  allowedFormats: ["jpg", "png"],
+  params: {
+    folder: (req, file) => {
+      if (file.fieldname === "logo") {
+        return "PB_logo";
+      } else {
+        return "PB_service";
+      }
+    },
+  },
+});
+
 const uploadPet = multer({ storage: petStorage });
 const uploadUser = multer({ storage: userStorage });
 const uploadService = multer({ storage: serviceStorage });
+const logoService = multer({ storage: logoStorage });
 
 module.exports = {
   uploadPet,
   uploadUser,
   uploadService,
+  logoService,
 };
