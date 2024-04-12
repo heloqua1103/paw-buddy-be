@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.get("/get-all-service", controllers.getAllService);
 
+router.get("/get-service/:id", controllers.getService);
+
 router.use(verifyToken);
 router.use(isAdmin);
 router.post(

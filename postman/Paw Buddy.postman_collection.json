@@ -32,7 +32,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "nguyenhieu11032002@gmail.com",
+									"value": "hieu1103.dev.work@gmail.com",
 									"type": "text"
 								},
 								{
@@ -95,7 +95,7 @@
 								},
 								{
 									"key": "password",
-									"value": "123456",
+									"value": "598dwaxi",
 									"type": "text"
 								}
 							]
@@ -110,6 +110,96 @@
 								"v1",
 								"auth",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RessetPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "hieu1103.dev.work@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/auth/resset-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"resset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "refresh_token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEyODUyMjI2LCJleHAiOjE3MTM0NTcwMjZ9.cV5zX_ITk0Bvj7x44hc6TVVxFoVZ-48oZot0uoDq1Ro",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RefreshToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "refresh_token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEyOTMwMTI0LCJleHAiOjE3MTM1MzQ5MjR9.axsdtjGUS8ni1wKyMKjNHlPmjrzTRqkoUeLf7B2ZwEg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/auth/refresh-token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh-token"
 							]
 						}
 					},
@@ -263,7 +353,8 @@
 								{
 									"key": "gender",
 									"value": "false",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "date_of_birth",
@@ -277,13 +368,14 @@
 								},
 								{
 									"key": "photo",
-									"value": "https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg",
-									"type": "text"
+									"type": "file",
+									"src": "/C:/Users/nguye/OneDrive/Máy tính/Favorite Photo 1.jpg"
 								},
 								{
 									"key": "is_neutered",
 									"value": "false",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "size",
@@ -502,18 +594,19 @@
 								{
 									"key": "phone",
 									"value": "0908655291",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "avatar",
 									"type": "file",
-									"src": "/home/hector/Pictures/Screenshots/Screenshot from 2024-03-19 13-37-08.png",
-									"disabled": true
+									"src": "/home/hector/Desktop/chatbot"
 								},
 								{
 									"key": "fullName",
 									"value": "hieu",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
@@ -1270,7 +1363,7 @@
 								{
 									"key": "photo",
 									"type": "file",
-									"src": "/home/hector/Pictures/Screenshots/Screenshot from 2024-03-25 13-57-11.png"
+									"src": "/C:/Users/nguye/OneDrive/Máy tính/Favorite Photo 2.jpg"
 								},
 								{
 									"key": "note",
@@ -1291,6 +1384,11 @@
 									"key": "category_id",
 									"value": "2",
 									"type": "text"
+								},
+								{
+									"key": "logo",
+									"type": "file",
+									"src": "/C:/Users/nguye/OneDrive/Máy tính/Favorite Photo 1.jpg"
 								}
 							]
 						},
@@ -1390,6 +1488,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GetService",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/service/get-service/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"service",
+								"get-service",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"auth": {
@@ -1448,7 +1567,7 @@
 								},
 								{
 									"key": "date",
-									"value": "2024-01-03",
+									"value": "2024-04-03",
 									"type": "text"
 								},
 								{
@@ -1458,7 +1577,7 @@
 								},
 								{
 									"key": "start_time",
-									"value": "08:30:00",
+									"value": "15:59:00",
 									"type": "text"
 								}
 							]
@@ -1473,6 +1592,158 @@
 								"v1",
 								"booking",
 								"create-booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ApproveBooking",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "confirmed",
+									"type": "text"
+								},
+								{
+									"key": "booking_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/booking/approve-booking",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"booking",
+								"approve-booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateBooking",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "date",
+									"value": "2024-04-03",
+									"type": "text"
+								},
+								{
+									"key": "start_time",
+									"value": "16:00:00",
+									"type": "text"
+								},
+								{
+									"key": "service_id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/booking/update-booking/16",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"booking",
+								"update-booking",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CancelBooking",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/booking/cancel-booking/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"booking",
+								"cancel-booking",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllBooking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/booking/get-booking?limit=2&page=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"booking",
+								"get-booking"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBooking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/booking/get-booking/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"booking",
+								"get-booking",
+								"1"
 							]
 						}
 					},

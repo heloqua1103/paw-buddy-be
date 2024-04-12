@@ -53,3 +53,13 @@ export const getAllService = async (req, res) => {
     console.log(error);
   }
 };
+
+export const getService = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await services.getService(id);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};

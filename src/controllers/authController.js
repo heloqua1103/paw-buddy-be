@@ -36,3 +36,12 @@ export const logout = async (req, res) => {
     console.log(error);
   }
 };
+
+export const resetPassword = async (req, res) => {
+  try {
+    const response = await services.resetPassword(req.body);
+    res.status(201).json(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
