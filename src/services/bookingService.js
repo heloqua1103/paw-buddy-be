@@ -141,6 +141,37 @@ export const cancelBooking = (bookingId) =>
     }
   });
 
+export const getBookingById = (bookingId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const result = await db.Booking.findOne({
+        where: { id: +bookingId },
+        include: [
+          {
+            model: db.User,
+            as: "dataUser",
+            attributes: ["id", "fullName", "email", "phone"],
+          },
+          {
+            model: db.PetService,
+            as: "dataService",
+          },
+          {
+            model: db.Pet,
+            as: "dataPet",
+            exclude: ["user_id"],
+          },
+        ],
+      });
+      resolve({
+        success: result ? true : false,
+        message: result ? "Successfully" : "Something went wrong!",
+        result: result ? result : null,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
 // Admin
 export const approveBooking = (body) =>
   new Promise(async (resolve, reject) => {

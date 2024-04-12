@@ -30,6 +30,16 @@ export const cancelBooking = async (req, res) => {
   }
 };
 
+export const getBookingById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await services.getBookingById(id);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // Admin
 export const approveBooking = async (req, res) => {
   try {

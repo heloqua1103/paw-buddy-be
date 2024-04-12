@@ -105,3 +105,31 @@ export const getAllService = ({ limit, order, page, ...query }) =>
       reject(error);
     }
   });
+
+export const getService = (serviceId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const result = await db.PetService.findOne({
+        where: { id: serviceId },
+        include: [
+          {
+            model: db.ServiceCategory,
+            as: "dataCategory",
+            attributes: ["type_service"],
+          },
+          {
+            model: db.PetSpecies,
+            as: "dataSpecies",
+            attributes: ["name"],
+          },
+        ],
+      });
+      resolve({
+        success: result ? true : false,
+        message: result ? "Successfully!" : "Something went wrong!",
+        data: result ? result : null,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
