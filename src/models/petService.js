@@ -31,12 +31,11 @@ module.exports = (sequelize, DataTypes) => {
       note: DataTypes.TEXT,
       estimated_duration: DataTypes.INTEGER,
       category_id: DataTypes.INTEGER,
-      logo: DataTypes.STRING,
     },
     {
       sequelize,
       modelName: "PetService",
-    }
+    },
   );
   return PetService;
 };

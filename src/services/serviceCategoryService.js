@@ -1,6 +1,6 @@
 import db from "../models";
 
-export const createSeriveCategory = (body) =>
+export const createServiceCategory = body =>
   new Promise(async (resolve, reject) => {
     try {
       const result = await db.ServiceCategory.findOrCreate({
@@ -17,7 +17,7 @@ export const createSeriveCategory = (body) =>
     }
   });
 
-export const updateSeriveCategory = (id, body) =>
+export const updateServiceCategory = (id, body) =>
   new Promise(async (resolve, reject) => {
     try {
       const result = await db.ServiceCategory.update(
@@ -26,7 +26,7 @@ export const updateSeriveCategory = (id, body) =>
         },
         {
           where: { id },
-        }
+        },
       );
       resolve({
         success: result[0] > 0 ? true : false,
@@ -38,7 +38,7 @@ export const updateSeriveCategory = (id, body) =>
     }
   });
 
-export const deleteSeriveCategory = (id) =>
+export const deleteServiceCategory = id =>
   new Promise(async (resolve, reject) => {
     try {
       const result = await db.ServiceCategory.destroy({
@@ -53,7 +53,7 @@ export const deleteSeriveCategory = (id) =>
     }
   });
 
-export const getAllSeriveCategory = ({ limit, page, order, ...query }) =>
+export const getAllServiceCategory = ({ limit, page, order, ...query }) =>
   new Promise(async (resolve, reject) => {
     try {
       const queries = { raw: false, nest: true };

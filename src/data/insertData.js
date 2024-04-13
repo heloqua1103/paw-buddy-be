@@ -61,5 +61,6 @@ dataMedicines.forEach(async (medicine) => {
 dataServiceCategory.forEach(async (serviceCategory) => {
   await db.ServiceCategory.create({
     type_service: serviceCategory.type_service,
+    image: serviceCategory.image,
   });
 });

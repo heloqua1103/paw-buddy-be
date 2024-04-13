@@ -1,28 +1,28 @@
 import * as services from "../services";
 
-export const createSeriveCategory = async (req, res) => {
+export const createServiceCategory = async (req, res) => {
   try {
-    const result = await services.createSeriveCategory(req.body);
+    const result = await services.createServiceCategory(req.body);
     res.status(201).json(result);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updateSeriveCategory = async (req, res) => {
+export const updateServiceCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await services.updateSeriveCategory(id, req.body);
+    const result = await services.updateServiceCategory(id, req.body);
     res.status(201).json(result);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deleteSeriveCategory = async (req, res) => {
+export const deleteServiceCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await services.deleteSeriveCategory(id);
+    const result = await services.deleteServiceCategory(id);
     res.status(201).json(result);
   } catch (error) {
     console.log(error);
@@ -31,7 +31,7 @@ export const deleteSeriveCategory = async (req, res) => {
 
 export const getAllServiceCategory = async (req, res) => {
   try {
-    const result = await services.getAllSeriveCategory(req.query);
+    const result = await services.getAllServiceCategory(req.query);
     res.status(201).json(result);
   } catch (error) {
     console.log(error);

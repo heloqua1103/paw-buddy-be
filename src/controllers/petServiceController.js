@@ -3,17 +3,17 @@ import joi from "joi";
 
 export const createService = async (req, res) => {
   try {
-    const { photo, logo } = req.files;
-    const { error } = joi
-      .object()
-      .validate({ photo: photo[0].path, logo: logo[0].path });
-    if (error) {
-      if (photo && logo) {
-        photo.forEach((file) => cloudinary.uploader.destroy(file.filename));
-        logo.forEach((file) => cloudinary.uploader.destroy(file.filename));
-      }
-    }
-    const result = await services.createService(req.body, photo, logo);
+    const { photo } = req.files;
+    // const { error } = joi
+    //   .object()
+    //   .validate({ photo: photo[0].path, logo: logo[0].path });
+    // if (error) {
+    //   if (photo && logo) {
+    //     photo.forEach(file => cloudinary.uploader.destroy(file.filename));
+    //     logo.forEach(file => cloudinary.uploader.destroy(file.filename));
+    //   }
+    // }
+    const result = await services.createService(req.body, photo);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
