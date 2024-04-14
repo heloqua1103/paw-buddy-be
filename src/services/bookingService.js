@@ -1,6 +1,7 @@
 import moment from "moment";
 import db from "../models";
 import { CronJob } from "cron";
+import { Op } from "sequelize";
 
 let job;
 
@@ -205,7 +206,14 @@ export const approveBooking = (body) =>
     }
   });
 
-export const getAllBookings = ({ limit, page, order, ...query }) =>
+export const getAllBookings = ({
+  limit,
+  page,
+  order,
+  start_date,
+  end_date,
+  ...query
+}) =>
   new Promise(async (resolve, reject) => {
     try {
       const queries = { raw: false, nest: true };
@@ -217,7 +225,22 @@ export const getAllBookings = ({ limit, page, order, ...query }) =>
         queries.limit = fLimit;
       }
       if (order) queries.order = [order];
-      const result = await db.Booking.findAll({
+      if (start_date && end_date) {
+        const data = await db.Booking.findAll();
+        const ids = [];
+        data.forEach((booking) => {
+          if (
+            moment(booking.dataValues.date).format("YYYY-MM-DD") >=
+              moment(start_date).format("YYYY-MM-DD") &&
+            moment(booking.dataValues.date).format("YYYY-MM-DD") <=
+              moment(end_date).format("YYYY-MM-DD")
+          ) {
+            ids.push(booking.dataValues.id);
+          }
+        });
+        query.id = { [Op.in]: ids };
+      }
+      const result = await db.Booking.findAndCountAll({
         where: query,
         ...queries,
         include: [
@@ -240,7 +263,8 @@ export const getAllBookings = ({ limit, page, order, ...query }) =>
       resolve({
         success: result ? true : false,
         message: result ? "Get pet successfully" : "Get pet failed",
-        data: result ? result : [],
+        counts: result.count,
+        data: result ? result.rows : [],
       });
     } catch (error) {
       reject(error);
