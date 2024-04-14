@@ -10,10 +10,12 @@ export const createMedicine = (body) =>
           ingredient: body.ingredient,
           intended_use: body.intended_use,
           guide: body.indication,
+          indication: body.indication,
           contraindication: body.contraindication,
           side_effect: body.side_effect,
           price: body.price,
-          quantity: body.quantity,
+          stock: body.stock,
+          unit: body.unit,
         },
       });
       resolve({

@@ -9,3 +9,14 @@ export const createRecord = async (req, res) => {
     console.log(error);
   }
 };
+
+export const updateRecord = async (req, res) => {
+  try {
+    const { recordId } = req.params;
+    const { id } = req.user;
+    const result = await services.updateRecord(recordId, id, req.body);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
