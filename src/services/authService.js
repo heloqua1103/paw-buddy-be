@@ -57,9 +57,10 @@ export const register = ({ email, password, fullName }) =>
           { where: { id: user[0].dataValues.id } }
         );
         resolve({
-          success: user[1] ? true : false,
-          message: user[1] ? "Registration successfull" : "User already exists",
-          accessToken: user[1] ? accessToken : null,
+          success: user[1] > 0 ? true : false,
+          message:
+            user[1] > 0 ? "Registration successfull" : "User already exists",
+          accessToken: user[1] > 0 ? accessToken : null,
         });
       }
       resolve({
@@ -165,6 +166,7 @@ export const resetPassword = ({ email }) =>
     try {
       const isCheck = await db.User.findOne({ where: { email: email } });
       let newPassword = (Math.random() + 1).toString(36).substring(4);
+      console.log("newPassword", newPassword);
       if (isCheck) {
         await db.User.update(
           { password: hashPassword(newPassword) },

@@ -7,6 +7,9 @@ let job;
 export const createBooking = (userId, body) =>
   new Promise(async (resolve, reject) => {
     try {
+      const pet = await db.Pet.findOne({
+        where: { id: +body.pet_id, user_id: userId },
+      });
       const duration = await db.PetService.findOne({
         where: { id: +body.service_id },
         attributes: ["estimated_duration"],
@@ -22,26 +25,33 @@ export const createBooking = (userId, body) =>
       const newTimeString = `${hours.toString().padStart(2, "0")}:${newMinutes
         .toString()
         .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-      const result = await db.Booking.create({
-        ...body,
-        user_id: userId,
-        end_time: newTimeString,
-      });
-      const time = new Date(`${result.date} ${result.start_time}`);
-      job = new CronJob(
-        time,
-        function () {
-          cancelBooking(result.id);
-        },
-        null,
-        true,
-        "Asia/Ho_Chi_Minh"
-      );
-      resolve({
-        success: result ? true : false,
-        message: result ? "Successfully" : "Something went wrong!",
-        result: result ? result : null,
-      });
+      if (pet) {
+        const result = await db.Booking.create({
+          ...body,
+          user_id: userId,
+          end_time: newTimeString,
+        });
+        const time = new Date(`${result.date} ${result.start_time}`);
+        job = new CronJob(
+          time,
+          function () {
+            cancelBooking(result.id);
+          },
+          null,
+          true,
+          "Asia/Ho_Chi_Minh"
+        );
+        resolve({
+          success: result ? true : false,
+          message: result ? "Successfully" : "Something went wrong!",
+          result: result ? result : null,
+        });
+      } else {
+        resolve({
+          success: false,
+          message: "Pet not found",
+        });
+      }
     } catch (error) {
       reject(error);
     }
@@ -172,7 +182,9 @@ export const getBookingById = (bookingId) =>
       reject(error);
     }
   });
+
 // Admin
+// Need create health record
 export const approveBooking = (body) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -180,6 +192,10 @@ export const approveBooking = (body) =>
         { status: body.status },
         { where: { id: +body.booking_id } }
       );
+      const vetsId = await db.User.findAll({
+        where: { roleId: 2 },
+        attributes: ["id"],
+      });
       resolve({
         success: result[0] > 0 ? true : false,
         message: result[0] > 0 ? "Successfully" : "Something went wrong!",
