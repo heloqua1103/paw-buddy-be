@@ -14,11 +14,12 @@ module.exports = (sequelize, DataTypes) => {
   ServiceCategory.init(
     {
       type_service: DataTypes.STRING,
+      image: DataTypes.STRING,
     },
     {
       sequelize,
       modelName: "ServiceCategory",
-    }
+    },
   );
   return ServiceCategory;
 };

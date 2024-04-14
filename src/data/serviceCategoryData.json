@@ -1,17 +1,22 @@
 [
   {
-    "type_service": "Medical Care"
+    "type_service": "Medical Care",
+    "image": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg"
   },
   {
-    "type_service": "Grooming"
+    "type_service": "Grooming",
+    "image": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg"
   },
   {
-    "type_service": "Surgery"
+    "type_service": "Surgery",
+    "image": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg"
   },
   {
-    "type_service": "Training"
+    "type_service": "Training",
+    "image": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg"
   },
   {
-    "type_service": "Boarding"
+    "type_service": "Boarding",
+    "image": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg"
   }
 ]

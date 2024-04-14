@@ -3,132 +3,120 @@
     "name_service": "Regular Checkup",
     "description": "Routine health examination for dogs",
     "price": 50.0,
-    "photo": "regular_checkup.jpg",
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
     "species": 1,
     "note": "Recommended annually for dogs of all ages to maintain overall health.",
     "estimated_duration": 30,
-    "category_id": 1,
-    "logo": "https://via.placeholder.com/150"
+    "category_id": 1
   },
   {
     "name_service": "Vaccination Package",
     "description": "Essential vaccinations to protect against common dog diseases",
     "price": 80.0,
-    "photo": "vaccination_package.jpg",
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
     "species": 1,
     "note": "Includes vaccinations for rabies, distemper, parvovirus, and adenovirus.",
     "estimated_duration": 45,
-    "category_id": 1,
-    "logo": "https://via.placeholder.com/150"
+    "category_id": 1
   },
   {
     "name_service": "Dental Cleaning",
     "description": "Professional cleaning to maintain dental health",
     "price": 120.0,
-    "photo": "dental_cleaning.jpg",
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
     "species": 1,
     "note": "Recommended annually to prevent dental issues and maintain overall health.",
     "estimated_duration": 60,
-    "category_id": 2,
-    "logo": "https://via.placeholder.com/150"
+    "category_id": 2
   },
   {
     "name_service": "Spaying/Neutering",
     "description": "Surgical procedure to sterilize dogs",
     "price": 200.0,
-    "photo": "spaying_neutering.jpg",
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
     "species": 1,
     "note": "Recommended for population control and to reduce certain health risks.",
     "estimated_duration": 180,
-    "category_id": 3,
-    "logo": "https://via.placeholder.com/150"
+    "category_id": 3
   },
   {
     "name_service": "Behavioral Training",
     "description": "Training sessions to address behavioral issues",
     "price": 60.0,
-    "photo": "behavioral_training.jpg",
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
     "species": 1,
     "note": "Tailored training to address specific behavioral problems.",
     "estimated_duration": 60,
-    "category_id": 4,
-    "logo": "https://via.placeholder.com/150"
+    "category_id": 4
   },
   {
     "name_service": "Puppy Grooming Package",
     "description": "Grooming session specially designed for puppies including gentle bathing and brushing.",
     "price": 30.0,
-    "photo": "puppy_grooming.jpg",
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
     "species": 1,
     "note": "Introduce grooming to puppies in a positive manner.",
     "estimated_duration": 60,
-    "category_id": 2,
-    "logo": "https://via.placeholder.com/150"
+    "category_id": 2
   },
   {
     "name_service": "Orthopedic Surgery",
     "description": "Specialized surgical procedures for orthopedic conditions such as fractures or joint issues.",
     "price": 500.0,
-    "photo": "orthopedic_surgery.jpg",
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
     "species": 1,
     "note": "Consult with a veterinarian for orthopedic concerns.",
     "estimated_duration": 240,
-    "category_id": 3,
-    "logo": "https://via.placeholder.com/150"
+    "category_id": 3
   },
   {
     "name_service": "Agility Training",
     "description": "Training sessions to improve agility skills through obstacle courses and exercises.",
     "price": 60.0,
-    "photo": "agility_training.jpg",
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
     "species": 1,
     "note": "Ideal for energetic dogs and those involved in agility competitions.",
     "estimated_duration": 90,
-    "category_id": 4,
-    "logo": "https://via.placeholder.com/150"
+    "category_id": 4
   },
   {
     "name_service": "Luxury Suite Boarding",
     "description": "Premium boarding option with spacious suites, extra playtime, and personalized attention.",
     "price": 50.0,
-    "photo": "luxury_boarding.jpg",
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
     "species": 1,
     "note": "Treat your dog to a luxurious stay while you're away.",
     "estimated_duration": 1,
-    "category_id": 5,
-    "logo": "https://via.placeholder.com/150"
+    "category_id": 5
   },
   {
     "name_service": "Basic Wellness Exam",
     "description": "Comprehensive wellness exam including physical examination, vaccinations, and parasite screening.",
     "price": 80.0,
-    "photo": "wellness_exam.jpg",
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
     "species": 1,
     "note": "Recommended annually to ensure your dog's overall health.",
     "estimated_duration": 60,
-    "category_id": 1,
-    "logo": "https://via.placeholder.com/150"
+    "category_id": 1
   },
   {
     "name_service": "Full Grooming Package",
     "description": "Complete grooming session including bathing, brushing, haircut, nail trimming, and ear cleaning.",
     "price": 50.0,
-    "photo": "full_grooming.jpg",
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
     "species": 1,
     "note": "Keep your dog looking and feeling their best with a full grooming session.",
     "estimated_duration": 120,
-    "category_id": 2,
-    "logo": "https://via.placeholder.com/150"
+    "category_id": 2
   },
   {
     "name_service": "Obedience Training",
     "description": "Structured training sessions to teach basic obedience commands and improve behavior.",
     "price": 100.0,
-    "photo": "obedience_training.jpg",
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
     "species": 1,
     "note": "Ideal for puppies and adult dogs to learn manners and build a stronger bond with their owner.",
     "estimated_duration": 180,
-    "category_id": 4,
-    "logo": "https://via.placeholder.com/150"
+    "category_id": 4
   }
 ]

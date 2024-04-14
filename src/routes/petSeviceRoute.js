@@ -14,18 +14,14 @@ router.use(verifyToken);
 router.use(isAdmin);
 router.post(
   "/create-service",
-  // uploadService.single("photo"),
-  logoService.fields([
-    { name: "photo", maxCount: 1 },
-    { name: "logo", maxCount: 1 },
-  ]),
-  controllers.createService
+  uploadService.single("photo"),
+  controllers.createService,
 );
 
 router.put(
   "/update-service/:serviceId",
   uploadService.single("photo"),
-  controllers.updateService
+  controllers.updateService,
 );
 
 router.delete("/delete-service/:serviceId", controllers.deleteService);

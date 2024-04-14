@@ -5,11 +5,15 @@ import verifyToken from "../middlewares/verify_token";
 
 const router = express.Router();
 
+router.get("/all", controllers.getAllServiceCategory);
+
 router.use(verifyToken);
 router.use(isAdmin);
-router.post("/create-service-category", controllers.createSeriveCategory);
-router.put("/update-service-category/:id", controllers.updateSeriveCategory);
-router.delete("/delete-service-category/:id", controllers.deleteSeriveCategory);
-router.get("/get-all-service-category", controllers.getAllServiceCategory);
+router.post("/create-service-category", controllers.createServiceCategory);
+router.put("/update-service-category/:id", controllers.updateServiceCategory);
+router.delete(
+  "/delete-service-category/:id",
+  controllers.deleteServiceCategory,
+);
 
 module.exports = router;

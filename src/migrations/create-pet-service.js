@@ -33,9 +33,6 @@ module.exports = {
       category_id: {
         type: Sequelize.INTEGER,
       },
-      logo: {
-        type: Sequelize.STRING,
-      },
       createdAt: {
         allowNull: false,
         type: "TIMESTAMP",

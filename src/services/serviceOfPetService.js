@@ -1,21 +1,18 @@
 import db from "../models";
 
-export const createService = (body, photo, logo) =>
+export const createService = (body, photo) =>
   new Promise(async (resolve, reject) => {
     try {
-      if (photo && logo) {
+      if (photo) {
         body.photo = photo[0]?.path;
         body.fileNameImage = photo[0]?.filename;
-        body.logo = logo[0]?.path;
-        body.fileNameLogo = logo[0]?.filename;
       }
       const result = await db.PetService.findOrCreate({
         where: { name_service: body.name_service },
         defaults: { ...body },
       });
-      if (photo && logo && result[1] < 0) {
+      if (photo && result[1] < 0) {
         photo.forEach((file) => cloudinary.uploader.destroy(file.filename));
-        logo.forEach((file) => cloudinary.uploader.destroy(file.filename));
       }
       resolve({
         success: result[1] > 0 ? true : false,
@@ -40,7 +37,7 @@ export const updateService = (serviceId, body, fileData) =>
         },
         {
           where: { id: serviceId },
-        }
+        },
       );
       if (fileData && result[0] < 0)
         cloudinary.uploader.destroy(fileData.filename);
