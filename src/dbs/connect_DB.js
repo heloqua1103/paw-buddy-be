@@ -1,4 +1,5 @@
 const { Sequelize } = require("sequelize");
+require("dotenv").config();
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -9,7 +10,7 @@ const sequelize = new Sequelize(
     dialect: process.env.DB_DIALECT,
     logging: false,
     timezone: "+7:00",
-  },
+  }
 );
 
 const connect = async () => {

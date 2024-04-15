@@ -8,7 +8,8 @@
     "start": "nodemon --exec babel-node index.js",
     "build": "netlify deploy --prod",
     "up": "cd src && npx sequelize-cli db:migrate",
-    "insert": "npm run up && sleep 1 && node ./src/data/insertData.js"
+    "insert": " node ./src/data/insertData.js",
+    "init": "npm run up && sleep 1 && node ./src/data/insertData.js"
   },
   "author": "",
   "license": "ISC",

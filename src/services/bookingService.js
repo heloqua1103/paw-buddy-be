@@ -29,6 +29,7 @@ export const createBooking = (userId, body) =>
       if (pet) {
         const result = await db.Booking.create({
           ...body,
+          status: "pending",
           user_id: userId,
           end_time: newTimeString,
         });
@@ -185,26 +186,68 @@ export const getBookingById = (bookingId) =>
   });
 
 // Admin
-// Need create health record
 export const approveBooking = (body) =>
   new Promise(async (resolve, reject) => {
     try {
-      const result = await db.Booking.update(
-        { status: body.status },
-        { where: { id: +body.booking_id } }
-      );
-      const vetsId = await db.User.findAll({
+      const vetsId = await db.User.findAndCountAll({
         where: { roleId: 2 },
         attributes: ["id"],
       });
-      resolve({
-        success: result[0] > 0 ? true : false,
-        message: result[0] > 0 ? "Successfully" : "Something went wrong!",
-      });
+      if (vetsId.count === 0) {
+        resolve({
+          success: false,
+          message: "Now, we don't have any vet to approve booking!",
+        });
+        return;
+      } else {
+        const result = await db.Booking.update(
+          { status: body.status },
+          { where: { id: +body.booking_id } }
+        );
+        const data = await db.Booking.findOne({
+          where: { id: +body.booking_id },
+        });
+        await db.MedicalRecord.create({
+          pet_id: data.dataValues.pet_id,
+          vet_id: Math.floor(Math.random() * vetsId.count) + 1,
+        });
+        const time = new Date(
+          `${data.dataValues.date} ${data.dataValues.start_time}`
+        );
+        if (job && job.running) job.stop();
+        job = new CronJob(
+          time,
+          function () {
+            finishBooking(+body.booking_id);
+          },
+          null,
+          true,
+          "Asia/Ho_Chi_Minh"
+        );
+        resolve({
+          success: result[0] > 0 ? true : false,
+          message: result[0] > 0 ? "Successfully" : "Something went wrong!",
+        });
+      }
     } catch (error) {
       reject(error);
     }
   });
+
+export const finishBooking = async (bookingId) => {
+  try {
+    await db.Booking.update(
+      {
+        status: "completed",
+      },
+      {
+        where: { id: bookingId },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getAllBookings = ({
   limit,

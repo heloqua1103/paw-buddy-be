@@ -3,13 +3,25 @@ const dataPetServices = require("./petService.json");
 const dataMedicines = require("./medicineData.json");
 const dataRoles = require("./role.json");
 const dataServiceCategory = require("./serviceCategoryData.json");
+const dataUsers = require("./userData.json");
 const db = require("../models");
+const bcrypt = require("bcryptjs");
+const salt = bcrypt.genSaltSync(10);
+const hashPassword = (password) => bcrypt.hashSync(password, salt);
 
 require("../dbs/connect_DB");
 
 dataRoles.forEach(async (role) => {
   await db.Role.create({
     name_role: role.name_role,
+  });
+});
+
+dataUsers.forEach(async (user) => {
+  await db.User.create({
+    email: user.email,
+    password: hashPassword("123456"),
+    roleId: Math.random() > 0.5 ? 1 : 2,
   });
 });
 
