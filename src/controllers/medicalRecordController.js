@@ -20,3 +20,23 @@ export const updateRecord = async (req, res) => {
     console.log(error);
   }
 };
+
+export const getRecordsOfUser = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const result = await services.getRecordsOfUser(id);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getRecordOfPet = async (req, res) => {
+  try {
+    const { petId } = req.params;
+    const result = await services.getRecordOfPet(petId);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};

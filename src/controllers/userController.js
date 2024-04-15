@@ -4,7 +4,7 @@ import cloudinary from "cloudinary";
 
 export const getAllUsers = async (req, res) => {
   try {
-    const result = await services.getMe(req.query);
+    const result = await services.getAllUsers(req.query);
     res.status(201).json(result);
   } catch (error) {
     console.log(error);

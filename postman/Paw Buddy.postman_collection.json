@@ -32,7 +32,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "hieu1103.dev.work@gmail.com",
+									"value": "hieu11032002@gmail.com",
 									"type": "text"
 								},
 								{
@@ -95,7 +95,7 @@
 								},
 								{
 									"key": "password",
-									"value": "598dwaxi",
+									"value": "5ey8c9y2i",
 									"type": "text"
 								}
 							]
@@ -125,13 +125,13 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "hieu1103.dev.work@gmail.com",
+									"value": "nguyenhieu11032002@gmail.com",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/auth/resset-password",
+							"raw": "{{url}}/api/v1/auth/reset-password",
 							"host": [
 								"{{url}}"
 							],
@@ -139,7 +139,7 @@
 								"api",
 								"v1",
 								"auth",
-								"resset-password"
+								"reset-password"
 							]
 						}
 					},
@@ -626,30 +626,20 @@
 					"response": []
 				},
 				{
-					"name": "Logout",
+					"name": "GetAllUser",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "refresh_token",
-									"value": "{{refresh_token}}",
-									"type": "text"
-								}
-							]
-						},
 						"url": {
-							"raw": "{{url}}/api/v1/auth/logout",
+							"raw": "{{url}}/api/v1/users/get-all-users",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"auth",
-								"logout"
+								"users",
+								"get-all-users"
 							]
 						}
 					},
@@ -1562,12 +1552,12 @@
 								},
 								{
 									"key": "pet_id",
-									"value": "1",
+									"value": "3",
 									"type": "text"
 								},
 								{
 									"key": "date",
-									"value": "2024-04-03",
+									"value": "2024-05-25",
 									"type": "text"
 								},
 								{
@@ -1612,7 +1602,7 @@
 								},
 								{
 									"key": "booking_id",
-									"value": "1",
+									"value": "9",
 									"type": "text"
 								}
 							]
@@ -1704,7 +1694,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/booking/get-booking?limit=2&page=2",
+							"raw": "{{url}}/api/v1/booking/get-booking?start_date=2024-04-03&end_date=2024-04-16",
 							"host": [
 								"{{url}}"
 							],
@@ -1717,11 +1707,21 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "2"
+									"value": "2",
+									"disabled": true
 								},
 								{
 									"key": "page",
-									"value": "2"
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "start_date",
+									"value": "2024-04-03"
+								},
+								{
+									"key": "end_date",
+									"value": "2024-04-16"
 								}
 							]
 						}
@@ -1815,6 +1815,196 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Record",
+			"item": [
+				{
+					"name": "CreateRecord",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pet_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "exam_date",
+									"value": "2024-03-11",
+									"type": "text"
+								},
+								{
+									"key": "diagnosis",
+									"value": "qwcqwcwq",
+									"type": "text"
+								},
+								{
+									"key": "symptoms",
+									"value": "d1wqcqwcwqc",
+									"type": "text"
+								},
+								{
+									"key": "treatment_plan",
+									"value": "qwfegrehgthwt",
+									"type": "text"
+								},
+								{
+									"key": "next_appointment_date",
+									"value": "2024-08-11",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/medicalRecord/create-record",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medicalRecord",
+								"create-record"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateRecord",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "exam_date",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "diagnosis",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "symptoms",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "treatment_plan",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "next_appointment_date",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/medicalRecord/update-record",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medicalRecord",
+								"update-record"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetRecordsofUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/medicalRecord/get-records-of-user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medicalRecord",
+								"get-records-of-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetRecordofPet",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/medicalRecord/get-record-of-pet/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medicalRecord",
+								"get-record-of-pet",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		}
