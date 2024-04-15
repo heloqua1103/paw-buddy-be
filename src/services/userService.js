@@ -6,7 +6,7 @@ export const getAllUsers = ({ order, page, limit, ...query }) =>
     try {
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
-      const fLimit = +limit || +process.env.LIMIT_PET;
+      const fLimit = +limit || +process.env.LIMIT_USER;
       queries.distinct = true;
       if (limit) {
         queries.offset = offset * fLimit;
