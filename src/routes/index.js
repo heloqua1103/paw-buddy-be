@@ -11,6 +11,7 @@ import species from "./petSpeciesRoute";
 import serviceCategory from "./serviceCategoryRoute";
 import service from "./petSeviceRoute";
 import breed from "./breedRoute";
+import feedback from "./feedbackRoute";
 
 const initRoutes = (app) => {
   app.use("/api/v1/users", user);
@@ -25,6 +26,7 @@ const initRoutes = (app) => {
   app.use("/api/v1/serviceCategory", serviceCategory);
   app.use("/api/v1/service", service);
   app.use("/api/v1/breed", breed);
+  app.use("/api/v1/feedback", feedback);
   app.use("/api/v1/insert", insert);
 };
 
