@@ -16,6 +16,17 @@ export const getAllUsers = ({ order, page, limit, ...query }) =>
       const result = await db.User.findAll({
         where: query,
         ...queries,
+        include: [
+          {
+            model: db.Role,
+            as: "roleData",
+            attributes: ["id", "name_role"],
+          },
+          {
+            model: db.Pet,
+            as: "petData",
+          },
+        ],
       });
       resolve({
         success: result ? true : false,
@@ -103,12 +114,12 @@ export const changePassword = (userId, body) =>
         user && bcrypt.compareSync(body.password, user.password);
       const result = isChecked
         ? body.newPassword == body.password
-          ? "Mật khẩu không đúng"
+          ? "The password is the same as the old password!"
           : await db.User.update(
               { password: hashPassword(body.newPassword) },
               { where: { id: userId } }
             )
-        : "Mật khẩu không đúng";
+        : "The password is incorrect!";
       resolve({
         success: result[0] > 0 ? true : false,
         message: result[0] > 0 ? "Successfully" : "Something went wrong!",

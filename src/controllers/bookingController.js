@@ -10,20 +10,21 @@ export const createBooking = async (req, res) => {
   }
 };
 
-export const updateBooking = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const result = await services.updateBooking(id, req.body);
-    res.status(200).json(result);
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const updateBooking = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const result = await services.updateBooking(id, req.body);
+//     res.status(200).json(result);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const cancelBooking = async (req, res) => {
   try {
-    const { id } = req.params;
-    const result = await services.cancelBooking(id);
+    const { bookingId } = req.params;
+    const { id } = req.user;
+    const result = await services.cancelBooking(id, bookingId);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -40,16 +41,18 @@ export const getBookingById = async (req, res) => {
   }
 };
 
-// Admin
+// Vet
 export const approveBooking = async (req, res) => {
   try {
-    const result = await services.approveBooking(req.body);
+    const { id } = req.user;
+    const result = await services.approveBooking(id, req.body);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
   }
 };
 
+// Admin
 export const getAllBookings = async (req, res) => {
   try {
     const result = await services.getAllBookings(req.query);

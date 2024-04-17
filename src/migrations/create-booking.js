@@ -18,6 +18,9 @@ module.exports = {
       pet_id: {
         type: Sequelize.INTEGER,
       },
+      vet_id: {
+        type: Sequelize.INTEGER,
+      },
       date: {
         type: Sequelize.DATEONLY,
       },
