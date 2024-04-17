@@ -1,12 +1,17 @@
 import db from "../models";
 
-export const createServiceCategory = body =>
+export const createServiceCategory = (body, fileData) =>
   new Promise(async (resolve, reject) => {
     try {
+      if (fileData) {
+        body.image = fileData?.path;
+        body.fileNameImage = fileData?.filename;
+      }
       const result = await db.ServiceCategory.findOrCreate({
         where: { type_service: body.type_service },
         defaults: body,
       });
+      if (fileData && !result) cloudinary.uploader.destroy(fileData.filename);
       resolve({
         success: result[1] > 0 ? true : false,
         message: result[1] > 0 ? "Successfully" : "Something went wrong!",
@@ -17,17 +22,23 @@ export const createServiceCategory = body =>
     }
   });
 
-export const updateServiceCategory = (id, body) =>
+export const updateServiceCategory = (id, body, fileData) =>
   new Promise(async (resolve, reject) => {
     try {
+      if (fileData) {
+        body.photo = fileData?.path;
+        body.fileNameImage = fileData?.filename;
+      }
       const result = await db.ServiceCategory.update(
         {
           type_service: body.type_service,
         },
         {
           where: { id },
-        },
+        }
       );
+      if (fileData && !result[0] === 0)
+        cloudinary.uploader.destroy(fileData.filename);
       resolve({
         success: result[0] > 0 ? true : false,
         message: result[0] > 0 ? "Successfully" : "Something went wrong!",
@@ -38,7 +49,7 @@ export const updateServiceCategory = (id, body) =>
     }
   });
 
-export const deleteServiceCategory = id =>
+export const deleteServiceCategory = (id) =>
   new Promise(async (resolve, reject) => {
     try {
       const result = await db.ServiceCategory.destroy({
