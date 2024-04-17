@@ -68,6 +68,32 @@ export const getRecordsOfUser = (userId) =>
             model: db.Vaccine,
             as: "vaccineData",
           },
+          {
+            model: db.Booking,
+            as: "bookingData",
+          },
+        ],
+      });
+      resolve({
+        success: result ? true : false,
+        message: result ? "Successfully" : "Something went wrong",
+        data: result ? result : null,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const getRecordsOfVet = (vetId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const result = await db.MedicalRecord.findAll({
+        where: { vet_id: vetId },
+        include: [
+          {
+            model: db.Booking,
+            as: "bookingData",
+          },
         ],
       });
       resolve({

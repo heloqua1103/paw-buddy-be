@@ -15,6 +15,9 @@ module.exports = {
       vet_id: {
         type: Sequelize.INTEGER,
       },
+      booking_id: {
+        type: Sequelize.INTEGER,
+      },
       exam_date: {
         type: Sequelize.DATE,
       },

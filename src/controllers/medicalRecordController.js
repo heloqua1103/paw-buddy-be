@@ -31,6 +31,16 @@ export const getRecordsOfUser = async (req, res) => {
   }
 };
 
+export const getRecordsOfVet = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const result = await services.getRecordsOfVet(id);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getRecordOfPet = async (req, res) => {
   try {
     const { petId } = req.params;

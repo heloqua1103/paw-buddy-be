@@ -95,7 +95,7 @@
 								},
 								{
 									"key": "password",
-									"value": "5ey8c9y2i",
+									"value": "123456",
 									"type": "text"
 								}
 							]
@@ -631,7 +631,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/users/get-all-users",
+							"raw": "{{url}}/api/v1/users/get-all-users?roleId=2",
 							"host": [
 								"{{url}}"
 							],
@@ -640,6 +640,22 @@
 								"v1",
 								"users",
 								"get-all-users"
+							],
+							"query": [
+								{
+									"key": "roleId",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -1552,7 +1568,7 @@
 								},
 								{
 									"key": "pet_id",
-									"value": "3",
+									"value": "1",
 									"type": "text"
 								},
 								{
@@ -1568,6 +1584,11 @@
 								{
 									"key": "start_time",
 									"value": "15:59:00",
+									"type": "text"
+								},
+								{
+									"key": "vet_id",
+									"value": "26",
 									"type": "text"
 								}
 							]
@@ -1602,7 +1623,7 @@
 								},
 								{
 									"key": "booking_id",
-									"value": "9",
+									"value": "2",
 									"type": "text"
 								}
 							]
@@ -1673,7 +1694,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/booking/cancel-booking/2",
+							"raw": "{{url}}/api/v1/booking/cancel-booking/1",
 							"host": [
 								"{{url}}"
 							],
@@ -1682,7 +1703,7 @@
 								"v1",
 								"booking",
 								"cancel-booking",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -1969,6 +1990,26 @@
 								"medicalRecord",
 								"get-record-of-pet",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetRecordsOfVet",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/medicalRecord/get-records-of-vet",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medicalRecord",
+								"get-records-of-vet"
 							]
 						}
 					},

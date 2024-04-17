@@ -24,12 +24,18 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "id",
         as: "vaccineData",
       });
+      MedicalRecord.belongsTo(models.Booking, {
+        foreignKey: "booking_id",
+        targetKey: "id",
+        as: "bookingData",
+      });
     }
   }
   MedicalRecord.init(
     {
       pet_id: DataTypes.INTEGER,
       vet_id: DataTypes.INTEGER,
+      booking_id: DataTypes.INTEGER,
       exam_date: DataTypes.DATE,
       diagnosis: DataTypes.STRING,
       symptoms: DataTypes.TEXT,

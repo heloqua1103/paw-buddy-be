@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       user_id: DataTypes.INTEGER,
       service_id: DataTypes.INTEGER,
       pet_id: DataTypes.INTEGER,
+      vet_id: DataTypes.INTEGER,
       date: DataTypes.DATE,
       status: DataTypes.ENUM("pending", "confirmed", "cancelled", "completed"),
       start_time: DataTypes.TIME,

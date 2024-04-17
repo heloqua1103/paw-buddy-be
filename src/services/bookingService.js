@@ -59,68 +59,68 @@ export const createBooking = (userId, body) =>
     }
   });
 
-export const updateBooking = (bookingId, body) =>
+// export const updateBooking = (bookingId, body) =>
+//   new Promise(async (resolve, reject) => {
+//     try {
+//       const duration = await db.PetService.findOne({
+//         where: { id: +body.service_id },
+//         attributes: ["estimated_duration"],
+//       });
+//       const booking = await db.Booking.findOne({
+//         where: { id: +bookingId },
+//         attributes: ["status"],
+//       });
+//       let [hours, minutes, seconds] = body.start_time.split(":").map(Number);
+//       let newMinutes = minutes + duration.dataValues.estimated_duration;
+
+//       if (newMinutes >= 60) {
+//         hours++;
+//         newMinutes -= 60;
+//       }
+
+//       const newTimeString = `${hours.toString().padStart(2, "0")}:${newMinutes
+//         .toString()
+//         .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+//       if (booking.dataValues.status === "pending") {
+//         const newBooking = await db.Booking.update(
+//           { ...body, end_time: newTimeString },
+//           { where: { id: +bookingId } }
+//         );
+//         const time = new Date(`${body.date} ${body.start_time}`);
+//         if (job && job.running) job.stop();
+//         job = new CronJob(
+//           time,
+//           function () {
+//             cancelBooking(+bookingId);
+//           },
+//           null,
+//           true,
+//           "Asia/Ho_Chi_Minh"
+//         );
+//         resolve({
+//           success: newBooking[0] > 0 ? true : false,
+//           message: newBooking[0] > 0 ? "Successfully" : "Something went wrong!",
+//         });
+//       } else if (
+//         booking.dataValues.status === "confirmed" ||
+//         booking.dataValues.status === "completed"
+//       ) {
+//         resolve({
+//           success: false,
+//           message: "Cannot update booking",
+//         });
+//       }
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
+
+export const cancelBooking = (vetId, bookingId) =>
   new Promise(async (resolve, reject) => {
     try {
-      const duration = await db.PetService.findOne({
-        where: { id: +body.service_id },
-        attributes: ["estimated_duration"],
-      });
       const booking = await db.Booking.findOne({
         where: { id: +bookingId },
-        attributes: ["status"],
-      });
-      let [hours, minutes, seconds] = body.start_time.split(":").map(Number);
-      let newMinutes = minutes + duration.dataValues.estimated_duration;
-
-      if (newMinutes >= 60) {
-        hours++;
-        newMinutes -= 60;
-      }
-
-      const newTimeString = `${hours.toString().padStart(2, "0")}:${newMinutes
-        .toString()
-        .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-      if (booking.dataValues.status === "pending") {
-        const newBooking = await db.Booking.update(
-          { ...body, end_time: newTimeString },
-          { where: { id: +bookingId } }
-        );
-        const time = new Date(`${body.date} ${body.start_time}`);
-        if (job && job.running) job.stop();
-        job = new CronJob(
-          time,
-          function () {
-            cancelBooking(+bookingId);
-          },
-          null,
-          true,
-          "Asia/Ho_Chi_Minh"
-        );
-        resolve({
-          success: newBooking[0] > 0 ? true : false,
-          message: newBooking[0] > 0 ? "Successfully" : "Something went wrong!",
-        });
-      } else if (
-        booking.dataValues.status === "confirmed" ||
-        booking.dataValues.status === "completed"
-      ) {
-        resolve({
-          success: false,
-          message: "Cannot update booking",
-        });
-      }
-    } catch (error) {
-      reject(error);
-    }
-  });
-
-export const cancelBooking = (bookingId) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const booking = await db.Booking.findOne({
-        where: { id: +bookingId },
-        attributes: ["start_time", "end_time", "date"],
+        attributes: ["start_time", "end_time", "date", "pet_id"],
       });
       const currentTime = moment().format("YYYY-MM-DD HH:mm:ss");
       const startTime = moment(
@@ -142,6 +142,15 @@ export const cancelBooking = (bookingId) =>
           },
           { where: { id: +bookingId } }
         );
+        await db.MedicalRecord.destroy({
+          where: {
+            pet_id: booking.dataValues.pet_id,
+            vet_id: vetId,
+            booking_id: +bookingId,
+          },
+        });
+        if (job && job.running) job.stop();
+
         resolve({
           success: cancelBooking[0] > 0 ? true : false,
           message:
@@ -185,50 +194,39 @@ export const getBookingById = (bookingId) =>
     }
   });
 
-// Admin
-export const approveBooking = (body) =>
+// Vet
+export const approveBooking = (vetId, body) =>
   new Promise(async (resolve, reject) => {
     try {
-      const vetsId = await db.User.findAndCountAll({
-        where: { roleId: 2 },
-        attributes: ["id"],
+      const result = await db.Booking.update(
+        { status: body.status },
+        { where: { id: +body.booking_id } }
+      );
+      const data = await db.Booking.findOne({
+        where: { id: +body.booking_id },
       });
-      if (vetsId.count === 0) {
-        resolve({
-          success: false,
-          message: "Now, we don't have any vet to approve booking!",
-        });
-        return;
-      } else {
-        const result = await db.Booking.update(
-          { status: body.status },
-          { where: { id: +body.booking_id } }
-        );
-        const data = await db.Booking.findOne({
-          where: { id: +body.booking_id },
-        });
-        await db.MedicalRecord.create({
-          pet_id: data.dataValues.pet_id,
-          vet_id: Math.floor(Math.random() * vetsId.count) + 1,
-        });
-        const time = new Date(
-          `${data.dataValues.date} ${data.dataValues.start_time}`
-        );
-        if (job && job.running) job.stop();
-        job = new CronJob(
-          time,
-          function () {
-            finishBooking(+body.booking_id);
-          },
-          null,
-          true,
-          "Asia/Ho_Chi_Minh"
-        );
-        resolve({
-          success: result[0] > 0 ? true : false,
-          message: result[0] > 0 ? "Successfully" : "Something went wrong!",
-        });
-      }
+      await db.MedicalRecord.create({
+        pet_id: data.dataValues.pet_id,
+        vet_id: vetId,
+        booking_id: +body.booking_id,
+      });
+      const time = new Date(
+        `${data.dataValues.date} ${data.dataValues.start_time}`
+      );
+      if (job && job.running) job.stop();
+      job = new CronJob(
+        time,
+        function () {
+          finishBooking(+body.booking_id);
+        },
+        null,
+        true,
+        "Asia/Ho_Chi_Minh"
+      );
+      resolve({
+        success: result[0] > 0 ? true : false,
+        message: result[0] > 0 ? "Successfully" : "Something went wrong!",
+      });
     } catch (error) {
       reject(error);
     }
@@ -249,6 +247,7 @@ export const finishBooking = async (bookingId) => {
   }
 };
 
+// Admin
 export const getAllBookings = ({
   limit,
   page,
