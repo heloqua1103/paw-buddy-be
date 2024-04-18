@@ -13,17 +13,17 @@ router.get("/get-service/:id", controllers.getService);
 router.use(verifyToken);
 router.use(isAdmin);
 router.post(
-  "/create-service",
+  "/admin/create-service",
   uploadService.single("photo"),
-  controllers.createService,
+  controllers.createService
 );
 
 router.put(
-  "/update-service/:serviceId",
+  "/admin/update-service/:serviceId",
   uploadService.single("photo"),
-  controllers.updateService,
+  controllers.updateService
 );
 
-router.delete("/delete-service/:serviceId", controllers.deleteService);
+router.delete("/admin/delete-service/:serviceId", controllers.deleteService);
 
 module.exports = router;

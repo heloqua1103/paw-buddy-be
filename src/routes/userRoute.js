@@ -16,6 +16,6 @@ router.post("/change-paswrord", controllers.changePassword);
 router.put("/update-me", uploadUser.single("avatar"), controllers.updateUser);
 
 router.use(isAdmin);
-router.get("/get-all-users", controllers.getAllUsers);
+router.get("/admin/get-all-users", controllers.getAllUsers);
 
 module.exports = router;

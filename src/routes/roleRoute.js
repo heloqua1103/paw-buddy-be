@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.use(verifyToken);
 router.use(isAdmin);
-router.post("/create-role", controllers.createRole);
-router.put("/update-role/:id", controllers.updateRole);
-router.delete("/delete-role/:id", controllers.deleteRole);
+router.post("/admin/create-role", controllers.createRole);
+router.put("/admin/update-role/:id", controllers.updateRole);
+router.delete("/admin/delete-role/:id", controllers.deleteRole);
 
 module.exports = router;
