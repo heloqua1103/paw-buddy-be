@@ -10,8 +10,8 @@ router.use(verifyToken);
 router.get("/get-all-vaccine", controllers.getAllVaccines);
 
 router.use(isAdmin);
-router.post("/create-vaccine", controllers.createVaccine);
-router.put("/update-vaccine/:vaccineId", controllers.updateVaccine);
-router.delete("/delete-vaccine/:vaccineId", controllers.deleteVaccine);
+router.post("/admin/create-vaccine", controllers.createVaccine);
+router.put("/admin/update-vaccine/:vaccineId", controllers.updateVaccine);
+router.delete("/admin/delete-vaccine/:vaccineId", controllers.deleteVaccine);
 
 module.exports = router;

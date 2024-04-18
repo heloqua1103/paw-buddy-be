@@ -11,17 +11,17 @@ router.get("/all", controllers.getAllServiceCategory);
 router.use(verifyToken);
 router.use(isAdmin);
 router.post(
-  "/create-service-category",
+  "/admin/create-service-category",
   uploadCategory.single("image"),
   controllers.createServiceCategory
 );
 router.put(
-  "/update-service-category/:id",
+  "/admin/update-service-category/:id",
   uploadCategory.single("image"),
   controllers.updateServiceCategory
 );
 router.delete(
-  "/delete-service-category/:id",
+  "/admin/delete-service-category/:id",
   controllers.deleteServiceCategory
 );
 

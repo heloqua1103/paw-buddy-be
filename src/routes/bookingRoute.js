@@ -11,11 +11,9 @@ router.post("/create-booking", controllers.createBooking);
 // router.put("/update-booking/:id", controllers.updateBooking);
 router.delete("/cancel-booking/:bookingId", controllers.cancelBooking);
 router.get("/get-booking/:id", controllers.getBookingById);
+router.get("/get-booking", controllers.getAllBookings);
 
 router.use(isVeterinarian);
-router.put("/approve-booking", controllers.approveBooking);
-
-router.use(isAdmin);
-router.get("/get-booking", controllers.getAllBookings);
+router.put("/vet/approve-booking", controllers.approveBooking);
 
 module.exports = router;
