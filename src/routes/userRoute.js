@@ -10,12 +10,13 @@ router.use(verifyToken);
 
 // Get all information of user
 router.get("/get-me", controllers.getUser);
+
+router.get("/detail/:userId", controllers.getUserById);
 // Change password
 router.post("/change-paswrord", controllers.changePassword);
 // Update user information
 router.put("/update-me", uploadUser.single("avatar"), controllers.updateUser);
 
-router.use(isAdmin);
-router.get("/admin/get-all-users", controllers.getAllUsers);
+router.get("/all", controllers.getAllUsers);
 
 module.exports = router;

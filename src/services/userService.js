@@ -1,9 +1,11 @@
+import { Op } from "sequelize";
 import db from "../models";
 import cloudinary from "cloudinary";
 
-export const getAllUsers = ({ order, page, limit, ...query }) =>
+export const getAllUsers = ({ order, page, limit, attributes, ...query }) =>
   new Promise(async (resolve, reject) => {
     try {
+      if (attributes) var options = attributes.split(", ");
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
       const fLimit = +limit || +process.env.LIMIT_USER;
@@ -15,7 +17,55 @@ export const getAllUsers = ({ order, page, limit, ...query }) =>
       if (order) queries.order = [order];
       const result = await db.User.findAll({
         where: query,
+        attributes: options,
         ...queries,
+        include: [
+          {
+            model: db.Role,
+            as: "roleData",
+            attributes: ["id", "name_role"],
+          },
+          {
+            model: db.Pet,
+            as: "petData",
+          },
+        ],
+      });
+      resolve({
+        success: result ? true : false,
+        message: result ? "Successfully" : "Something went wrong!",
+        data: result ? result : null,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const getAllDoctors = ({
+  order,
+  page,
+  limit,
+  name,
+  attributes,
+  ...query
+}) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      if (attributes) var options = attributes.split(", ");
+      const queries = { raw: false, nest: true };
+      const offset = !page || +page <= 1 ? 0 : +page - 1;
+      const fLimit = +limit || +process.env.LIMIT_USER;
+      queries.distinct = true;
+      if (limit) {
+        queries.offset = offset * fLimit;
+        queries.limit = fLimit;
+      }
+      if (name) query.fullName = { [Op.substring]: name };
+      if (order) queries.order = [order];
+      const result = await db.User.findAll({
+        where: query,
+        ...queries,
+        attributes: options,
         include: [
           {
             model: db.Role,
@@ -60,6 +110,35 @@ export const getUser = (id) =>
         message: result ? "Successfully" : "Something went wrong!",
         data: result ? result : null,
       });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const getVetById = (userId, query) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const { attributes } = query;
+      if (attributes) var options = attributes.split(", ");
+      const user = await db.User.findOne({
+        where: { id: userId },
+      });
+      if (user.dataValues.roleId === 3) {
+        resolve({
+          success: false,
+          message: "You can't access this user!",
+        });
+      } else {
+        const bookings = await db.Booking.findAll({
+          where: { vet_id: userId },
+          attributes: options,
+        });
+        resolve({
+          success: bookings ? true : false,
+          message: bookings ? "Successfully" : "Something went wrong!",
+          data: bookings ? bookings : null,
+        });
+      }
     } catch (error) {
       reject(error);
     }
