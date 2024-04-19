@@ -57,7 +57,7 @@ export const getAllService = async (req, res) => {
 export const getService = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await services.getService(id);
+    const result = await services.getService(id, req.query);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

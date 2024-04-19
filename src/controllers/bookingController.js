@@ -34,7 +34,7 @@ export const cancelBooking = async (req, res) => {
 export const getBookingById = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await services.getBookingById(id);
+    const result = await services.getBookingById(id, req.query);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
