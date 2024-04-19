@@ -45,15 +45,18 @@ export const updateRecord = (recordId, userId, body) =>
     }
   });
 
-export const getRecordsOfUser = (userId) =>
+export const getRecordsOfUser = (userId, query) =>
   new Promise(async (resolve, reject) => {
     try {
+      const { attributes } = query;
+      if (attributes) var options = attributes.split(", ");
       const data = await db.Pet.findAll({
         where: { user_id: userId },
       });
       const petIds = data.map((pet) => pet.id);
       const result = await db.MedicalRecord.findAll({
         where: { pet_id: petIds },
+        attributes: options,
         include: [
           {
             model: db.Pet,
@@ -84,11 +87,14 @@ export const getRecordsOfUser = (userId) =>
     }
   });
 
-export const getRecordsOfVet = (vetId) =>
+export const getRecordsOfVet = (vetId, query) =>
   new Promise(async (resolve, reject) => {
     try {
+      const { attributes } = query;
+      if (attributes) var options = attributes.split(", ");
       const result = await db.MedicalRecord.findAll({
         where: { vet_id: vetId },
+        attributes: options,
         include: [
           {
             model: db.Booking,
@@ -106,11 +112,14 @@ export const getRecordsOfVet = (vetId) =>
     }
   });
 
-export const getRecordOfPet = (petId) =>
+export const getRecordOfPet = (petId, query) =>
   new Promise(async (resolve, reject) => {
     try {
+      const { attributes } = query;
+      if (attributes) var options = attributes.split(", ");
       const result = await db.MedicalRecord.findOne({
         where: { pet_id: petId },
+        attributes: options,
         include: [
           {
             model: db.Pet,

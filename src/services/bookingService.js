@@ -162,11 +162,14 @@ export const cancelBooking = (vetId, bookingId) =>
     }
   });
 
-export const getBookingById = (bookingId) =>
+export const getBookingById = (bookingId, query) =>
   new Promise(async (resolve, reject) => {
     try {
+      const { attributes } = query;
+      if (attributes) var options = attributes.split(", ");
       const result = await db.Booking.findOne({
         where: { id: +bookingId },
+        attributes: options,
         include: [
           {
             model: db.User,
@@ -254,10 +257,12 @@ export const getAllBookings = ({
   order,
   start_date,
   end_date,
+  attributes,
   ...query
 }) =>
   new Promise(async (resolve, reject) => {
     try {
+      if (attributes) var options = attributes.split(", ");
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
       const fLimit = +limit || +process.env.LIMIT_PET;
@@ -285,6 +290,7 @@ export const getAllBookings = ({
       const result = await db.Booking.findAndCountAll({
         where: query,
         ...queries,
+        attributes: options,
         include: [
           {
             model: db.User,

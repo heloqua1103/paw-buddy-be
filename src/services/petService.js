@@ -55,9 +55,17 @@ export const deletePet = (petId, userId) =>
     }
   });
 
-export const getAllPets = ({ order, page, limit, neutered, ...query }) =>
+export const getAllPets = ({
+  order,
+  page,
+  limit,
+  neutered,
+  attributes,
+  ...query
+}) =>
   new Promise(async (resolve, reject) => {
     try {
+      if (attributes) var options = attributes.split(", ");
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
       const fLimit = +limit || +process.env.LIMIT_PET;
@@ -70,6 +78,7 @@ export const getAllPets = ({ order, page, limit, neutered, ...query }) =>
       const result = await db.Pet.findAll({
         where: query,
         ...queries,
+        attributes: options,
         include: [
           {
             model: db.PetSpecies,
@@ -93,9 +102,13 @@ export const getAllPets = ({ order, page, limit, neutered, ...query }) =>
     }
   });
 
-export const getPetsOfUser = ({ order, page, limit, ...query }, userId) =>
+export const getPetsOfUser = (
+  { order, page, limit, attributes, ...query },
+  userId
+) =>
   new Promise(async (resolve, reject) => {
     try {
+      if (attributes) var options = attributes.split(", ");
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
       const fLimit = +limit || +process.env.LIMIT_PET;
@@ -108,6 +121,7 @@ export const getPetsOfUser = ({ order, page, limit, ...query }, userId) =>
       const result = await db.Pet.findAll({
         where: { user_id: userId, ...query },
         ...queries,
+        attributes: options,
         include: [
           {
             model: db.PetSpecies,

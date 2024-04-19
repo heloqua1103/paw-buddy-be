@@ -46,10 +46,14 @@ export const deleteSpecies = (id) =>
     }
   });
 
-export const getAllSpecies = () =>
+export const getAllSpecies = (query) =>
   new Promise(async (resolve, reject) => {
     try {
-      const result = await db.PetSpecies.findAndCountAll();
+      const { attributes } = query;
+      if (attributes) var options = attributes.split(", ");
+      const result = await db.PetSpecies.findAndCountAll({
+        attributes: options,
+      });
       resolve({
         success: result ? true : false,
         message: result ? "Get species successfully" : "Get species failed",

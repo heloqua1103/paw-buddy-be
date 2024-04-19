@@ -31,7 +31,7 @@ export const deleteSpecies = async (req, res) => {
 
 export const getAllSpecies = async (req, res) => {
   try {
-    const result = await services.getAllSpecies();
+    const result = await services.getAllSpecies(req.query);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

@@ -24,7 +24,7 @@ export const updateRecord = async (req, res) => {
 export const getRecordsOfUser = async (req, res) => {
   try {
     const { id } = req.user;
-    const result = await services.getRecordsOfUser(id);
+    const result = await services.getRecordsOfUser(id, req.query);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -34,7 +34,7 @@ export const getRecordsOfUser = async (req, res) => {
 export const getRecordsOfVet = async (req, res) => {
   try {
     const { id } = req.user;
-    const result = await services.getRecordsOfVet(id);
+    const result = await services.getRecordsOfVet(id, req.query);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -44,7 +44,7 @@ export const getRecordsOfVet = async (req, res) => {
 export const getRecordOfPet = async (req, res) => {
   try {
     const { petId } = req.params;
-    const result = await services.getRecordOfPet(petId);
+    const result = await services.getRecordOfPet(petId, req.query);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

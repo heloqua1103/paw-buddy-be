@@ -65,9 +65,10 @@ export const deleteService = (serviceId) =>
     }
   });
 
-export const getAllService = ({ limit, order, page, ...query }) =>
+export const getAllService = ({ limit, order, page, attributes, ...query }) =>
   new Promise(async (resolve, reject) => {
     try {
+      if (attributes) var options = attributes.split(", ");
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
       const fLimit = +limit || +process.env.LIMIT_PET;
@@ -80,6 +81,7 @@ export const getAllService = ({ limit, order, page, ...query }) =>
       const result = await db.PetService.findAll({
         where: query,
         ...queries,
+        attributes: options,
         include: [
           {
             model: db.ServiceCategory,
@@ -103,9 +105,11 @@ export const getAllService = ({ limit, order, page, ...query }) =>
     }
   });
 
-export const getService = (serviceId) =>
+export const getService = (serviceId, query) =>
   new Promise(async (resolve, reject) => {
     try {
+      const { attributes } = query;
+      if (attributes) var options = attributes.split(", ");
       const feedbacks = await db.Feedback.findAll({
         where: { service_id: serviceId },
         attributes: ["point"],
@@ -116,6 +120,7 @@ export const getService = (serviceId) =>
       });
       const result = await db.PetService.findOne({
         where: { id: serviceId },
+        attributes: options,
         include: [
           {
             model: db.ServiceCategory,
