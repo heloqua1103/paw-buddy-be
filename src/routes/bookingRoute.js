@@ -7,11 +7,11 @@ const router = express.Router();
 
 router.use(verifyToken);
 
-router.post("/create-booking", controllers.createBooking);
+router.post("/", controllers.createBooking);
 // router.put("/update-booking/:id", controllers.updateBooking);
 router.delete("/cancel-booking/:bookingId", controllers.cancelBooking);
-router.get("/get-booking/:id", controllers.getBookingById);
-router.get("/get-booking", controllers.getAllBookings);
+router.get("/detail/:id", controllers.getBookingById);
+router.get("/detail", controllers.getAllBookings);
 
 router.use(isVeterinarian);
 router.put("/vet/approve-booking", controllers.approveBooking);

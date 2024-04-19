@@ -21,7 +21,7 @@ dataUsers.forEach(async (user) => {
   await db.User.create({
     email: user.email,
     password: hashPassword("123456"),
-    roleId: Math.random() > 0.5 ? 1 : 2,
+    roleId: Math.random() > 0.5 ? 2 : 3,
   });
 });
 

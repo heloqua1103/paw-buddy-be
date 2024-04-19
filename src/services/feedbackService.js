@@ -9,6 +9,12 @@ export const createFeedback = (userId, body) =>
           user_id: userId,
         },
       });
+      if (!checkBooking) {
+        resolve({
+          success: false,
+          message: "Booking not found",
+        });
+      }
       if (checkBooking.dataValues.status === "completed") {
         const result = await db.Feedback.create({
           user_id: userId,

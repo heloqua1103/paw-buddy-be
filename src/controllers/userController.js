@@ -4,8 +4,14 @@ import cloudinary from "cloudinary";
 
 export const getAllUsers = async (req, res) => {
   try {
-    const result = await services.getAllUsers(req.query);
-    res.status(201).json(result);
+    const { roleId } = req.user;
+    if (roleId === 1 || roleId === 2) {
+      const result = await services.getAllUsers(req.query);
+      res.status(201).json(result);
+    } else if (roleId === 3) {
+      const result = await services.getAllDoctors(req.query);
+      res.status(201).json(result);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -15,6 +21,16 @@ export const getUser = async (req, res) => {
   try {
     const { id } = req.user;
     const result = await services.getUser(id);
+    res.status(201).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserById = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const result = await services.getVetById(userId, req.query);
     res.status(201).json(result);
   } catch (error) {
     console.log(error);

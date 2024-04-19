@@ -37,7 +37,7 @@ export const updateService = (serviceId, body, fileData) =>
         },
         {
           where: { id: serviceId },
-        },
+        }
       );
       if (fileData && result[0] < 0)
         cloudinary.uploader.destroy(fileData.filename);
@@ -106,6 +106,14 @@ export const getAllService = ({ limit, order, page, ...query }) =>
 export const getService = (serviceId) =>
   new Promise(async (resolve, reject) => {
     try {
+      const feedbacks = await db.Feedback.findAll({
+        where: { service_id: serviceId },
+        attributes: ["point"],
+      });
+      const rate = feedbacks.reduce((acc, cur) => acc + cur.point, 0);
+      const countBooking = await db.Booking.findAndCountAll({
+        where: { service_id: serviceId },
+      });
       const result = await db.PetService.findOne({
         where: { id: serviceId },
         include: [
@@ -125,6 +133,7 @@ export const getService = (serviceId) =>
         success: result ? true : false,
         message: result ? "Successfully!" : "Something went wrong!",
         data: result ? result : null,
+        count: countBooking.count,
       });
     } catch (error) {
       reject(error);

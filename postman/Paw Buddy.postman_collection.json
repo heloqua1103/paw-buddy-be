@@ -90,7 +90,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "nguyenhieu11032002@gmail.com",
+									"value": "johndoe@example.com",
 									"type": "text"
 								},
 								{
@@ -226,7 +226,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/roles/create-role",
+							"raw": "{{url}}/api/v1/roles/admin/create-role",
 							"host": [
 								"{{url}}"
 							],
@@ -234,6 +234,7 @@
 								"api",
 								"v1",
 								"roles",
+								"admin",
 								"create-role"
 							]
 						}
@@ -256,7 +257,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/roles/update-role/1",
+							"raw": "{{url}}/api/v1/roles/admin/update-role/1",
 							"host": [
 								"{{url}}"
 							],
@@ -264,6 +265,7 @@
 								"api",
 								"v1",
 								"roles",
+								"admin",
 								"update-role",
 								"1"
 							]
@@ -277,7 +279,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/roles/delete-role/5",
+							"raw": "{{url}}/api/v1/roles/admin/delete-role/5",
 							"host": [
 								"{{url}}"
 							],
@@ -285,6 +287,7 @@
 								"api",
 								"v1",
 								"roles",
+								"admin",
 								"delete-role",
 								"5"
 							]
@@ -631,7 +634,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/users/get-all-users?roleId=2",
+							"raw": "{{url}}/api/v1/users/all?roleId=2",
 							"host": [
 								"{{url}}"
 							],
@@ -639,13 +642,9 @@
 								"api",
 								"v1",
 								"users",
-								"get-all-users"
+								"all"
 							],
 							"query": [
-								{
-									"key": "roleId",
-									"value": "2"
-								},
 								{
 									"key": "limit",
 									"value": "2",
@@ -655,6 +654,47 @@
 									"key": "page",
 									"value": "1",
 									"disabled": true
+								},
+								{
+									"key": "fullName",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "roleId",
+									"value": "2"
+								},
+								{
+									"key": "attributes",
+									"value": "fullName, phone",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetVetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/users/detail/20?attributes=date, status, start_time, end_time",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"detail",
+								"20"
+							],
+							"query": [
+								{
+									"key": "attributes",
+									"value": "date, status, start_time, end_time"
 								}
 							]
 						}
@@ -762,7 +802,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/vaccine/create-vaccine",
+							"raw": "{{url}}/api/v1/vaccine/admin/create-vaccine",
 							"host": [
 								"{{url}}"
 							],
@@ -770,6 +810,7 @@
 								"api",
 								"v1",
 								"vaccine",
+								"admin",
 								"create-vaccine"
 							]
 						}
@@ -792,7 +833,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/vaccine/update-vaccine/1",
+							"raw": "{{url}}/api/v1/vaccine/admin/update-vaccine/1",
 							"host": [
 								"{{url}}"
 							],
@@ -800,6 +841,7 @@
 								"api",
 								"v1",
 								"vaccine",
+								"admin",
 								"update-vaccine",
 								"1"
 							]
@@ -813,7 +855,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/vaccine/delete-vaccine/2",
+							"raw": "{{url}}/api/v1/vaccine/admin/delete-vaccine/2",
 							"host": [
 								"{{url}}"
 							],
@@ -821,6 +863,7 @@
 								"api",
 								"v1",
 								"vaccine",
+								"admin",
 								"delete-vaccine",
 								"2"
 							]
@@ -918,7 +961,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/medicine/create-medicine",
+							"raw": "{{url}}/api/v1/medicine/admin/create-medicine",
 							"host": [
 								"{{url}}"
 							],
@@ -926,6 +969,7 @@
 								"api",
 								"v1",
 								"medicine",
+								"admin",
 								"create-medicine"
 							]
 						}
@@ -947,7 +991,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/medicine/update-medicine/1",
+							"raw": "{{url}}/api/v1/medicine/admin/update-medicine/1",
 							"host": [
 								"{{url}}"
 							],
@@ -955,6 +999,7 @@
 								"api",
 								"v1",
 								"medicine",
+								"admin",
 								"update-medicine",
 								"1"
 							]
@@ -968,7 +1013,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/medicine/delete-medicine/1",
+							"raw": "{{url}}/api/v1/medicine/admin/delete-medicine/1",
 							"host": [
 								"{{url}}"
 							],
@@ -976,6 +1021,7 @@
 								"api",
 								"v1",
 								"medicine",
+								"admin",
 								"delete-medicine",
 								"1"
 							]
@@ -1073,7 +1119,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/species/create-species",
+							"raw": "{{url}}/api/v1/species/admin/create-species",
 							"host": [
 								"{{url}}"
 							],
@@ -1081,6 +1127,7 @@
 								"api",
 								"v1",
 								"species",
+								"admin",
 								"create-species"
 							]
 						}
@@ -1093,7 +1140,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/species/update-species/1",
+							"raw": "{{url}}/api/v1/species/admin/update-species/1",
 							"host": [
 								"{{url}}"
 							],
@@ -1101,6 +1148,7 @@
 								"api",
 								"v1",
 								"species",
+								"admin",
 								"update-species",
 								"1"
 							]
@@ -1114,7 +1162,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/species/delete-species/1",
+							"raw": "{{url}}/api/v1/species/admin/delete-species/1",
 							"host": [
 								"{{url}}"
 							],
@@ -1122,6 +1170,7 @@
 								"api",
 								"v1",
 								"species",
+								"admin",
 								"delete-species",
 								"1"
 							]
@@ -1202,7 +1251,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/serviceCategory/create-service-category",
+							"raw": "{{url}}/api/v1/serviceCategory/admin/create-service-category",
 							"host": [
 								"{{url}}"
 							],
@@ -1210,6 +1259,7 @@
 								"api",
 								"v1",
 								"serviceCategory",
+								"admin",
 								"create-service-category"
 							]
 						}
@@ -1232,7 +1282,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/serviceCategory/update-service-category/1",
+							"raw": "{{url}}/api/v1/serviceCategory/admin/update-service-category/1",
 							"host": [
 								"{{url}}"
 							],
@@ -1240,6 +1290,7 @@
 								"api",
 								"v1",
 								"serviceCategory",
+								"admin",
 								"update-service-category",
 								"1"
 							]
@@ -1253,7 +1304,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/serviceCategory/delete-service-category/1",
+							"raw": "{{url}}/api/v1/serviceCategory/admin/delete-service-category/1",
 							"host": [
 								"{{url}}"
 							],
@@ -1261,6 +1312,7 @@
 								"api",
 								"v1",
 								"serviceCategory",
+								"admin",
 								"delete-service-category",
 								"1"
 							]
@@ -1399,7 +1451,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/service/create-service",
+							"raw": "{{url}}/api/v1/service/admin/create-service",
 							"host": [
 								"{{url}}"
 							],
@@ -1407,6 +1459,7 @@
 								"api",
 								"v1",
 								"service",
+								"admin",
 								"create-service"
 							]
 						}
@@ -1429,7 +1482,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/service/update-service/14",
+							"raw": "{{url}}/api/v1/service/admin/update-service/14",
 							"host": [
 								"{{url}}"
 							],
@@ -1437,6 +1490,7 @@
 								"api",
 								"v1",
 								"service",
+								"admin",
 								"update-service",
 								"14"
 							]
@@ -1450,7 +1504,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/service/delete-service/14",
+							"raw": "{{url}}/api/v1/service/admin/delete-service/14",
 							"host": [
 								"{{url}}"
 							],
@@ -1458,6 +1512,7 @@
 								"api",
 								"v1",
 								"service",
+								"admin",
 								"delete-service",
 								"14"
 							]
@@ -1563,7 +1618,7 @@
 							"urlencoded": [
 								{
 									"key": "service_id",
-									"value": "1",
+									"value": "2",
 									"type": "text"
 								},
 								{
@@ -1588,13 +1643,13 @@
 								},
 								{
 									"key": "vet_id",
-									"value": "26",
+									"value": "20",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/booking/create-booking",
+							"raw": "{{url}}/api/v1/booking/",
 							"host": [
 								"{{url}}"
 							],
@@ -1602,7 +1657,7 @@
 								"api",
 								"v1",
 								"booking",
-								"create-booking"
+								""
 							]
 						}
 					},
@@ -1629,56 +1684,16 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/booking/approve-booking",
+							"raw": "{{url}}/api/v1/vet/booking/approve-booking",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"v1",
+								"vet",
 								"booking",
 								"approve-booking"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "UpdateBooking",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "date",
-									"value": "2024-04-03",
-									"type": "text"
-								},
-								{
-									"key": "start_time",
-									"value": "16:00:00",
-									"type": "text"
-								},
-								{
-									"key": "service_id",
-									"value": "3",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/api/v1/booking/update-booking/16",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"booking",
-								"update-booking",
-								"16"
 							]
 						}
 					},
@@ -1715,7 +1730,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/booking/get-booking?start_date=2024-04-03&end_date=2024-04-16",
+							"raw": "{{url}}/api/v1/booking/detail?start_date=2024-04-03&end_date=2024-04-16",
 							"host": [
 								"{{url}}"
 							],
@@ -1723,7 +1738,7 @@
 								"api",
 								"v1",
 								"booking",
-								"get-booking"
+								"detail"
 							],
 							"query": [
 								{
@@ -1755,7 +1770,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/booking/get-booking/1",
+							"raw": "{{url}}/api/v1/booking/detail/1",
 							"host": [
 								"{{url}}"
 							],
@@ -1763,7 +1778,7 @@
 								"api",
 								"v1",
 								"booking",
-								"get-booking",
+								"detail",
 								"1"
 							]
 						}
@@ -1883,13 +1898,14 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/medicalRecord/create-record",
+							"raw": "{{url}}/api/v1/vet/medicalRecord/create-record",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"v1",
+								"vet",
 								"medicalRecord",
 								"create-record"
 							]
@@ -1933,7 +1949,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/medicalRecord/update-record",
+							"raw": "{{url}}/api/v1/medicalRecord/vet/update-record/1",
 							"host": [
 								"{{url}}"
 							],
@@ -1941,7 +1957,9 @@
 								"api",
 								"v1",
 								"medicalRecord",
-								"update-record"
+								"vet",
+								"update-record",
+								"1"
 							]
 						}
 					},
@@ -2001,7 +2019,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/medicalRecord/get-records-of-vet",
+							"raw": "{{url}}/api/v1/medicalRecord/vet/get-records-of-vet",
 							"host": [
 								"{{url}}"
 							],
@@ -2009,7 +2027,95 @@
 								"api",
 								"v1",
 								"medicalRecord",
+								"vet",
 								"get-records-of-vet"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Feedback",
+			"item": [
+				{
+					"name": "CreateFeedback",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "point",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "qwcwqcqw",
+									"type": "text"
+								},
+								{
+									"key": "service_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "booking_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "rating_type",
+									"value": "SERVICE",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/feedback/create-feedback",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"feedback",
+								"create-feedback"
 							]
 						}
 					},
