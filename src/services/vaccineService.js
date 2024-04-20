@@ -3,7 +3,7 @@ import db from "../models";
 export const getAllVaccines = ({ order, page, limit, attributes, ...query }) =>
   new Promise(async (resolve, reject) => {
     try {
-      if (attributes) var options = attributes.split(", ");
+      if (attributes) var options = attributes.split(",");
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
       const fLimit = +limit || +process.env.LIMIT_PET;

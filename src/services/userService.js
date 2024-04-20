@@ -5,7 +5,7 @@ import cloudinary from "cloudinary";
 export const getAllUsers = ({ order, page, limit, attributes, ...query }) =>
   new Promise(async (resolve, reject) => {
     try {
-      if (attributes) var options = attributes.split(", ");
+      if (attributes) var options = attributes.split(",");
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
       const fLimit = +limit || +process.env.LIMIT_USER;
@@ -51,7 +51,7 @@ export const getAllDoctors = ({
 }) =>
   new Promise(async (resolve, reject) => {
     try {
-      if (attributes) var options = attributes.split(", ");
+      if (attributes) var options = attributes.split(",");
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
       const fLimit = +limit || +process.env.LIMIT_USER;
@@ -119,7 +119,7 @@ export const getVetById = (userId, query) =>
   new Promise(async (resolve, reject) => {
     try {
       const { attributes } = query;
-      if (attributes) var options = attributes.split(", ");
+      if (attributes) var options = attributes.split(",");
       const user = await db.User.findOne({
         where: { id: userId },
       });

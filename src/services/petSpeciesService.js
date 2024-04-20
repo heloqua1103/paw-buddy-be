@@ -50,7 +50,7 @@ export const getAllSpecies = (query) =>
   new Promise(async (resolve, reject) => {
     try {
       const { attributes } = query;
-      if (attributes) var options = attributes.split(", ");
+      if (attributes) var options = attributes.split(",");
       const result = await db.PetSpecies.findAndCountAll({
         attributes: options,
       });

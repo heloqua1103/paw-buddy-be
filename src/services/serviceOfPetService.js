@@ -68,7 +68,7 @@ export const deleteService = (serviceId) =>
 export const getAllService = ({ limit, order, page, attributes, ...query }) =>
   new Promise(async (resolve, reject) => {
     try {
-      if (attributes) var options = attributes.split(", ");
+      if (attributes) var options = attributes.split(",");
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
       const fLimit = +limit || +process.env.LIMIT_PET;
@@ -109,7 +109,7 @@ export const getService = (serviceId, query) =>
   new Promise(async (resolve, reject) => {
     try {
       const { attributes } = query;
-      if (attributes) var options = attributes.split(", ");
+      if (attributes) var options = attributes.split(",");
       const feedbacks = await db.Feedback.findAll({
         where: { service_id: serviceId },
         attributes: ["point"],
