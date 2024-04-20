@@ -49,7 +49,7 @@ export const getRecordsOfUser = (userId, query) =>
   new Promise(async (resolve, reject) => {
     try {
       const { attributes } = query;
-      if (attributes) var options = attributes.split(", ");
+      if (attributes) var options = attributes.split(",");
       const data = await db.Pet.findAll({
         where: { user_id: userId },
       });
@@ -91,7 +91,7 @@ export const getRecordsOfVet = (vetId, query) =>
   new Promise(async (resolve, reject) => {
     try {
       const { attributes } = query;
-      if (attributes) var options = attributes.split(", ");
+      if (attributes) var options = attributes.split(",");
       const result = await db.MedicalRecord.findAll({
         where: { vet_id: vetId },
         attributes: options,
@@ -116,7 +116,7 @@ export const getRecordOfPet = (petId, query) =>
   new Promise(async (resolve, reject) => {
     try {
       const { attributes } = query;
-      if (attributes) var options = attributes.split(", ");
+      if (attributes) var options = attributes.split(",");
       const result = await db.MedicalRecord.findOne({
         where: { pet_id: petId },
         attributes: options,

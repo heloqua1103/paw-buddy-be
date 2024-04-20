@@ -3,11 +3,11 @@ const dataPetServices = require("./petService.json");
 const dataMedicines = require("./medicineData.json");
 const dataRoles = require("./role.json");
 const dataServiceCategory = require("./serviceCategoryData.json");
-const dataUsers = require("./userData.json");
 const db = require("../models");
 const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(10);
 const hashPassword = (password) => bcrypt.hashSync(password, salt);
+const { faker } = require("@faker-js/faker");
 
 require("../dbs/connect_DB");
 
@@ -17,11 +17,33 @@ dataRoles.forEach(async (role) => {
   });
 });
 
-dataUsers.forEach(async (user) => {
-  await db.User.create({
-    email: user.email,
+function createRandomUser() {
+  return {
+    email: faker.internet.email(),
+    avatar: faker.image.avatar(),
     password: hashPassword("123456"),
     roleId: Math.random() > 0.5 ? 2 : 3,
+    gender: Math.random > 0.5 ? "true" : "false",
+    phone: faker.phone.number(),
+    fullName: faker.person.fullName(),
+    address: faker.location.streetAddress(),
+  };
+}
+
+const USERS = faker.helpers.multiple(createRandomUser, {
+  count: 40,
+});
+
+USERS.forEach(async (user) => {
+  await db.User.create({
+    email: user.email,
+    avatar: user.avatar,
+    password: user.password,
+    roleId: user.roleId,
+    fullName: user.fullName,
+    address: user.address,
+    roleId: user.roleId,
+    phone: user.phone,
   });
 });
 
