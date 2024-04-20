@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import db from "../models";
 
 export const createService = (body, photo) =>
@@ -65,10 +66,18 @@ export const deleteService = (serviceId) =>
     }
   });
 
-export const getAllService = ({ limit, order, page, attributes, ...query }) =>
+export const getAllService = ({
+  limit,
+  order,
+  page,
+  attributes,
+  serviceIds,
+  ...query
+}) =>
   new Promise(async (resolve, reject) => {
     try {
       if (attributes) var options = attributes.split(",");
+      if (serviceIds) query.id = { [Op.in]: serviceIds.split(",") };
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
       const fLimit = +limit || +process.env.LIMIT_PET;
@@ -110,11 +119,12 @@ export const getService = (serviceId, query) =>
     try {
       const { attributes } = query;
       if (attributes) var options = attributes.split(",");
-      const feedbacks = await db.Feedback.findAll({
+      const feedbacks = await db.Feedback.findAndCountAll({
         where: { service_id: serviceId },
         attributes: ["point"],
       });
-      const rate = feedbacks.reduce((acc, cur) => acc + cur.point, 0);
+      const rate = feedbacks.rows.reduce((acc, cur) => acc + cur.point, 0);
+      const avgRate = Math.round((rate / feedbacks.count) * 100) / 100;
       const countBooking = await db.Booking.findAndCountAll({
         where: { service_id: serviceId },
       });
@@ -139,6 +149,7 @@ export const getService = (serviceId, query) =>
         message: result ? "Successfully!" : "Something went wrong!",
         data: result ? result : null,
         count: countBooking.count,
+        rate: avgRate,
       });
     } catch (error) {
       reject(error);
