@@ -2,7 +2,10 @@ import { Op } from "sequelize";
 import db from "../models";
 import cloudinary from "cloudinary";
 
-export const getAllUsers = ({ order, page, limit, attributes, ...query }) =>
+export const getAllUsers = (
+  roleId,
+  { order, page, limit, attributes, ...query }
+) =>
   new Promise(async (resolve, reject) => {
     try {
       if (attributes) var options = attributes.split(",");
@@ -15,74 +18,51 @@ export const getAllUsers = ({ order, page, limit, attributes, ...query }) =>
         queries.limit = fLimit;
       }
       if (order) queries.order = [order];
-      const result = await db.User.findAll({
-        where: query,
-        attributes: options,
-        ...queries,
-        include: [
-          {
-            model: db.Role,
-            as: "roleData",
-            attributes: ["id", "name_role"],
-          },
-          {
-            model: db.Pet,
-            as: "petData",
-          },
-        ],
-      });
-      resolve({
-        success: result ? true : false,
-        message: result ? "Successfully" : "Something went wrong!",
-        data: result ? result : null,
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
-
-export const getAllDoctors = ({
-  order,
-  page,
-  limit,
-  name,
-  attributes,
-  ...query
-}) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      if (attributes) var options = attributes.split(",");
-      const queries = { raw: false, nest: true };
-      const offset = !page || +page <= 1 ? 0 : +page - 1;
-      const fLimit = +limit || +process.env.LIMIT_USER;
-      queries.distinct = true;
-      if (limit) {
-        queries.offset = offset * fLimit;
-        queries.limit = fLimit;
+      if (roleId === 1) {
+        const result = await db.User.findAll({
+          where: query,
+          attributes: options,
+          ...queries,
+          include: [
+            {
+              model: db.Role,
+              as: "roleData",
+              attributes: ["id", "name_role"],
+            },
+            {
+              model: db.Pet,
+              as: "petData",
+            },
+          ],
+        });
+        resolve({
+          success: result ? true : false,
+          message: result ? "Successfully" : "Something went wrong!",
+          data: result ? result : null,
+        });
+      } else {
+        const result = await db.User.findAll({
+          where: { roleId: { [Op.ne]: 1 } },
+          attributes: options,
+          ...queries,
+          include: [
+            {
+              model: db.Role,
+              as: "roleData",
+              attributes: ["id", "name_role"],
+            },
+            {
+              model: db.Pet,
+              as: "petData",
+            },
+          ],
+        });
+        resolve({
+          success: result ? true : false,
+          message: result ? "Successfully" : "Something went wrong!",
+          data: result ? result : null,
+        });
       }
-      if (name) query.fullName = { [Op.substring]: name };
-      if (order) queries.order = [order];
-      const result = await db.User.findAll({
-        where: query,
-        ...queries,
-        attributes: options,
-        include: [
-          {
-            model: db.Role,
-            as: "roleData",
-            attributes: ["id", "name_role"],
-          },
-          {
-            model: db.Pet,
-            as: "petData",
-          },
-        ],
-      });
-      resolve({
-        success: result ? true : false,
-        message: result ? "Successfully" : "Something went wrong!",
-        data: result ? result : null,
-      });
     } catch (error) {
       reject(error);
     }

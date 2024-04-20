@@ -7,7 +7,7 @@ const db = require("../models");
 const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(10);
 const hashPassword = (password) => bcrypt.hashSync(password, salt);
-const { faker } = require("@faker-js/faker");
+const { faker, en } = require("@faker-js/faker");
 
 require("../dbs/connect_DB");
 
@@ -24,9 +24,9 @@ function createRandomUser() {
     password: hashPassword("123456"),
     roleId: Math.random() > 0.5 ? 2 : 3,
     gender: Math.random > 0.5 ? "true" : "false",
-    phone: faker.phone.number(),
+    phone: "0" + faker.string.numeric(9),
     fullName: faker.person.fullName(),
-    address: faker.location.streetAddress(),
+    address: faker.location.streetAddress({ useFullAddress: true }),
   };
 }
 
@@ -46,6 +46,92 @@ USERS.forEach(async (user) => {
     phone: user.phone,
   });
 });
+
+function createRandomPet() {
+  return {
+    user_id: faker.number.int({ min: 1, max: 40 }),
+    name_pet: faker.animal.dog(),
+    breed: faker.animal.dog({ breed: true }),
+    date_of_birth: faker.date.past(),
+    weight: faker.number.int({ min: 1, max: 50 }),
+    photo: faker.image.avatar(),
+    is_neutered: faker.helpers.arrayElement([true, false]),
+  };
+}
+
+const PETS = faker.helpers.multiple(createRandomPet, {
+  count: 20,
+});
+
+PETS.forEach(async (user) => {
+  await db.Pet.create({
+    user_id: user.user_id,
+    name_pet: user.name_pet,
+    breed: user.breed,
+    date_of_birth: user.date_of_birth,
+    weight: user.weight,
+    photo: user.photo,
+    is_neutered: user.is_neutered,
+    species: 1,
+  });
+});
+function createRandonFeedback() {
+  return {
+    user_id: faker.number.int({ min: 1, max: 40 }),
+    point: faker.number.float({ min: 1, max: 5 }),
+    comment: faker.lorem.sentence(),
+    service_id: faker.number.int({ min: 1, max: 10 }),
+    booking_id: faker.number.int({ min: 1, max: 10 }),
+  };
+}
+
+const FEEDBACKS = faker.helpers.multiple(createRandonFeedback, {
+  count: 40,
+});
+
+FEEDBACKS.forEach(async (feedback) => {
+  await db.Feedback.create({
+    user_id: feedback.user_id,
+    point: feedback.point,
+    comment: feedback.comment,
+    service_id: feedback.service_id,
+    booking_id: feedback.booking_id,
+    rating_type: "SERVICE",
+  });
+});
+
+// function createRandonBooking() {
+//   return {
+//     user_id: faker.number.int({ min: 1, max: 40 }),
+//     service_id: faker.number.int({ min: 1, max: 10 }),
+//     pet_id: faker.number.int({ min: 1, max: 40 }),
+//     date: faker.date.recent(),
+//     start_time: faker.date.anytime({ min: "09:00", max: "15:00" }),
+//     end_time: faker.date.anytime({ min: "10:00", max: "14:00" }),
+//     status: faker.helpers.arrayElement([
+//       "pending",
+//       "confirmed",
+//       "cancelled",
+//       "completed",
+//     ]),
+//   };
+// }
+
+// const BOOKINGS = faker.helpers.multiple(createRandonBooking, {
+//   count: 1,
+// });
+
+// BOOKINGS.forEach(async (booking) => {
+//   await db.Feedback.create({
+//     user_id: booking.user_id,
+//     service_id: booking.service_id,
+//     pet_id: booking.pet_id,
+//     date: booking.date,
+//     start_time: booking.start_time,
+//     end_time: booking.end_time,
+//     status: booking.status,
+//   });
+// });
 
 dataPetServices.forEach(async (petService) => {
   await db.PetService.create({

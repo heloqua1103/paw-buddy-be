@@ -11,27 +11,11 @@ export const createBooking = (userId, body) =>
       const pet = await db.Pet.findOne({
         where: { id: +body.pet_id, user_id: userId },
       });
-      const duration = await db.PetService.findOne({
-        where: { id: +body.service_id },
-        attributes: ["estimated_duration"],
-      });
-      let [hours, minutes, seconds] = body.start_time.split(":").map(Number);
-      let newMinutes = minutes + duration.dataValues.estimated_duration;
-
-      if (newMinutes >= 60) {
-        hours++;
-        newMinutes -= 60;
-      }
-
-      const newTimeString = `${hours.toString().padStart(2, "0")}:${newMinutes
-        .toString()
-        .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
       if (pet) {
         const result = await db.Booking.create({
           ...body,
           status: "pending",
           user_id: userId,
-          end_time: newTimeString,
         });
         const time = new Date(`${result.date} ${result.start_time}`);
         job = new CronJob(
@@ -58,62 +42,6 @@ export const createBooking = (userId, body) =>
       reject(error);
     }
   });
-
-// export const updateBooking = (bookingId, body) =>
-//   new Promise(async (resolve, reject) => {
-//     try {
-//       const duration = await db.PetService.findOne({
-//         where: { id: +body.service_id },
-//         attributes: ["estimated_duration"],
-//       });
-//       const booking = await db.Booking.findOne({
-//         where: { id: +bookingId },
-//         attributes: ["status"],
-//       });
-//       let [hours, minutes, seconds] = body.start_time.split(":").map(Number);
-//       let newMinutes = minutes + duration.dataValues.estimated_duration;
-
-//       if (newMinutes >= 60) {
-//         hours++;
-//         newMinutes -= 60;
-//       }
-
-//       const newTimeString = `${hours.toString().padStart(2, "0")}:${newMinutes
-//         .toString()
-//         .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-//       if (booking.dataValues.status === "pending") {
-//         const newBooking = await db.Booking.update(
-//           { ...body, end_time: newTimeString },
-//           { where: { id: +bookingId } }
-//         );
-//         const time = new Date(`${body.date} ${body.start_time}`);
-//         if (job && job.running) job.stop();
-//         job = new CronJob(
-//           time,
-//           function () {
-//             cancelBooking(+bookingId);
-//           },
-//           null,
-//           true,
-//           "Asia/Ho_Chi_Minh"
-//         );
-//         resolve({
-//           success: newBooking[0] > 0 ? true : false,
-//           message: newBooking[0] > 0 ? "Successfully" : "Something went wrong!",
-//         });
-//       } else if (
-//         booking.dataValues.status === "confirmed" ||
-//         booking.dataValues.status === "completed"
-//       ) {
-//         resolve({
-//           success: false,
-//           message: "Cannot update booking",
-//         });
-//       }
-//     } catch (error) {
-//       reject(error);
-//     }
-//   });
 
 export const cancelBooking = (vetId, bookingId) =>
   new Promise(async (resolve, reject) => {

@@ -5,13 +5,8 @@ import cloudinary from "cloudinary";
 export const getAllUsers = async (req, res) => {
   try {
     const { roleId } = req.user;
-    if (roleId === 1 || roleId === 2) {
-      const result = await services.getAllUsers(req.query);
-      res.status(201).json(result);
-    } else if (roleId === 3) {
-      const result = await services.getAllDoctors(req.query);
-      res.status(201).json(result);
-    }
+    const result = await services.getAllUsers(roleId, req.query);
+    res.status(201).json(result);
   } catch (error) {
     console.log(error);
   }
