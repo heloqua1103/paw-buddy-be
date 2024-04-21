@@ -4,7 +4,7 @@ import cloudinary from "cloudinary";
 
 export const getAllUsers = (
   roleId,
-  { order, page, limit, attributes, ...query }
+  { order, page, limit, attributes, ...query },
 ) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -41,8 +41,25 @@ export const getAllUsers = (
           data: result ? result : null,
         });
       } else {
+        if (query.roleId) {
+          const roleValue = query.roleId.split(",");
+          roleValue.length > 1
+            ? (query.roleId = {
+                [Op.ne]: 1,
+                [Op.or]: roleValue,
+              })
+            : (query.roleId = {
+                [Op.ne]: 1,
+                [Op.eq]: query.roleId,
+              });
+        } else {
+          query.roleId = {
+            [Op.ne]: 1,
+          };
+        }
+
         const result = await db.User.findAll({
-          where: { roleId: { [Op.ne]: 1 } },
+          where: query,
           attributes: options,
           ...queries,
           include: [
@@ -143,7 +160,7 @@ export const updateUser = (body, userId, fileData) => {
         "refreshToken",
       ];
       const myFields = Object.keys(db.User.rawAttributes).filter(
-        (s) => !fieldsToExclude.includes(s)
+        (s) => !fieldsToExclude.includes(s),
       );
       const response = await db.User.update(body, {
         where: { id: userId },
@@ -176,7 +193,7 @@ export const changePassword = (userId, body) =>
           ? "The password is the same as the old password!"
           : await db.User.update(
               { password: hashPassword(body.newPassword) },
-              { where: { id: userId } }
+              { where: { id: userId } },
             )
         : "The password is incorrect!";
       resolve({
