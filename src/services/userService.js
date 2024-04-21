@@ -95,7 +95,7 @@ export const getUser = (id) =>
     }
   });
 
-export const getVetById = (userId, query) =>
+export const getUserById = (roleId, userId, query) =>
   new Promise(async (resolve, reject) => {
     try {
       const { attributes } = query;
@@ -103,7 +103,7 @@ export const getVetById = (userId, query) =>
       const user = await db.User.findOne({
         where: { id: userId },
       });
-      if (user.dataValues.roleId === 3) {
+      if (user.dataValues.roleId === 1 && (roleId === 2 || roleId === 3)) {
         resolve({
           success: false,
           message: "You can't access this user!",
@@ -116,7 +116,8 @@ export const getVetById = (userId, query) =>
         resolve({
           success: bookings ? true : false,
           message: bookings ? "Successfully" : "Something went wrong!",
-          data: bookings ? bookings : null,
+          bookingData: bookings ? bookings : null,
+          userData: user,
         });
       }
     } catch (error) {

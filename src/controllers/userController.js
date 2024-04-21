@@ -24,8 +24,9 @@ export const getUser = async (req, res) => {
 
 export const getUserById = async (req, res) => {
   try {
+    const { roleId } = req.user;
     const { userId } = req.params;
-    const result = await services.getVetById(userId, req.query);
+    const result = await services.getUserById(roleId, userId, req.query);
     res.status(201).json(result);
   } catch (error) {
     console.log(error);
