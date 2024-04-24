@@ -57,7 +57,8 @@ export const getAllSpecies = (query) =>
       resolve({
         success: result ? true : false,
         message: result ? "Get species successfully" : "Get species failed",
-        data: result,
+        data: result.rows,
+        count: result.count,
       });
     } catch (error) {
       reject(error);

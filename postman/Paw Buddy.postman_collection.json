@@ -32,7 +32,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "hieu11032002@gmail.com",
+									"value": "nguyenhieu11032002@gmail.com",
 									"type": "text"
 								},
 								{
@@ -90,7 +90,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "johndoe@example.com",
+									"value": "nguyenhieu11032002@gmail.com",
 									"type": "text"
 								},
 								{
@@ -340,7 +340,7 @@
 							"formdata": [
 								{
 									"key": "name_pet",
-									"value": "ki",
+									"value": "kiki",
 									"type": "text"
 								},
 								{
@@ -356,8 +356,7 @@
 								{
 									"key": "gender",
 									"value": "false",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								},
 								{
 									"key": "date_of_birth",
@@ -377,8 +376,7 @@
 								{
 									"key": "is_neutered",
 									"value": "false",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								},
 								{
 									"key": "size",
@@ -680,7 +678,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/users/detail/20?attributes=date, status, start_time, end_time",
+							"raw": "{{url}}/api/v1/users/detail/3",
 							"host": [
 								"{{url}}"
 							],
@@ -689,13 +687,7 @@
 								"v1",
 								"users",
 								"detail",
-								"20"
-							],
-							"query": [
-								{
-									"key": "attributes",
-									"value": "date, status, start_time, end_time"
-								}
+								"3"
 							]
 						}
 					},
@@ -1526,7 +1518,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/service/get-all-service?limit&page",
+							"raw": "{{url}}/api/v1/service/get-all-service?serviceIds=1,2&attributes=estimated_duration",
 							"host": [
 								"{{url}}"
 							],
@@ -1539,11 +1531,21 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": null
+									"value": "2",
+									"disabled": true
 								},
 								{
 									"key": "page",
-									"value": null
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "serviceIds",
+									"value": "1,2"
+								},
+								{
+									"key": "attributes",
+									"value": "estimated_duration"
 								}
 							]
 						}
@@ -1617,13 +1619,13 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "service_id",
-									"value": "2",
+									"key": "service_ids",
+									"value": "4,5,6",
 									"type": "text"
 								},
 								{
 									"key": "pet_id",
-									"value": "1",
+									"value": "22",
 									"type": "text"
 								},
 								{
@@ -1643,7 +1645,7 @@
 								},
 								{
 									"key": "vet_id",
-									"value": "20",
+									"value": "3",
 									"type": "text"
 								}
 							]
@@ -2116,6 +2118,53 @@
 								"v1",
 								"feedback",
 								"create-feedback"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllFeedbacks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/feedback/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"feedback",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetFeedbackOfUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/feedback/of-user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"feedback",
+								"of-user"
 							]
 						}
 					},

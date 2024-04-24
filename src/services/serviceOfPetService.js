@@ -87,7 +87,7 @@ export const getAllService = ({
         queries.limit = fLimit;
       }
       if (order) queries.order = [order];
-      const result = await db.PetService.findAll({
+      const result = await db.PetService.findAndCountAll({
         where: query,
         ...queries,
         attributes: options,
@@ -107,7 +107,8 @@ export const getAllService = ({
       resolve({
         success: result ? true : false,
         message: result ? "Successfully!" : "Something went wrong!",
-        data: result ? result : null,
+        data: result ? result.rows : null,
+        count: result ? result.count : null,
       });
     } catch (error) {
       reject(error);

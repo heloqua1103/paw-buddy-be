@@ -92,7 +92,7 @@ export const getRecordsOfVet = (vetId, query) =>
     try {
       const { attributes } = query;
       if (attributes) var options = attributes.split(",");
-      const result = await db.MedicalRecord.findAll({
+      const result = await db.MedicalRecord.findAndCountAll({
         where: { vet_id: vetId },
         attributes: options,
         include: [
@@ -105,7 +105,8 @@ export const getRecordsOfVet = (vetId, query) =>
       resolve({
         success: result ? true : false,
         message: result ? "Successfully" : "Something went wrong",
-        data: result ? result : null,
+        data: result ? result.rows : null,
+        count: result ? result.count : null,
       });
     } catch (error) {
       reject(error);
