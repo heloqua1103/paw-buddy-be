@@ -6,5 +6,7 @@ const router = express.Router();
 
 router.use(verifyToken);
 router.post("/create-feedback", controllers.createFeedback);
+router.get("/", controllers.getAllFeedbacks);
+router.get("/of-user", controllers.getAllFeedbackOfUser);
 
 module.exports = router;

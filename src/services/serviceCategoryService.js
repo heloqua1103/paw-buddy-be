@@ -83,7 +83,7 @@ export const getAllServiceCategory = ({
         queries.limit = fLimit;
       }
       if (order) queries.order = [order];
-      const result = await db.ServiceCategory.findAll({
+      const result = await db.ServiceCategory.findAndCountAll({
         where: query,
         ...queries,
         attributes: options,
@@ -91,7 +91,8 @@ export const getAllServiceCategory = ({
       resolve({
         success: result ? true : false,
         message: result ? "Successfully" : "Something went wrong!",
-        data: result ? result : null,
+        data: result ? result.rows : null,
+        count: result ? result.count : null,
       });
     } catch (error) {
       reject(error);

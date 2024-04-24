@@ -8,36 +8,40 @@ let job;
 export const createBooking = (userId, body) =>
   new Promise(async (resolve, reject) => {
     try {
+      const serviceIds = body.service_ids.split(",");
       const pet = await db.Pet.findOne({
         where: { id: +body.pet_id, user_id: userId },
       });
-      if (pet) {
-        const result = await db.Booking.create({
-          ...body,
-          status: "pending",
-          user_id: userId,
-        });
-        const time = new Date(`${result.date} ${result.start_time}`);
-        job = new CronJob(
-          time,
-          function () {
-            cancelBooking(result.id);
-          },
-          null,
-          true,
-          "Asia/Ho_Chi_Minh"
-        );
-        resolve({
-          success: result ? true : false,
-          message: result ? "Successfully" : "Something went wrong!",
-          result: result ? result : null,
-        });
-      } else {
-        resolve({
-          success: false,
-          message: "Pet not found",
-        });
-      }
+      serviceIds.forEach(async (serviceId) => {
+        if (pet) {
+          const result = await db.Booking.create({
+            ...body,
+            status: "pending",
+            user_id: userId,
+            service_id: +serviceId,
+          });
+          const time = new Date(`${result.date} ${result.start_time}`);
+          job = new CronJob(
+            time,
+            function () {
+              cancelBooking(result.id);
+            },
+            null,
+            true,
+            "Asia/Ho_Chi_Minh"
+          );
+          resolve({
+            success: result ? true : false,
+            message: result ? "Successfully" : "Something went wrong!",
+            result: result ? result : null,
+          });
+        } else {
+          resolve({
+            success: false,
+            message: "Pet not found",
+          });
+        }
+      });
     } catch (error) {
       reject(error);
     }

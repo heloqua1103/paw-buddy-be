@@ -31,7 +31,6 @@ export const deleteMedicine = async (req, res) => {
 
 export const getAllMedicines = async (req, res) => {
   try {
-    const { medicineId } = req.params;
     const result = await services.getAllMedicines(req.query);
     res.status(200).json(result);
   } catch (error) {
