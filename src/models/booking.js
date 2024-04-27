@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   Booking.init(
     {
       user_id: DataTypes.INTEGER,
-      service_id: DataTypes.INTEGER,
+      service_id: DataTypes.ARRAY(DataTypes.INTEGER),
       pet_id: DataTypes.INTEGER,
       vet_id: DataTypes.INTEGER,
       date: DataTypes.DATE,

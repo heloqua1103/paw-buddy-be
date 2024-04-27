@@ -48,14 +48,19 @@ export const updateRecord = (recordId, userId, body) =>
 export const getRecordsOfUser = (userId, query) =>
   new Promise(async (resolve, reject) => {
     try {
-      const { attributes } = query;
+      const { attributes, status } = query;
       if (attributes) var options = attributes.split(",");
       const data = await db.Pet.findAll({
         where: { user_id: userId },
       });
       const petIds = data.map((pet) => pet.id);
+      const bookingData = await db.Booking.findAll({
+        where: { pet_id: petIds, status: status },
+        attributes: ["id"],
+      });
+      const bookingIds = bookingData.map((booking) => booking.id);
       const result = await db.MedicalRecord.findAll({
-        where: { pet_id: petIds },
+        where: { booking_id: bookingIds },
         attributes: options,
         include: [
           {

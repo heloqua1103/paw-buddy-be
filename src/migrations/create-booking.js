@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       service_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
       },
       pet_id: {
         type: Sequelize.INTEGER,

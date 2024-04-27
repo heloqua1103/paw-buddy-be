@@ -340,7 +340,7 @@
 							"formdata": [
 								{
 									"key": "name_pet",
-									"value": "kiki",
+									"value": "kiki1",
 									"type": "text"
 								},
 								{
@@ -1625,27 +1625,27 @@
 								},
 								{
 									"key": "pet_id",
-									"value": "22",
+									"value": "21",
 									"type": "text"
 								},
 								{
 									"key": "date",
-									"value": "2024-05-25",
-									"type": "text"
-								},
-								{
-									"key": "status",
-									"value": "pending",
+									"value": "2024-04-29",
 									"type": "text"
 								},
 								{
 									"key": "start_time",
-									"value": "15:59:00",
+									"value": "00:25:00",
 									"type": "text"
 								},
 								{
 									"key": "vet_id",
 									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "end_time",
+									"value": "00:26:00",
 									"type": "text"
 								}
 							]
@@ -1680,21 +1680,21 @@
 								},
 								{
 									"key": "booking_id",
-									"value": "2",
+									"value": "33",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/vet/booking/approve-booking",
+							"raw": "{{url}}/api/v1/booking/vet/approve-booking",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"vet",
 								"booking",
+								"vet",
 								"approve-booking"
 							]
 						}
@@ -1732,7 +1732,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/booking/detail?start_date=2024-04-03&end_date=2024-04-16",
+							"raw": "{{url}}/api/v1/booking/detail?isUser=true&status=completed&date=2024-04-28",
 							"host": [
 								"{{url}}"
 							],
@@ -1754,12 +1754,16 @@
 									"disabled": true
 								},
 								{
-									"key": "start_date",
-									"value": "2024-04-03"
+									"key": "isUser",
+									"value": "true"
 								},
 								{
-									"key": "end_date",
-									"value": "2024-04-16"
+									"key": "status",
+									"value": "completed"
+								},
+								{
+									"key": "date",
+									"value": "2024-04-28"
 								}
 							]
 						}
@@ -1772,7 +1776,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/booking/detail/1",
+							"raw": "{{url}}/api/v1/booking/detail/7",
 							"host": [
 								"{{url}}"
 							],
@@ -1781,7 +1785,7 @@
 								"v1",
 								"booking",
 								"detail",
-								"1"
+								"7"
 							]
 						}
 					},
@@ -1969,11 +1973,18 @@
 				},
 				{
 					"name": "GetRecordsofUser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
 						"url": {
-							"raw": "{{url}}/api/v1/medicalRecord/get-records-of-user",
+							"raw": "{{url}}/api/v1/medicalRecord/get-records-of-user?status=confirmed",
 							"host": [
 								"{{url}}"
 							],
@@ -1982,6 +1993,12 @@
 								"v1",
 								"medicalRecord",
 								"get-records-of-user"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "confirmed"
+								}
 							]
 						}
 					},
