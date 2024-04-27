@@ -1,10 +1,9 @@
 import moment from "moment";
 import db from "../models";
 import { CronJob } from "cron";
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
 
 let job;
-
 export const createBooking = (userId, body) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -12,36 +11,34 @@ export const createBooking = (userId, body) =>
       const pet = await db.Pet.findOne({
         where: { id: +body.pet_id, user_id: userId },
       });
-      serviceIds.forEach(async (serviceId) => {
-        if (pet) {
-          const result = await db.Booking.create({
-            ...body,
-            status: "pending",
-            user_id: userId,
-            service_id: +serviceId,
-          });
-          const time = new Date(`${result.date} ${result.start_time}`);
-          job = new CronJob(
-            time,
-            function () {
-              cancelBooking(result.id);
-            },
-            null,
-            true,
-            "Asia/Ho_Chi_Minh"
-          );
-          resolve({
-            success: result ? true : false,
-            message: result ? "Successfully" : "Something went wrong!",
-            result: result ? result : null,
-          });
-        } else {
-          resolve({
-            success: false,
-            message: "Pet not found",
-          });
-        }
-      });
+      if (pet) {
+        const result = await db.Booking.create({
+          ...body,
+          status: "pending",
+          user_id: userId,
+          service_id: serviceIds,
+        });
+        const time = new Date(`${result.date} ${result.start_time}`);
+        job = new CronJob(
+          time,
+          function () {
+            cancelBooking(body.vet_id, result.id);
+          },
+          null,
+          true,
+          "Asia/Ho_Chi_Minh"
+        );
+        resolve({
+          success: result ? true : false,
+          message: result ? "Successfully" : "Something went wrong!",
+          result: result ? result : null,
+        });
+      } else {
+        resolve({
+          success: false,
+          message: "Pet not found",
+        });
+      }
     } catch (error) {
       reject(error);
     }
@@ -99,7 +96,7 @@ export const getBookingById = (bookingId, query) =>
     try {
       const { attributes } = query;
       if (attributes) var options = attributes.split(",");
-      const result = await db.Booking.findOne({
+      const booking = await db.Booking.findOne({
         where: { id: +bookingId },
         attributes: options,
         include: [
@@ -109,16 +106,26 @@ export const getBookingById = (bookingId, query) =>
             attributes: ["id", "fullName", "email", "phone"],
           },
           {
-            model: db.PetService,
-            as: "dataService",
-          },
-          {
             model: db.Pet,
             as: "dataPet",
             exclude: ["user_id"],
           },
         ],
       });
+      if (!booking) {
+        resolve({
+          success: false,
+          message: "Booking not found",
+        });
+        return;
+      }
+      const services = await db.PetService.findAll({
+        where: { id: booking.service_id },
+      });
+      const result = {
+        ...booking.toJSON(),
+        services,
+      };
       resolve({
         success: result ? true : false,
         message: result ? "Successfully" : "Something went wrong!",
@@ -134,7 +141,7 @@ export const approveBooking = (vetId, body) =>
   new Promise(async (resolve, reject) => {
     try {
       const result = await db.Booking.update(
-        { status: body.status },
+        { status: "confirmed" },
         { where: { id: +body.booking_id } }
       );
       const data = await db.Booking.findOne({
@@ -146,7 +153,7 @@ export const approveBooking = (vetId, body) =>
         booking_id: +body.booking_id,
       });
       const time = new Date(
-        `${data.dataValues.date} ${data.dataValues.start_time}`
+        `${data.dataValues.date} ${data.dataValues.end_time}`
       );
       if (job && job.running) job.stop();
       job = new CronJob(
@@ -183,15 +190,20 @@ export const finishBooking = async (bookingId) => {
 };
 
 // Admin
-export const getAllBookings = ({
-  limit,
-  page,
-  order,
-  start_date,
-  end_date,
-  attributes,
-  ...query
-}) =>
+export const getAllBookings = (
+  userId,
+  {
+    limit,
+    page,
+    order,
+    start_date,
+    end_date,
+    attributes,
+    isUser,
+    date,
+    ...query
+  }
+) =>
   new Promise(async (resolve, reject) => {
     try {
       if (attributes) var options = attributes.split(",");
@@ -219,6 +231,7 @@ export const getAllBookings = ({
         });
         query.id = { [Op.in]: ids };
       }
+      if (isUser) query.user_id = userId;
       const result = await db.Booking.findAndCountAll({
         where: query,
         ...queries,

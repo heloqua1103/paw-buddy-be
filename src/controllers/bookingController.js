@@ -55,7 +55,8 @@ export const approveBooking = async (req, res) => {
 // Admin
 export const getAllBookings = async (req, res) => {
   try {
-    const result = await services.getAllBookings(req.query);
+    const { id } = req.user;
+    const result = await services.getAllBookings(id, req.query);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
