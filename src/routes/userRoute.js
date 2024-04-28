@@ -19,4 +19,7 @@ router.put("/update-me", uploadUser.single("avatar"), controllers.updateUser);
 
 router.get("/all", controllers.getAllUsers);
 
+router.use(isAdmin);
+router.post("/create-user", controllers.createUser);
+
 module.exports = router;

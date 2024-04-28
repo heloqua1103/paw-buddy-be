@@ -243,16 +243,27 @@ export const getAllBookings = (
             attributes: ["id", "fullName", "email", "phone"],
           },
           {
-            model: db.PetService,
-            as: "dataService",
-          },
-          {
             model: db.Pet,
             as: "dataPet",
             exclude: ["user_id"],
           },
         ],
       });
+      for (const booking of result.rows) {
+        if (booking.dataValues.service_id) {
+          const serviceIds = booking.dataValues.service_id;
+          const services = await db.PetService.findAll({
+            where: { id: { [Op.in]: serviceIds } },
+            include: [
+              {
+                model: db.ServiceCategory,
+                as: "dataCategory",
+              },
+            ],
+          });
+          booking.dataValues.services = services;
+        }
+      }
       resolve({
         success: result ? true : false,
         message: result ? "Get pet successfully" : "Get pet failed",

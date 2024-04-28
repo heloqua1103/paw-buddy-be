@@ -1,6 +1,28 @@
 import { Op } from "sequelize";
 import db from "../models";
 import cloudinary from "cloudinary";
+import bcrypt from "bcryptjs";
+
+const salt = bcrypt.genSaltSync(10);
+const hashPassword = (password) => bcrypt.hashSync(password, salt);
+
+export const createUser = (body) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const result = await db.User.create({
+        email: body.email,
+        roleId: body.roleId,
+        password: hashPassword("123456"),
+      });
+      resolve({
+        success: result ? true : false,
+        message: result ? "Successfully" : "Something went wrong!",
+        data: result ? result.rows : null,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
 
 export const getAllUsers = (
   roleId,

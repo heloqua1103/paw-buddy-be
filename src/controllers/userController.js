@@ -2,6 +2,15 @@ import * as services from "../services";
 import joi from "joi";
 import cloudinary from "cloudinary";
 
+export const createUser = async (req, res) => {
+  try {
+    const result = await services.createUser(req.body);
+    res.status(201).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getAllUsers = async (req, res) => {
   try {
     const { roleId } = req.user;
