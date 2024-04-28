@@ -231,6 +231,7 @@ export const getAllBookings = (
         });
         query.id = { [Op.in]: ids };
       }
+      if (date) query.date = new Date(date);
       if (isUser) query.user_id = userId;
       const result = await db.Booking.findAndCountAll({
         where: query,
