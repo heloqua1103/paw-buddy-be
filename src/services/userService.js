@@ -19,7 +19,7 @@ export const getAllUsers = (
       }
       if (order) queries.order = [order];
       if (roleId === 1) {
-        const result = await db.User.findAll({
+        const result = await db.User.findAndCountAll({
           where: query,
           attributes: options,
           ...queries,
@@ -38,7 +38,8 @@ export const getAllUsers = (
         resolve({
           success: result ? true : false,
           message: result ? "Successfully" : "Something went wrong!",
-          data: result ? result : null,
+          data: result ? result.rows : null,
+          count: result ? result.count : null,
         });
       } else {
         if (query.roleId) {
@@ -58,7 +59,7 @@ export const getAllUsers = (
           };
         }
 
-        const result = await db.User.findAll({
+        const result = await db.User.findAndCountAll({
           where: query,
           attributes: options,
           ...queries,
@@ -77,7 +78,8 @@ export const getAllUsers = (
         resolve({
           success: result ? true : false,
           message: result ? "Successfully" : "Something went wrong!",
-          data: result ? result : null,
+          data: result ? result.rows : null,
+          count: result ? result.count : null,
         });
       }
     } catch (error) {
