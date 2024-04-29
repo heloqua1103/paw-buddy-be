@@ -17,12 +17,48 @@ dataRoles.forEach(async (role) => {
   });
 });
 
+await db.User.create({
+  email: "admin@gmail.com",
+  password: hashPassword("123456"),
+  roleId: 1,
+});
+
 function createRandomUser() {
   return {
     email: faker.internet.email(),
     avatar: faker.image.avatar(),
     password: hashPassword("123456"),
-    roleId: Math.random() > 0.5 ? 2 : 3,
+    roleId: 2,
+    gender: Math.random > 0.5 ? "true" : "false",
+    phone: "0" + faker.string.numeric(9),
+    fullName: faker.person.fullName(),
+    address: faker.location.streetAddress({ useFullAddress: true }),
+  };
+}
+
+const VETS = faker.helpers.multiple(createRandomUser, {
+  count: 3,
+});
+
+VETS.forEach(async (user) => {
+  await db.User.create({
+    email: user.email,
+    avatar: user.avatar,
+    password: user.password,
+    roleId: user.roleId,
+    fullName: user.fullName,
+    address: user.address,
+    roleId: user.roleId,
+    phone: user.phone,
+  });
+});
+
+function createRandomUser() {
+  return {
+    email: faker.internet.email(),
+    avatar: faker.image.avatar(),
+    password: hashPassword("123456"),
+    roleId: 3,
     gender: Math.random > 0.5 ? "true" : "false",
     phone: "0" + faker.string.numeric(9),
     fullName: faker.person.fullName(),
