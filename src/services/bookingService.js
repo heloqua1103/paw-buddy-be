@@ -103,7 +103,7 @@ export const getBookingById = (bookingId, query) =>
           {
             model: db.User,
             as: "dataUser",
-            attributes: ["id", "fullName", "email", "phone"],
+            attributes: ["id", "fullName", "email", "phone", "avatar"],
           },
           {
             model: db.Pet,
@@ -112,6 +112,7 @@ export const getBookingById = (bookingId, query) =>
           },
         ],
       });
+
       if (!booking) {
         resolve({
           success: false,
@@ -122,9 +123,14 @@ export const getBookingById = (bookingId, query) =>
       const services = await db.PetService.findAll({
         where: { id: booking.service_id },
       });
+      const dataVet = await db.User.findOne({
+        where: { id: booking.vet_id },
+        attributes: ["id", "fullName", "phone", "avatar", "roleId"],
+      });
       const result = {
         ...booking.toJSON(),
         services,
+        dataVet,
       };
       resolve({
         success: result ? true : false,
@@ -200,6 +206,7 @@ export const getAllBookings = (
     end_date,
     attributes,
     isUser,
+    statuses,
     date,
     ...query
   }
@@ -207,6 +214,9 @@ export const getAllBookings = (
   new Promise(async (resolve, reject) => {
     try {
       if (attributes) var options = attributes.split(",");
+      if (statuses) {
+        query.status = { [Op.in]: statuses.split(",") };
+      }
       const queries = { raw: false, nest: true };
       const offset = !page || +page <= 1 ? 0 : +page - 1;
       const fLimit = +limit || +process.env.LIMIT_PET;

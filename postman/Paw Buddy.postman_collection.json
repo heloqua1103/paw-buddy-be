@@ -1630,7 +1630,7 @@
 								},
 								{
 									"key": "date",
-									"value": "2024-04-29",
+									"value": "2024-04-30",
 									"type": "text"
 								},
 								{
@@ -1680,7 +1680,7 @@
 								},
 								{
 									"key": "booking_id",
-									"value": "33",
+									"value": "10",
 									"type": "text"
 								}
 							]
@@ -1732,7 +1732,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/booking/detail?isUser=true&status=completed&date=2024-04-28",
+							"raw": "{{url}}/api/v1/booking/detail?statuses=confirmed,pending",
 							"host": [
 								"{{url}}"
 							],
@@ -1755,15 +1755,22 @@
 								},
 								{
 									"key": "isUser",
-									"value": "true"
+									"value": "true",
+									"disabled": true
 								},
 								{
-									"key": "status",
-									"value": "completed"
+									"key": "statuses",
+									"value": "confirmed,pending"
 								},
 								{
 									"key": "date",
-									"value": "2024-04-28"
+									"value": "2024-04-29",
+									"disabled": true
+								},
+								{
+									"key": "attributes",
+									"value": "user_id,service_id",
+									"disabled": true
 								}
 							]
 						}
@@ -1776,7 +1783,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/booking/detail/7",
+							"raw": "{{url}}/api/v1/booking/detail/10",
 							"host": [
 								"{{url}}"
 							],
@@ -1785,7 +1792,7 @@
 								"v1",
 								"booking",
 								"detail",
-								"7"
+								"10"
 							]
 						}
 					},
