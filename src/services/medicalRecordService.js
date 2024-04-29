@@ -1,4 +1,4 @@
-import { where } from "sequelize";
+import { Op, where } from "sequelize";
 import db from "../models";
 
 export const createRecord = (userId, body) =>
@@ -48,14 +48,18 @@ export const updateRecord = (recordId, userId, body) =>
 export const getRecordsOfUser = (userId, query) =>
   new Promise(async (resolve, reject) => {
     try {
-      const { attributes, status } = query;
+      const { attributes, statuses } = query;
+      if (statuses) var status = statuses.split(",");
       if (attributes) var options = attributes.split(",");
       const data = await db.Pet.findAll({
         where: { user_id: userId },
       });
       const petIds = data.map((pet) => pet.id);
       const bookingData = await db.Booking.findAll({
-        where: { pet_id: petIds, status: status },
+        where: {
+          pet_id: petIds,
+          ...(status && { status: { [Op.in]: status } }),
+        },
         attributes: ["id"],
       });
       const bookingIds = bookingData.map((booking) => booking.id);
@@ -144,7 +148,9 @@ export const getRecordOfPet = (petId, query) =>
       });
       resolve({
         success: result ? true : false,
-        message: result ? "Successfully" : "Something went wrong",
+        message: result
+          ? "Successfully"
+          : "Cannot find any record for this pet",
         data: result ? result : null,
       });
     } catch (error) {
