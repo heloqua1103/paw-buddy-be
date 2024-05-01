@@ -32,7 +32,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "nguyenhieu11032002@gmail.com",
+									"value": "nguyenhieu22@gmail.com",
 									"type": "text"
 								},
 								{
@@ -43,11 +43,6 @@
 								{
 									"key": "fullName",
 									"value": "nguyen hieu",
-									"type": "text"
-								},
-								{
-									"key": "confirm_password",
-									"value": "123456",
 									"type": "text"
 								}
 							]
@@ -90,7 +85,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "nguyenhieu11032002@gmail.com",
+									"value": "nguyenhieu22@gmail.com",
 									"type": "text"
 								},
 								{
@@ -688,6 +683,26 @@
 								"users",
 								"detail",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsersForSidebar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/users/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
 							]
 						}
 					},
@@ -1630,12 +1645,12 @@
 								},
 								{
 									"key": "date",
-									"value": "2024-04-30",
+									"value": "2024-04-29",
 									"type": "text"
 								},
 								{
 									"key": "start_time",
-									"value": "00:25:00",
+									"value": "16:38:00",
 									"type": "text"
 								},
 								{
@@ -1645,7 +1660,7 @@
 								},
 								{
 									"key": "end_time",
-									"value": "00:26:00",
+									"value": "16:39:00",
 									"type": "text"
 								}
 							]
@@ -1680,7 +1695,7 @@
 								},
 								{
 									"key": "booking_id",
-									"value": "10",
+									"value": "12",
 									"type": "text"
 								}
 							]
@@ -1991,7 +2006,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/medicalRecord/get-records-of-user?status=confirmed",
+							"raw": "{{url}}/api/v1/medicalRecord/get-records-of-user?statuses=completed",
 							"host": [
 								"{{url}}"
 							],
@@ -2003,8 +2018,8 @@
 							],
 							"query": [
 								{
-									"key": "status",
-									"value": "confirmed"
+									"key": "statuses",
+									"value": "completed"
 								}
 							]
 						}
@@ -2024,7 +2039,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/medicalRecord/get-record-of-pet/1",
+							"raw": "{{url}}/api/v1/medicalRecord/get-record-of-pet/41",
 							"host": [
 								"{{url}}"
 							],
@@ -2033,7 +2048,7 @@
 								"v1",
 								"medicalRecord",
 								"get-record-of-pet",
-								"1"
+								"41"
 							]
 						}
 					},
@@ -2189,6 +2204,101 @@
 								"v1",
 								"feedback",
 								"of-user"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "GetMessage",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/message/66320508d56320ad852e18cb",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"message",
+								"66320508d56320ad852e18cb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SendMessage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "message",
+									"value": "hi",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/message/send/66320508d56320ad852e18cb",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"message",
+								"send",
+								"66320508d56320ad852e18cb"
 							]
 						}
 					},

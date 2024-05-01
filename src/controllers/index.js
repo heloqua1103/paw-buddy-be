@@ -12,3 +12,4 @@ export * from "./serviceCategoryController";
 export * from "./petServiceController";
 export * from "./breedController";
 export * from "./feedbackController";
+export * from "./messageController";

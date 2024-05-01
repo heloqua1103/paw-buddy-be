@@ -2,9 +2,26 @@ import { Op } from "sequelize";
 import db from "../models";
 import cloudinary from "cloudinary";
 import bcrypt from "bcryptjs";
+import User from "../modelsChat/user.model";
 
 const salt = bcrypt.genSaltSync(10);
 const hashPassword = (password) => bcrypt.hashSync(password, salt);
+
+export const getUsersForSidebar = (idChat) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const filteredUsers = await User.find({
+        _id: { $ne: idChat },
+      }).select("-password");
+      resolve({
+        success: filteredUsers ? true : false,
+        message: filteredUsers ? "Successfully" : "Something went wrong!",
+        data: filteredUsers ? filteredUsers : null,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
 
 export const createUser = (body) =>
   new Promise(async (resolve, reject) => {

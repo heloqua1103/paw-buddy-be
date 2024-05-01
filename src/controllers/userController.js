@@ -2,6 +2,16 @@ import * as services from "../services";
 import joi from "joi";
 import cloudinary from "cloudinary";
 
+export const getUsersForSidebar = async (req, res) => {
+  try {
+    const { idChat } = req.user;
+    const result = await services.getUsersForSidebar(idChat);
+    res.status(201).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createUser = async (req, res) => {
   try {
     const result = await services.createUser(req.body);
