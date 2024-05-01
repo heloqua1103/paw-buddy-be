@@ -3,14 +3,19 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import sendmail from "../utils/email";
+import User from "../modelsChat/user.model";
 dotenv.config();
 
 const salt = bcrypt.genSaltSync(10);
 
-const signAccessToken = (id, email, roleId) => {
-  return jwt.sign({ id, email, roleId }, process.env.JWT_SECRET_ACCESS_TOKEN, {
-    expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
-  });
+const signAccessToken = (id, email, roleId, idChat) => {
+  return jwt.sign(
+    { id, email, roleId, idChat },
+    process.env.JWT_SECRET_ACCESS_TOKEN,
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
+    }
+  );
 };
 
 const signRefreshToken = (id) => {
@@ -19,9 +24,9 @@ const signRefreshToken = (id) => {
   });
 };
 
-const signAccessAndRefreshToken = (id, email, roleId) => {
+const signAccessAndRefreshToken = (id, email, roleId, idChat) => {
   return Promise.all([
-    signAccessToken(id, email, roleId),
+    signAccessToken(id, email, roleId, idChat),
     signRefreshToken(id),
   ]);
 };
@@ -31,26 +36,32 @@ const checkEmail = async (email) => {
   return Boolean(user);
 };
 
-const hashPassword = (password) => bcrypt.hashSync(password, salt);
-
 export const register = ({ email, password, fullName }) =>
   new Promise(async (resolve, reject) => {
     try {
+      const hashPassword = bcrypt.hashSync(password, salt);
       const user = await db.User.findOrCreate({
         where: {
           email: email,
         },
         defaults: {
           email: email,
-          password: hashPassword(password),
+          password: hashPassword,
           fullName: fullName,
         },
       });
       if (user[1]) {
+        const newUser = new User({
+          fullName,
+          email,
+          password: hashPassword,
+        });
+        await newUser.save();
         const [accessToken, refreshToken] = await signAccessAndRefreshToken(
           user[0].dataValues.id,
           user[0].dataValues.email,
-          user[0].dataValues.roleId
+          user[0].dataValues.roleId,
+          newUser._id
         );
         await db.User.update(
           { refreshToken: refreshToken },
@@ -82,22 +93,24 @@ export const login = ({ email, password }) =>
       });
       const isChecked = user && bcrypt.compareSync(password, user.password);
       if (user && isChecked) {
+        const userChat = await User.findOne({ email });
         const [accessToken, refreshToken] = await signAccessAndRefreshToken(
           user.id,
           user.email,
-          user.roleId
+          user.roleId,
+          userChat._id
         );
         await db.User.update(
           { refreshToken: refreshToken },
           { where: { id: user.id } }
         );
-        console.log("refreshToken", refreshToken);
         resolve({
           success: user ? true : false,
           message: user ? "Login successfull" : "email or password incorrect",
           accessToken: accessToken ? accessToken : null,
           refreshToken: refreshToken ? refreshToken : null,
           user: isChecked ? user : null,
+          userChat: userChat ? userChat : null,
         });
       }
       resolve({

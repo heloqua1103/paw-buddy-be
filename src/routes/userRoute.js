@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.use(verifyToken);
 
+router.get("/", controllers.getUsersForSidebar);
+
 // Get all information of user
 router.get("/get-me", controllers.getUser);
 

@@ -28,6 +28,7 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 // init db
 require("./src/dbs/connect_DB");
+require("./src/dbs/conect_mongDB");
 // const initRedis = require("./src/dbs/connect_redis");
 // initRedis.initRedis();
 
