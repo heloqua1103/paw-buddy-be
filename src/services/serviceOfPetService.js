@@ -1,19 +1,19 @@
 import { Op } from "sequelize";
 import db from "../models";
 
-export const createService = (body, photo) =>
+export const createService = (body, fileData) =>
   new Promise(async (resolve, reject) => {
     try {
-      if (photo) {
-        body.photo = photo[0]?.path;
-        body.fileNameImage = photo[0]?.filename;
+      if (fileData) {
+        body.photo = fileData[0]?.path;
+        body.fileNameImage = fileData[0]?.filename;
       }
       const result = await db.PetService.findOrCreate({
         where: { name_service: body.name_service },
         defaults: { ...body },
       });
-      if (photo && result[1] < 0) {
-        photo.forEach((file) => cloudinary.uploader.destroy(file.filename));
+      if (fileData && result[1] < 0) {
+        cloudinary.uploader.destroy(fileData.filename);
       }
       resolve({
         success: result[1] > 0 ? true : false,
