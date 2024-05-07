@@ -32,7 +32,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "nguyenhieu222@gmail.com",
+									"value": "nguyenhieu2222@gmail.com",
 									"type": "text"
 								},
 								{
@@ -85,7 +85,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "nguyenhieu22@gmail.com",
+									"value": "nguyenhieu222@gmail.com",
 									"type": "text"
 								},
 								{
@@ -683,26 +683,6 @@
 								"users",
 								"detail",
 								"3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetUsersForSidebar",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/users/",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"users",
-								""
 							]
 						}
 					},
@@ -2259,7 +2239,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/message/66320508d56320ad852e18cb",
+							"raw": "{{url}}/api/v1/message/663a375265fe5c7f2d27b48a",
 							"host": [
 								"{{url}}"
 							],
@@ -2267,7 +2247,7 @@
 								"api",
 								"v1",
 								"message",
-								"66320508d56320ad852e18cb"
+								"663a375265fe5c7f2d27b48a"
 							]
 						}
 					},
@@ -2289,7 +2269,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/message/send/66320508d56320ad852e18cb",
+							"raw": "{{url}}/api/v1/message/send/663a375265fe5c7f2d27b48a",
 							"host": [
 								"{{url}}"
 							],
@@ -2298,7 +2278,27 @@
 								"v1",
 								"message",
 								"send",
-								"66320508d56320ad852e18cb"
+								"663a375265fe5c7f2d27b48a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllConversations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/message/conversations",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"message",
+								"conversations"
 							]
 						}
 					},
@@ -2351,7 +2351,7 @@
 							"urlencoded": [
 								{
 									"key": "message",
-									"value": "my dog need take care",
+									"value": "My phone is break",
 									"type": "text"
 								}
 							]

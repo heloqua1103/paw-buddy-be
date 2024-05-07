@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.use(verifyToken);
 
+router.get("/conversations", controllers.getAllConversations);
+
 router.get("/:id", controllers.getMessages);
 router.post("/send/:id", controllers.sendMessage);
 
