@@ -129,7 +129,7 @@ export const getAllUsers = (
 export const getUser = (id) =>
   new Promise(async (resolve, reject) => {
     try {
-      const result = await db.User.findAndCountAll({
+      const result = await db.User.findOne({
         where: id,
         include: [
           {
@@ -143,10 +143,18 @@ export const getUser = (id) =>
           },
         ],
       });
+      const userChat = await User.findOne({
+        email: result.email,
+      }).select("_id");
+
+      const combineData = {
+        ...result.dataValues,
+        _id: userChat._id,
+      };
       resolve({
         success: result ? true : false,
         message: result ? "Successfully" : "Something went wrong!",
-        data: result ? result.rows : null,
+        data: result ? combineData : null,
       });
     } catch (error) {
       reject(error);
