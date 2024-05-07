@@ -68,7 +68,14 @@ export const deleteMedicine = (medicineId) =>
     }
   });
 
-export const getAllMedicines = ({ order, page, limit, attributes, ...query }) =>
+export const getAllMedicines = ({
+  order,
+  page,
+  limit,
+  attributes,
+  name,
+  ...query
+}) =>
   new Promise(async (resolve, reject) => {
     try {
       if (attributes) var options = attributes.split(",");
@@ -81,6 +88,7 @@ export const getAllMedicines = ({ order, page, limit, attributes, ...query }) =>
         queries.limit = fLimit;
       }
       if (order) queries.order = [order];
+      if (name) query.name_medicine = { [Op.like]: `%${name}%` };
       const result = await db.Medicine.findAndCountAll({
         where: query,
         ...queries,

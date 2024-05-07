@@ -13,7 +13,7 @@ import service from "./petSeviceRoute";
 import breed from "./breedRoute";
 import feedback from "./feedbackRoute";
 import message from "./messageRoute";
-import openai from "./openAIRoute";
+import chatbot from "./chatbotRoute";
 
 const initRoutes = (app) => {
   app.use("/api/v1/users", user);
@@ -30,7 +30,7 @@ const initRoutes = (app) => {
   app.use("/api/v1/breed", breed);
   app.use("/api/v1/feedback", feedback);
   app.use("/api/v1/message", message);
-  app.use("/openai", openai);
+  app.use("/chatbot", chatbot);
   app.use("/api/v1/insert", insert);
 };
 

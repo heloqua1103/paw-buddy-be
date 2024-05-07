@@ -8,6 +8,7 @@ const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(10);
 const hashPassword = (password) => bcrypt.hashSync(password, salt);
 const { faker, en } = require("@faker-js/faker");
+const User = require("../modelsChat/user.model");
 
 require("../dbs/connect_DB");
 
@@ -77,6 +78,11 @@ const insert = () =>
             password: hashPassword("123456"),
             roleId: 1,
           });
+          await User.create({
+            fullName: "admin",
+            email: "admin@gmail.com",
+            password: hashPassword("123456"),
+          });
         }
 
         if (el === 1 || el === 2 || el === 3) {
@@ -93,6 +99,15 @@ const insert = () =>
             address: faker.location.streetAddress({ useFullAddress: true }),
             gender: Math.random > 0.5 ? "true" : "false",
           });
+          await User.create({
+            fullName: faker.person.fullName(),
+            email: faker.internet.email({
+              provider: "gmail.com",
+              allowSpecialCharacters: false,
+            }),
+            password: hashPassword("123456"),
+            avatar: faker.image.avatar(),
+          });
         } else {
           await db.User.create({
             fullName: faker.person.fullName(),
@@ -106,6 +121,15 @@ const insert = () =>
             avatar: faker.image.avatar(),
             address: faker.location.streetAddress({ useFullAddress: true }),
             gender: Math.random > 0.5 ? "true" : "false",
+          });
+          await User.create({
+            fullName: faker.person.fullName(),
+            email: faker.internet.email({
+              provider: "gmail.com",
+              allowSpecialCharacters: false,
+            }),
+            password: hashPassword("123456"),
+            avatar: faker.image.avatar(),
           });
         }
       });

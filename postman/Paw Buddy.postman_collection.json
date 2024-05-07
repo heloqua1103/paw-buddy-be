@@ -32,7 +32,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "nguyenhieu22@gmail.com",
+									"value": "nguyenhieu222@gmail.com",
 									"type": "text"
 								},
 								{
@@ -1645,7 +1645,7 @@
 								},
 								{
 									"key": "date",
-									"value": "2024-04-29",
+									"value": "2024-05-30",
 									"type": "text"
 								},
 								{
@@ -1655,7 +1655,7 @@
 								},
 								{
 									"key": "vet_id",
-									"value": "3",
+									"value": "2",
 									"type": "text"
 								},
 								{
@@ -1798,7 +1798,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/booking/detail/10",
+							"raw": "{{url}}/api/v1/booking/detail/2",
 							"host": [
 								"{{url}}"
 							],
@@ -1807,7 +1807,7 @@
 								"v1",
 								"booking",
 								"detail",
-								"10"
+								"2"
 							]
 						}
 					},
@@ -2299,6 +2299,89 @@
 								"message",
 								"send",
 								"66320508d56320ad852e18cb"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Chatbot",
+			"item": [
+				{
+					"name": "Chat",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "message",
+									"value": "my dog need take care",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/chatbot/chat",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"chatbot",
+								"chat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetChats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/chatbot/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"chatbot",
+								""
 							]
 						}
 					},

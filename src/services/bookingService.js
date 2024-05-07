@@ -64,6 +64,11 @@ export const cancelBooking = (vetId, bookingId) =>
           message: "Cannot cancel booking during service!",
         });
         return;
+      } else if (currentTime > endTime) {
+        resolve({
+          success: false,
+          message: "Cannot cancel booking after finish service!",
+        });
       } else {
         const cancelBooking = await db.Booking.update(
           {

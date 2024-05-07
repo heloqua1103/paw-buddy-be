@@ -36,6 +36,13 @@ export const updateRecord = (recordId, userId, body) =>
           where: { id: recordId, vet_id: userId },
         }
       );
+      const medicineIds = body.medicine_ids.split(",");
+      medicineIds.forEach(async (id) => {
+        await db.Medicine.create({
+          medical_record_id: recordId,
+          medicine_id: +id,
+        });
+      });
       resolve({
         success: result[0] > 0 ? true : false,
         message: result[0] > 0 ? "Successfully" : "Something went wrong",
@@ -83,6 +90,16 @@ export const getRecordsOfUser = (userId, query) =>
           {
             model: db.Booking,
             as: "bookingData",
+          },
+          {
+            model: db.PetMedications,
+            as: "medicationsData",
+            include: [
+              {
+                model: db.Medicine,
+                as: "medicinData",
+              },
+            ],
           },
         ],
       });
