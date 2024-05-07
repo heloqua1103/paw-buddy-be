@@ -1,6 +1,23 @@
 import Conversation from "../modelsChat/conversation.model";
 import Message from "../modelsChat/message.model";
+import User from "../modelsChat/user.model.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
+
+export const getAllConversations = async (req, res) => {
+  try {
+    const { idChat } = req.user;
+    const filteredConversations = await Conversation.find({
+      participants: { $in: [idChat] },
+    }).populate("participants", "_id fullName email profilePic").select("-messages");
+    res.status(201).json({
+      success: filteredConversations ? true : false,
+      message: filteredConversations ? "Successfully" : "Something went wrong!",
+      data: filteredConversations ? filteredConversations : null,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getMessages = async (req, res) => {
   try {
