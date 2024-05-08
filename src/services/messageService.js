@@ -50,7 +50,7 @@ export const getMessages = (senderId, userToChatId) =>
     try {
       const conversation = await Conversation.findOne({
         participants: { $all: [senderId, userToChatId] },
-      }).populate("messages"); // NOT REFERENCE BUT ACTUAL MESSAGES
+      }).populate("messages");
 
       if (!conversation) {
         resolve({
