@@ -94,24 +94,52 @@ export const login = ({ email, password }) =>
       const isChecked = user && bcrypt.compareSync(password, user.password);
       if (user && isChecked) {
         const userChat = await User.findOne({ email });
-        const [accessToken, refreshToken] = await signAccessAndRefreshToken(
-          user.id,
-          user.email,
-          user.roleId,
-          userChat._id
-        );
-        await db.User.update(
-          { refreshToken: refreshToken },
-          { where: { id: user.id } }
-        );
-        resolve({
-          success: user ? true : false,
-          message: user ? "Login successfull" : "email or password incorrect",
-          accessToken: accessToken ? accessToken : null,
-          refreshToken: refreshToken ? refreshToken : null,
-          user: isChecked ? user : null,
-          userChat: userChat ? userChat : null,
-        });
+        if (!userChat) {
+          const newUser = new User({
+            fullName: user.fullName,
+            email,
+            password: user.password,
+            profilePic: user.avatar ? user.avatar : "",
+          });
+          await newUser.save();
+          const [accessToken, refreshToken] = await signAccessAndRefreshToken(
+            user.id,
+            user.email,
+            user.roleId,
+            newUser._id
+          );
+          await db.User.update(
+            { refreshToken: refreshToken },
+            { where: { id: user.id } }
+          );
+          resolve({
+            success: user ? true : false,
+            message: user ? "Login successfull" : "email or password incorrect",
+            accessToken: accessToken ? accessToken : null,
+            refreshToken: refreshToken ? refreshToken : null,
+            user: isChecked ? user : null,
+            userChat: newUser ? newUser : null,
+          });
+        } else {
+          const [accessToken, refreshToken] = await signAccessAndRefreshToken(
+            user.id,
+            user.email,
+            user.roleId,
+            userChat._id
+          );
+          await db.User.update(
+            { refreshToken: refreshToken },
+            { where: { id: user.id } }
+          );
+          resolve({
+            success: user ? true : false,
+            message: user ? "Login successfull" : "email or password incorrect",
+            accessToken: accessToken ? accessToken : null,
+            refreshToken: refreshToken ? refreshToken : null,
+            user: isChecked ? user : null,
+            userChat: userChat ? userChat : null,
+          });
+        }
       }
       resolve({
         success: false,

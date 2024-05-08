@@ -8,7 +8,6 @@ const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(10);
 const hashPassword = (password) => bcrypt.hashSync(password, salt);
 const { faker, en } = require("@faker-js/faker");
-const User = require("../modelsChat/user.model");
 
 require("../dbs/connect_DB");
 
@@ -74,14 +73,10 @@ const insert = () =>
       Array.from([...Array(10).keys()]).forEach(async (el) => {
         if (el === 0) {
           await db.User.create({
+            fullName: "Admin",
             email: "admin@gmail.com",
             password: hashPassword("123456"),
             roleId: 1,
-          });
-          await User.create({
-            fullName: "admin",
-            email: "admin@gmail.com",
-            password: hashPassword("123456"),
           });
         }
 
@@ -99,15 +94,6 @@ const insert = () =>
             address: faker.location.streetAddress({ useFullAddress: true }),
             gender: Math.random > 0.5 ? "true" : "false",
           });
-          await User.create({
-            fullName: faker.person.fullName(),
-            email: faker.internet.email({
-              provider: "gmail.com",
-              allowSpecialCharacters: false,
-            }),
-            password: hashPassword("123456"),
-            avatar: faker.image.avatar(),
-          });
         } else {
           await db.User.create({
             fullName: faker.person.fullName(),
@@ -121,15 +107,6 @@ const insert = () =>
             avatar: faker.image.avatar(),
             address: faker.location.streetAddress({ useFullAddress: true }),
             gender: Math.random > 0.5 ? "true" : "false",
-          });
-          await User.create({
-            fullName: faker.person.fullName(),
-            email: faker.internet.email({
-              provider: "gmail.com",
-              allowSpecialCharacters: false,
-            }),
-            password: hashPassword("123456"),
-            avatar: faker.image.avatar(),
           });
         }
       });
@@ -159,7 +136,6 @@ const insert = () =>
           booking_id: faker.number.int({ min: 1, max: 10 }),
         });
       });
-
       resolve("Done");
     } catch (error) {
       reject(error);
