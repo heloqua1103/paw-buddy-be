@@ -1,7 +1,9 @@
 import moment from "moment";
 import db from "../models";
 import { CronJob } from "cron";
-import { Op, where } from "sequelize";
+import { Op } from "sequelize";
+import { sendMessage } from "./messageService.js";
+import User from "../modelsChat/user.model.js";
 
 let job;
 export const createBooking = (userId, body) =>
@@ -22,7 +24,7 @@ export const createBooking = (userId, body) =>
         job = new CronJob(
           time,
           function () {
-            cancelBooking(body.vet_id, result.id);
+            cancelBooking(body.vet_id, result.id, userId);
           },
           null,
           true,
@@ -44,7 +46,7 @@ export const createBooking = (userId, body) =>
     }
   });
 
-export const cancelBooking = (vetId, bookingId) =>
+export const cancelBooking = (vetId, bookingId, userId) =>
   new Promise(async (resolve, reject) => {
     try {
       const booking = await db.Booking.findOne({
@@ -85,6 +87,23 @@ export const cancelBooking = (vetId, bookingId) =>
         });
         if (job && job.running) job.stop();
 
+        // Send message
+        const vet = await db.User.findOne({
+          where: { id: vetId },
+          attributes: ["email", "fullName"],
+        });
+        const sender = await User.findOne({
+          email: vet.email,
+        });
+        const user = await db.User.findOne({
+          where: { id: userId },
+          attributes: ["email", "fullName"],
+        });
+        const receiver = await User.findOne({
+          email: user.email,
+        });
+        const message = `Hi ${user.fullName}! Your appointment has been cancelled. We hope to see you again soon!`;
+        sendMessage(sender._id, receiver._id, message);
         resolve({
           success: cancelBooking[0] > 0 ? true : false,
           message:
@@ -151,6 +170,7 @@ export const getBookingById = (bookingId, query) =>
 export const approveBooking = (vetId, body) =>
   new Promise(async (resolve, reject) => {
     try {
+      // logic of approve booking
       const result = await db.Booking.update(
         { status: "confirmed" },
         { where: { id: +body.booking_id } }
@@ -166,11 +186,31 @@ export const approveBooking = (vetId, body) =>
       const time = new Date(
         `${data.dataValues.date} ${data.dataValues.end_time}`
       );
+
+      // logic send message
+      const vet = await db.User.findOne({
+        where: { id: vetId },
+        attributes: ["email", "fullName"],
+      });
+      const sender = await User.findOne({
+        email: vet.email,
+      });
+      const user = await db.User.findOne({
+        where: { id: data.dataValues.user_id },
+        attributes: ["email", "fullName"],
+      });
+      const receiver = await User.findOne({
+        email: user.email,
+      });
+      const message = `Hi ${user.fullName}! Appointment confirmed! We'll be expecting you at ${data.dataValues.date} ${data.dataValues.start_time}.`;
+      sendMessage(sender._id, receiver._id, message);
+
+      // schedule
       if (job && job.running) job.stop();
       job = new CronJob(
         time,
         function () {
-          finishBooking(+body.booking_id);
+          finishBooking(+body.booking_id, sender._id, receiver._id);
         },
         null,
         true,
@@ -185,7 +225,7 @@ export const approveBooking = (vetId, body) =>
     }
   });
 
-export const finishBooking = async (bookingId) => {
+export const finishBooking = async (bookingId, senderId, receiverId) => {
   try {
     await db.Booking.update(
       {
@@ -195,6 +235,8 @@ export const finishBooking = async (bookingId) => {
         where: { id: bookingId },
       }
     );
+    const message = `We sincerely thank you for choosing our services! Your appointment has concluded, and we hope it met your expectations. Have a wonderful day!`;
+    sendMessage(senderId, receiverId, message);
   } catch (error) {
     console.log(error);
   }

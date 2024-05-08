@@ -5,10 +5,10 @@ import initRoutes from "./src/routes";
 import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
-import serverless from "serverless-http";
+import { app, server } from "./src/socket/socket";
 dotenv.config();
 
-const app = express();
+// const app = express();
 const port = process.env.PORT || 3000;
 
 const corsOptions = {
@@ -32,12 +32,10 @@ require("./src/dbs/conect_mongDB");
 // const initRedis = require("./src/dbs/connect_redis");
 // initRedis.initRedis();
 
-
-
 initRoutes(app);
 
 // module.exports.handler = serverless(app);
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
