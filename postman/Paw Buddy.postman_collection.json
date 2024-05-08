@@ -85,7 +85,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "nguyenhieu222@gmail.com",
+									"value": "Cristian_Kutch@gmail.com",
 									"type": "text"
 								},
 								{
@@ -683,6 +683,26 @@
 								"users",
 								"detail",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ChangePassword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/users/change-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"change-password"
 							]
 						}
 					},

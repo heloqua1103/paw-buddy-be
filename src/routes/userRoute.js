@@ -13,7 +13,7 @@ router.get("/get-me", controllers.getUser);
 
 router.get("/detail/:userId", controllers.getUserById);
 // Change password
-router.post("/change-paswrord", controllers.changePassword);
+router.post("/change-password", controllers.changePassword);
 // Update user information
 router.put("/update-me", uploadUser.single("avatar"), controllers.updateUser);
 

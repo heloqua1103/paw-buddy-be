@@ -207,11 +207,15 @@ export const updateUser = (body, userId, fileData) => {
         where: { id: userId },
         fields: myFields,
       });
-      resolve({
-        success: response[0] > 0 ? true : false,
-        message:
-          response[0] > 0 ? "Updated successfully" : "Something went wrong!",
-      });
+      User.updateOne(
+        { email: fileImage.email },
+        { profilePic: fileData ? body.avatar : "" }
+      ),
+        resolve({
+          success: response[0] > 0 ? true : false,
+          message:
+            response[0] > 0 ? "Updated successfully" : "Something went wrong!",
+        });
       if (fileData && !response[0] === 0)
         cloudinary.uploader.destroy(fileData.filename);
     } catch (error) {
@@ -232,10 +236,16 @@ export const changePassword = (userId, body) =>
       const result = isChecked
         ? body.newPassword == body.password
           ? "The password is the same as the old password!"
-          : await db.User.update(
-              { password: hashPassword(body.newPassword) },
-              { where: { id: userId } }
-            )
+          : await Promise.all([
+              db.User.update(
+                { password: hashPassword(body.newPassword) },
+                { where: { id: userId } }
+              ),
+              User.updateOne(
+                { email: user.email },
+                { password: hashPassword(body.newPassword) }
+              ),
+            ])
         : "The password is incorrect!";
       resolve({
         success: result[0] > 0 ? true : false,
