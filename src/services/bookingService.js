@@ -24,7 +24,7 @@ export const createBooking = (userId, body) =>
         job = new CronJob(
           time,
           function () {
-            cancelBooking(body.vet_id, result.id, userId);
+            cancelBookingSystem(body.vet_id, result.id, userId);
           },
           null,
           true,
@@ -46,7 +46,56 @@ export const createBooking = (userId, body) =>
     }
   });
 
-export const cancelBooking = (vetId, bookingId, userId) =>
+export const cancelBookingSystem = (vetId, bookingId, userId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const booking = await db.Booking.findOne({
+        where: { id: +bookingId },
+        attributes: ["start_time", "end_time", "date", "pet_id"],
+      });
+      const cancelBooking = await db.Booking.update(
+        {
+          status: "cancelled",
+        },
+        { where: { id: +bookingId } }
+      );
+      await db.MedicalRecord.destroy({
+        where: {
+          pet_id: booking.dataValues.pet_id,
+          vet_id: vetId,
+          booking_id: +bookingId,
+        },
+      });
+      if (job && job.running) job.stop();
+
+      // Send message
+      const vet = await db.User.findOne({
+        where: { id: vetId },
+        attributes: ["email", "fullName"],
+      });
+      const sender = await User.findOne({
+        email: vet.email,
+      });
+      const user = await db.User.findOne({
+        where: { id: userId },
+        attributes: ["email", "fullName"],
+      });
+      const receiver = await User.findOne({
+        email: user.email,
+      });
+      const message = `Hi ${user.fullName}! Your appointment has been cancelled. We hope to see you again soon!`;
+      sendMessage(sender._id, receiver._id, message);
+      resolve({
+        success: cancelBooking[0] > 0 ? true : false,
+        message:
+          cancelBooking[0] > 0 ? "Successfully" : "Something went wrong!",
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const cancelBooking = (vetId, bookingId) =>
   new Promise(async (resolve, reject) => {
     try {
       const booking = await db.Booking.findOne({
@@ -86,24 +135,6 @@ export const cancelBooking = (vetId, bookingId, userId) =>
           },
         });
         if (job && job.running) job.stop();
-
-        // Send message
-        const vet = await db.User.findOne({
-          where: { id: vetId },
-          attributes: ["email", "fullName"],
-        });
-        const sender = await User.findOne({
-          email: vet.email,
-        });
-        const user = await db.User.findOne({
-          where: { id: userId },
-          attributes: ["email", "fullName"],
-        });
-        const receiver = await User.findOne({
-          email: user.email,
-        });
-        const message = `Hi ${user.fullName}! Your appointment has been cancelled. We hope to see you again soon!`;
-        sendMessage(sender._id, receiver._id, message);
         resolve({
           success: cancelBooking[0] > 0 ? true : false,
           message:
