@@ -4,6 +4,8 @@ import { CronJob } from "cron";
 import { Op } from "sequelize";
 import { sendMessage } from "./messageService.js";
 import User from "../modelsChat/user.model.js";
+import Notification from "../modelsChat/notification.model.js";
+import { createNotification } from "../controllers/notificationController.js";
 
 let job;
 export const createBooking = (userId, body) =>
@@ -30,6 +32,17 @@ export const createBooking = (userId, body) =>
           true,
           "Asia/Ho_Chi_Minh"
         );
+
+        // Logic send notification
+        const vet = await db.User.findOne({
+          where: { id: body.vet_id },
+          attributes: ["email"],
+        });
+        const receiver = await User.findOne({
+          email: vet.email,
+        });
+        createNotification(receiver._id, result.id, "You have a new booking!");
+
         resolve({
           success: result ? true : false,
           message: result ? "Successfully" : "Something went wrong!",
@@ -85,6 +98,13 @@ export const cancelBookingSystem = (vetId, bookingId, userId) =>
       });
       const message = `Hi ${user.fullName}! Your appointment has been cancelled. We hope to see you again soon!`;
       sendMessage(sender._id, receiver._id, message);
+
+      // logic send notification
+      createNotification(
+        receiver._id,
+        +bookingId,
+        "Your booking has been cancelled!"
+      );
       resolve({
         success: cancelBooking[0] > 0 ? true : false,
         message:
@@ -100,7 +120,7 @@ export const cancelBooking = (vetId, bookingId) =>
     try {
       const booking = await db.Booking.findOne({
         where: { id: +bookingId },
-        attributes: ["start_time", "end_time", "date", "pet_id"],
+        attributes: ["start_time", "end_time", "date", "pet_id", "user_id"],
       });
       const currentTime = moment().format("YYYY-MM-DD HH:mm:ss");
       const startTime = moment(
@@ -135,6 +155,20 @@ export const cancelBooking = (vetId, bookingId) =>
           },
         });
         if (job && job.running) job.stop();
+
+        // logic send notification
+        const user = await db.User.findOne({
+          where: { id: booking.dataValues.user_id },
+          attributes: ["email"],
+        });
+        const receiver = await User.findOne({
+          email: user.email,
+        });
+        createNotification(
+          receiver._id,
+          +bookingId,
+          "Your booking has been cancelled!"
+        );
         resolve({
           success: cancelBooking[0] > 0 ? true : false,
           message:
@@ -233,8 +267,16 @@ export const approveBooking = (vetId, body) =>
       const receiver = await User.findOne({
         email: user.email,
       });
+
       const message = `Hi ${user.fullName}! Appointment confirmed! We'll be expecting you at ${data.dataValues.date} ${data.dataValues.start_time}.`;
       sendMessage(sender._id, receiver._id, message);
+
+      // logic send notification
+      createNotification(
+        receiver._id,
+        +body.booking_id,
+        "Your booking has been confirmed!"
+      );
 
       // schedule
       if (job && job.running) job.stop();
@@ -247,6 +289,7 @@ export const approveBooking = (vetId, body) =>
         true,
         "Asia/Ho_Chi_Minh"
       );
+
       resolve({
         success: result[0] > 0 ? true : false,
         message: result[0] > 0 ? "Successfully" : "Something went wrong!",
@@ -268,6 +311,11 @@ export const finishBooking = async (bookingId, senderId, receiverId) => {
     );
     const message = `We sincerely thank you for choosing our services! Your appointment has concluded, and we hope it met your expectations. Have a wonderful day!`;
     sendMessage(senderId, receiverId, message);
+    createNotification(
+      receiverId,
+      bookingId,
+      "Your booking has been completed!"
+    );
   } catch (error) {
     console.log(error);
   }

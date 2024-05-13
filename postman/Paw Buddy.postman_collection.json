@@ -32,7 +32,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "nguyenhieu2222@gmail.com",
+									"value": "nguyenhieu22@gmail.com",
 									"type": "text"
 								},
 								{
@@ -85,7 +85,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "Cristian_Kutch@gmail.com",
+									"value": "nguyenhieu2@gmail.com",
 									"type": "text"
 								},
 								{
@@ -691,8 +691,23 @@
 				{
 					"name": "ChangePassword",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text"
+								},
+								{
+									"key": "newPassword",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "{{url}}/api/v1/users/change-password",
 							"host": [
@@ -1645,12 +1660,12 @@
 								},
 								{
 									"key": "date",
-									"value": "2024-05-30",
+									"value": "2024-05-15",
 									"type": "text"
 								},
 								{
 									"key": "start_time",
-									"value": "16:38:00",
+									"value": "18:56:00",
 									"type": "text"
 								},
 								{
@@ -1660,7 +1675,7 @@
 								},
 								{
 									"key": "end_time",
-									"value": "16:39:00",
+									"value": "18:57:00",
 									"type": "text"
 								}
 							]
@@ -1691,17 +1706,18 @@
 								{
 									"key": "status",
 									"value": "confirmed",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "booking_id",
-									"value": "12",
+									"value": "14",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/booking/vet/approve-booking",
+							"raw": "{{url}}/api/v1/booking/vet/approve-booking/",
 							"host": [
 								"{{url}}"
 							],
@@ -1710,7 +1726,8 @@
 								"v1",
 								"booking",
 								"vet",
-								"approve-booking"
+								"approve-booking",
+								""
 							]
 						}
 					},
@@ -2259,7 +2276,7 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/message/663a375265fe5c7f2d27b48a",
+							"raw": "{{url}}/api/v1/message/663b3a4cd0395649f82c0dfa",
 							"host": [
 								"{{url}}"
 							],
@@ -2267,7 +2284,7 @@
 								"api",
 								"v1",
 								"message",
-								"663a375265fe5c7f2d27b48a"
+								"663b3a4cd0395649f82c0dfa"
 							]
 						}
 					},
@@ -2289,7 +2306,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/message/send/663a375265fe5c7f2d27b48a",
+							"raw": "{{url}}/api/v1/message/send/663b4c0d3c2d3a4fba620228",
 							"host": [
 								"{{url}}"
 							],
@@ -2298,7 +2315,7 @@
 								"v1",
 								"message",
 								"send",
-								"663a375265fe5c7f2d27b48a"
+								"663b4c0d3c2d3a4fba620228"
 							]
 						}
 					},
@@ -2402,6 +2419,83 @@
 							"path": [
 								"chatbot",
 								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "GetAllNotification",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/notification/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"notification",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateNotification",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/notification/6641d96baf8ff3f66bc13c05",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"notification",
+								"6641d96baf8ff3f66bc13c05"
 							]
 						}
 					},

@@ -14,6 +14,8 @@ import breed from "./breedRoute";
 import feedback from "./feedbackRoute";
 import message from "./messageRoute";
 import chatbot from "./chatbotRoute";
+import statistic from "./statisticRoute";
+import notification from "./notificationRoute";
 
 const initRoutes = (app) => {
   app.use("/api/v1/users", user);
@@ -31,6 +33,8 @@ const initRoutes = (app) => {
   app.use("/api/v1/feedback", feedback);
   app.use("/api/v1/message", message);
   app.use("/chatbot", chatbot);
+  app.use("/api/v1/statistic", statistic);
+  app.use("/api/v1/notification", notification);
   app.use("/api/v1/insert", insert);
 };
 

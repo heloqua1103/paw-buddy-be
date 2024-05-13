@@ -14,3 +14,5 @@ export * from "./breedController";
 export * from "./feedbackController";
 export * from "./messageController";
 export * from "./chatbotController";
+export * from "./statisticController";
+export * from "./notificationController";
