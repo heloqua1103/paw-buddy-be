@@ -1,4 +1,5 @@
 import * as services from "../services";
+import { createNotification } from "./notificationController";
 
 export const createVaccine = async (req, res) => {
   try {

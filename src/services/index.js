@@ -13,3 +13,4 @@ export * from "./serviceOfPetService";
 export * from "./breedService";
 export * from "./feedbackService";
 export * from "./messageService";
+export * from "./statisticService";
