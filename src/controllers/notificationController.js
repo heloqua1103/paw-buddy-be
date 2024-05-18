@@ -4,10 +4,15 @@ import { getReceiverSocketId } from "../socket/socket";
 
 export const getAllNotifications = async (req, res) => {
   try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
     const { idChat } = req.user;
     const filteredNotifications = await Notification.find({
       receiverId: idChat,
-    });
+    })
+      .skip(skip)
+      .limit(limit);
     res.status(200).json({
       success: filteredNotifications ? true : false,
       message: filteredNotifications ? "Successfully" : "Something went wrong!",
