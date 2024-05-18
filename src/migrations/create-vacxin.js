@@ -9,6 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      service_id: {
+        type: Sequelize.INTEGER,
+      },
       name_vaccine: {
         type: Sequelize.STRING,
       },

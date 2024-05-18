@@ -248,9 +248,9 @@ export const approveBooking = (vetId, body) =>
         vet_id: vetId,
         booking_id: +body.booking_id,
       });
-      const time = new Date(
-        `${data.dataValues.date} ${data.dataValues.end_time}`
-      );
+      // const time = new Date(
+      //   `${data.dataValues.date} ${data.dataValues.end_time}`
+      // );
 
       // logic send message
       const vet = await db.User.findOne({
@@ -279,16 +279,16 @@ export const approveBooking = (vetId, body) =>
       );
 
       // schedule
-      if (job && job.running) job.stop();
-      job = new CronJob(
-        time,
-        function () {
-          finishBooking(+body.booking_id, sender._id, receiver._id);
-        },
-        null,
-        true,
-        "Asia/Ho_Chi_Minh"
-      );
+      // if (job && job.running) job.stop();
+      // job = new CronJob(
+      //   time,
+      //   function () {
+      //     finishBooking(+body.booking_id, sender._id, receiver._id);
+      //   },
+      //   null,
+      //   true,
+      //   "Asia/Ho_Chi_Minh"
+      // );
 
       resolve({
         success: result[0] > 0 ? true : false,
