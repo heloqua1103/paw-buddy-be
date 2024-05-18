@@ -1,5 +1,7 @@
 import { Op, where } from "sequelize";
 import db from "../models";
+import { finishBooking } from ".";
+import User from "../modelsChat/user.model";
 
 export const createRecord = (userId, body) =>
   new Promise(async (resolve, reject) => {
@@ -27,22 +29,54 @@ export const createRecord = (userId, body) =>
     }
   });
 
-export const updateRecord = (recordId, userId, body) =>
+export const updateRecord = (recordId, vetId, body) =>
   new Promise(async (resolve, reject) => {
     try {
       const result = await db.MedicalRecord.update(
         { ...body },
         {
-          where: { id: recordId, vet_id: userId },
+          where: { id: recordId, vet_id: vetId },
         }
       );
-      const medicineIds = body.medicine_ids.split(",");
-      medicineIds.forEach(async (id) => {
-        await db.Medicine.create({
-          medical_record_id: recordId,
-          medicine_id: +id,
+      if (body.medicine_ids) {
+        const medicineIds = body.medicine_ids.split(",");
+        medicineIds.forEach(async (id) => {
+          await db.PetMedications.create({
+            medical_record_id: recordId,
+            medication_id: +id,
+          });
         });
+      }
+
+      const bookingId = await db.MedicalRecord.findOne({
+        where: { id: recordId },
+        attributes: ["booking_id"],
       });
+
+      const bookingData = await db.Booking.findOne({
+        where: { id: bookingId.booking_id },
+        attributes: ["user_id"],
+      });
+
+      const vet = await db.User.findOne({
+        where: { id: vetId },
+        attributes: ["email"],
+      });
+
+      const sender = await User.findOne({
+        email: vet.email,
+      });
+
+      const user = await db.User.findOne({
+        where: { id: bookingData.user_id },
+        attributes: ["email"],
+      });
+
+      const receiver = await User.findOne({
+        email: user.email,
+      });
+
+      finishBooking(bookingId.booking_id, sender._id, receiver._id);
       resolve({
         success: result[0] > 0 ? true : false,
         message: result[0] > 0 ? "Successfully" : "Something went wrong",
@@ -94,12 +128,17 @@ export const getRecordsOfUser = (userId, query) =>
           {
             model: db.PetMedications,
             as: "medicationsData",
+            attributes: ["dosage", "medical_record_id", "medication_id", "id"],
             include: [
               {
                 model: db.Medicine,
-                as: "medicinData",
+                as: "medicineData",
               },
             ],
+          },
+          {
+            model: db.Vaccine,
+            as: "vaccineData",
           },
         ],
       });
@@ -125,6 +164,21 @@ export const getRecordsOfVet = (vetId, query) =>
           {
             model: db.Booking,
             as: "bookingData",
+          },
+          {
+            model: db.PetMedications,
+            as: "medicationsData",
+            attributes: ["dosage", "medical_record_id", "medication_id", "id"],
+            include: [
+              {
+                model: db.Medicine,
+                as: "medicineData",
+              },
+            ],
+          },
+          {
+            model: db.Vaccine,
+            as: "vaccineData",
           },
         ],
       });
@@ -156,6 +210,17 @@ export const getRecordOfPet = (petId, query) =>
             model: db.User,
             as: "vetData",
             attributes: ["fullName", "email", "phone", "avatar", "address"],
+          },
+          {
+            model: db.PetMedications,
+            as: "medicationsData",
+            attributes: ["dosage", "medical_record_id", "medication_id", "id"],
+            include: [
+              {
+                model: db.Medicine,
+                as: "medicineData",
+              },
+            ],
           },
           {
             model: db.Vaccine,

@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "id",
         as: "bookingData",
       });
+      MedicalRecord.hasMany(models.PetMedications, {
+        foreignKey: "medical_record_id",
+        as: "medicationsData",
+      });
     }
   }
   MedicalRecord.init(

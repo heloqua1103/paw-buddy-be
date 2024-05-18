@@ -9,9 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      PetMedications.belongsTo(models.MedicalRecord, {
-        foreignKey: "medical_record_id",
-        as: "medicalRecord",
+      // PetMedications.belongsTo(models.MedicalRecord, {
+      //   foreignKey: "medical_record_id",
+      //   as: "medicalRecord",
+      // });
+      PetMedications.belongsTo(models.Medicine, {
+        foreignKey: "medication_id",
+        as: "medicineData",
       });
     }
   }
