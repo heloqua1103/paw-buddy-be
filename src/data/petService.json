@@ -10,16 +10,6 @@
     "category_id": 1
   },
   {
-    "name_service": "Vaccination Package",
-    "description": "Essential vaccinations to protect against common dog diseases",
-    "price": 80.0,
-    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
-    "species": 1,
-    "note": "Includes vaccinations for rabies, distemper, parvovirus, and adenovirus.",
-    "estimated_duration": 45,
-    "category_id": 1
-  },
-  {
     "name_service": "Dental Cleaning",
     "description": "Professional cleaning to maintain dental health",
     "price": 120.0,
@@ -118,5 +108,45 @@
     "note": "Ideal for puppies and adult dogs to learn manners and build a stronger bond with their owner.",
     "estimated_duration": 180,
     "category_id": 4
+  },
+  {
+    "name_service": "Vaccine Rabies Virus",
+    "description": "The Vaccine Rabies Virus service offers structured training sessions designed to teach basic obedience commands and improve behavior in dogs. This service is ideal for both puppies and adult dogs, aiming to help them learn manners and build a stronger bond with their owners.",
+    "price": 100.0,
+    "photo": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-health-icon-png-image_3782835.jpg",
+    "species": 1,
+    "note": "This service is perfect for dog owners who want to ensure their pets are well-behaved and responsive to commands. The training not only promotes good manners but also enhances the relationship between the dog and its owner.",
+    "estimated_duration": 180,
+    "category_id": 1
+  },
+  {
+    "name_service": "Vaccine Parvovirus",
+    "description": "The Vaccine Parvovirus service provides essential vaccination to protect dogs from the highly contagious and potentially fatal parvovirus. This service is crucial for both puppies and adult dogs to ensure their long-term health and immunity against this disease.",
+    "price": 80.0,
+    "photo": "https://example.com/path-to-parvovirus-vaccine-image.jpg",
+    "species": 1,
+    "note": "Ideal for puppies and adult dogs, this vaccination is a key preventive measure to safeguard your pet's health.",
+    "estimated_duration": 30,
+    "category_id": 1
+  },
+  {
+    "name_service": "Vaccine Distemper",
+    "description": "The Distemper Vaccine service offers critical vaccination to protect dogs from the highly contagious and often fatal canine distemper virus. This service is essential for both puppies and adult dogs to ensure their long-term health and immunity against this disease.",
+    "price": 75.0,
+    "photo": "https://example.com/path-to-distemper-vaccine-image.jpg",
+    "species": 1,
+    "note": "Recommended for all dogs, particularly puppies, as part of their core vaccination schedule to prevent the spread of canine distemper.",
+    "estimated_duration": 30,
+    "category_id": 1
+  },
+  {
+    "name_service": "Vaccine Lyme",
+    "description": "The Lyme Vaccine service offers critical vaccination to protect dogs from the highly contagious and often fatal canine distemper virus. This service is essential for both puppies and adult dogs to ensure their long-term health and immunity against this disease.",
+    "price": 120.0,
+    "photo": "https://example.com/path-to-distemper-vaccine-image.jpg",
+    "species": 1,
+    "note": "Recommended for all dogs, particularly puppies, as part of their core vaccination schedule to prevent the spread of canine distemper.",
+    "estimated_duration": 30,
+    "category_id": 1
   }
 ]

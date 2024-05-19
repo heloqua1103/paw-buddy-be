@@ -1,6 +1,6 @@
 import * as services from "../services";
 import Notification from "../modelsChat/notification.model";
-import { getReceiverSocketId } from "../socket/socket";
+import { getReceiverSocketId, io } from "../socket/socket";
 
 export const getAllNotifications = async (req, res) => {
   try {
@@ -25,8 +25,11 @@ export const getAllNotifications = async (req, res) => {
 
 export const updateNotification = async (req, res) => {
   try {
-    const { id } = req.params;
-    const result = await Notification.findByIdAndUpdate(id, { is_read: true });
+    const { idChat } = req.user;
+    const result = await Notification.updateMany(
+      { receiverId: idChat },
+      { is_read: true }
+    );
     res.status(200).json({
       success: result ? true : false,
       message: result ? "Successfully" : "Something went wrong!",

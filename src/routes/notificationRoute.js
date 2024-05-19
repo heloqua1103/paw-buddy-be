@@ -7,7 +7,7 @@ const router = express.Router();
 router.use(verifyToken);
 
 router.get("/", controllers.getAllNotifications);
-router.put("/:id", controllers.updateNotification);
+router.put("/", controllers.updateNotification);
 router.post("/:id", controllers.createNotification);
 
 module.exports = router;
