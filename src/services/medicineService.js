@@ -16,6 +16,7 @@ export const createMedicine = (body) =>
           price: body.price,
           stock: body.stock,
           unit: body.unit,
+          expiry_date: body.expiry_date,
         },
       });
       resolve({

@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   PetService.init(
     {
       name_service: DataTypes.STRING,
-      description: DataTypes.STRING,
+      description: DataTypes.TEXT,
       price: DataTypes.DECIMAL,
       photo: DataTypes.STRING,
       species: DataTypes.INTEGER,
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "PetService",
-    },
+    }
   );
   return PetService;
 };

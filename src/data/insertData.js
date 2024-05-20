@@ -29,6 +29,7 @@ const insert = () =>
 
       dataVaccines.forEach(async (vaccine) => {
         await db.Vaccine.create({
+          service_id: vaccine.service_id,
           name_vaccine: vaccine.name_vaccine,
           type_disease: vaccine.type_disease,
           manufacturer: vaccine.manufacturer,
@@ -37,9 +38,9 @@ const insert = () =>
           contraindication: vaccine.contraindication,
           side_effect: vaccine.side_effect,
           price: vaccine.price,
-          quantity: vaccine.quantity,
-          status: vaccine.status,
+          stock: vaccine.stock,
           note: vaccine.note,
+          expiry_date: vaccine.expiry_date,
         });
       });
 
@@ -76,6 +77,9 @@ const insert = () =>
             fullName: "Admin",
             email: "admin@gmail.com",
             password: hashPassword("123456"),
+            phone: "0" + faker.string.numeric(9),
+            avatar: faker.image.avatar(),
+            address: faker.location.streetAddress({ useFullAddress: true }),
             roleId: 1,
           });
         }
