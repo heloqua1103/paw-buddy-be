@@ -53,6 +53,13 @@ export const updateRecord = (recordId, vetId, body) =>
         attributes: ["booking_id"],
       });
 
+      if(body.status) {
+        await db.Booking.update(
+          { status: "completed" },
+          { where: { id: bookingId.booking_id } }
+        );
+      }
+
       const bookingData = await db.Booking.findOne({
         where: { id: bookingId.booking_id },
         attributes: ["user_id"],
