@@ -32,7 +32,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "nguyenhieu22@gmail.com",
+									"value": "nguyenhieu222@gmail.com",
 									"type": "text"
 								},
 								{
@@ -1660,7 +1660,7 @@
 								},
 								{
 									"key": "date",
-									"value": "2024-05-15",
+									"value": "2024-05-30",
 									"type": "text"
 								},
 								{
@@ -1711,7 +1711,7 @@
 								},
 								{
 									"key": "booking_id",
-									"value": "14",
+									"value": "1",
 									"type": "text"
 								}
 							]
@@ -1825,6 +1825,57 @@
 								"booking",
 								"detail",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateBookingAgain",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pet_id",
+									"value": "21",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2024-07-01",
+									"type": "text"
+								},
+								{
+									"key": "start_time",
+									"value": "09:00:00",
+									"type": "text"
+								},
+								{
+									"key": "booking_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/booking/vet/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"booking",
+								"vet",
+								""
 							]
 						}
 					},
@@ -1968,33 +2019,44 @@
 							"urlencoded": [
 								{
 									"key": "exam_date",
-									"value": "",
+									"value": "2024-05-30",
 									"type": "text"
 								},
 								{
 									"key": "diagnosis",
-									"value": "",
+									"value": "aaa",
 									"type": "text"
 								},
 								{
 									"key": "symptoms",
-									"value": "",
+									"value": "aaaas",
 									"type": "text"
 								},
 								{
 									"key": "treatment_plan",
-									"value": "",
+									"value": "qwdqwdqwcac",
 									"type": "text"
 								},
 								{
 									"key": "next_appointment_date",
-									"value": "",
+									"value": "2024-06-15",
+									"type": "text"
+								},
+								{
+									"key": "medicine_ids",
+									"value": "3,4,5,6",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "vaccine_id",
+									"value": "2",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/medicalRecord/vet/update-record/1",
+							"raw": "{{url}}/api/v1/medicalRecord/vet/update-record/4",
 							"host": [
 								"{{url}}"
 							],
@@ -2004,7 +2066,7 @@
 								"medicalRecord",
 								"vet",
 								"update-record",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -2487,7 +2549,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/notification/6641d96baf8ff3f66bc13c05",
+							"raw": "{{url}}/api/v1/notification/",
 							"host": [
 								"{{url}}"
 							],
@@ -2495,7 +2557,7 @@
 								"api",
 								"v1",
 								"notification",
-								"6641d96baf8ff3f66bc13c05"
+								""
 							]
 						}
 					},

@@ -4,10 +4,89 @@ import { CronJob } from "cron";
 import { Op } from "sequelize";
 import { sendMessage } from "./messageService.js";
 import User from "../modelsChat/user.model.js";
-import Notification from "../modelsChat/notification.model.js";
 import { createNotification } from "../controllers/notificationController.js";
 
 let job;
+
+export const createBookingAgain = (vetId, body) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const pet = await db.Pet.findOne({
+        where: { id: +body.pet_id, user_id: body.user_id },
+      });
+      let [hours, minutes, seconds] = body.start_time.split(":").map(Number);
+
+      minutes += 30;
+
+      if (minutes >= 60) {
+        hours += Math.floor(minutes / 60);
+        minutes = minutes % 60;
+      }
+
+      hours = String(hours).padStart(2, "0");
+      minutes = String(minutes).padStart(2, "0");
+      seconds = String(seconds).padStart(2, "0");
+
+      let end_time = `${hours}:${minutes}:${seconds}`;
+
+      if (pet) {
+        const result = await db.Booking.create({
+          pet_id: body.pet_id,
+          date: body.date,
+          start_time: body.start_time,
+          vet_id: vetId,
+          status: "confirmed",
+          user_id: body.user_id,
+          end_time: end_time,
+          service_id: [3],
+        });
+
+        await db.MedicalRecord.create({
+          pet_id: body.pet_id,
+          vet_id: vetId,
+          booking_id: result.id,
+          exam_date: body.date,
+        });
+
+        const time = new Date(`${result.date} ${result.start_time}`);
+        await db.MedicalRecord.update(
+          {
+            next_appointment_date: time,
+          },
+          {
+            where: {
+              pet_id: body.pet_id,
+              vet_id: vetId,
+              booking_id: body.booking_id,
+            },
+          }
+        );
+
+        // Logic send notification
+        const user = await db.User.findOne({
+          where: { id: body.user_id },
+          attributes: ["email"],
+        });
+        const receiver = await User.findOne({
+          email: user.email,
+        });
+        createNotification(receiver._id, result.id, "You have a new booking!");
+
+        resolve({
+          success: result ? true : false,
+          message: result ? "Successfully" : "Something went wrong!",
+          result: result ? result : null,
+        });
+      } else {
+        resolve({
+          success: false,
+          message: "Pet not found",
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
 export const createBooking = (userId, body) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -247,10 +326,8 @@ export const approveBooking = (vetId, body) =>
         pet_id: data.dataValues.pet_id,
         vet_id: vetId,
         booking_id: +body.booking_id,
+        exam_date: data.dataValues.date,
       });
-      // const time = new Date(
-      //   `${data.dataValues.date} ${data.dataValues.end_time}`
-      // );
 
       // logic send message
       const vet = await db.User.findOne({
