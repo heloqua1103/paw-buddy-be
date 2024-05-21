@@ -14,5 +14,6 @@ router.get("/detail", controllers.getAllBookings);
 
 router.use(isVeterinarian);
 router.put("/vet/approve-booking", controllers.approveBooking);
+router.post("/vet/", controllers.createBookingAgain);
 
 module.exports = router;
