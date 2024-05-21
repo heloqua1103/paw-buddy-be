@@ -53,7 +53,7 @@ export const updateRecord = (recordId, vetId, body) =>
         attributes: ["booking_id"],
       });
 
-      if(body.status) {
+      if (body.status) {
         await db.Booking.update(
           { status: "completed" },
           { where: { id: bookingId.booking_id } }
@@ -205,7 +205,7 @@ export const getRecordOfPet = (petId, query) =>
     try {
       const { attributes } = query;
       if (attributes) var options = attributes.split(",");
-      const result = await db.MedicalRecord.findOne({
+      const result = await db.MedicalRecord.findAndCountAll({
         where: { pet_id: petId },
         attributes: options,
         include: [
@@ -240,7 +240,8 @@ export const getRecordOfPet = (petId, query) =>
         message: result
           ? "Successfully"
           : "Cannot find any record for this pet",
-        data: result ? result : null,
+        data: result ? result.rows : null,
+        count: result ? result.count : null,
       });
     } catch (error) {
       reject(error);
