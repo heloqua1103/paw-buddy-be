@@ -24,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "id",
         as: "dataPet",
       });
+      Booking.hasOne(models.MedicalRecord, {
+        foreignKey: "booking_id",
+        targetKey: "id",
+        as: "dataRecord",
+      });
     }
   }
   Booking.init(

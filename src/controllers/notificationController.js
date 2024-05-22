@@ -12,7 +12,8 @@ export const getAllNotifications = async (req, res) => {
       receiverId: idChat,
     })
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .sort({ createdAt: -1 });
     res.status(200).json({
       success: filteredNotifications ? true : false,
       message: filteredNotifications ? "Successfully" : "Something went wrong!",
