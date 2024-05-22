@@ -278,6 +278,11 @@ export const getBookingById = (bookingId, query) =>
             as: "dataPet",
             exclude: ["user_id"],
           },
+          {
+            model: db.MedicalRecord,
+            as: "dataRecord",
+            attributes: ["id"],
+          },
         ],
       });
 
@@ -460,6 +465,11 @@ export const getAllBookings = (
             model: db.Pet,
             as: "dataPet",
             exclude: ["user_id"],
+          },
+          {
+            model: db.MedicalRecord,
+            as: "dataRecord",
+            attributes: ["id"],
           },
         ],
       });
