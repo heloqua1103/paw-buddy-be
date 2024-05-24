@@ -199,15 +199,22 @@ export const getRecordsOfVet = (vetId, { attributes, ...query }) =>
     }
   });
 
-export const getRecordOfPet = (petId, query) =>
+export const getRecordOfPet = (petId, { attributes, limit, page, ...query }) =>
   new Promise(async (resolve, reject) => {
     try {
-      const { attributes } = query;
       if (attributes) var options = attributes.split(",");
-      if (query.pet_id) query.pet_id = +query.pet_id;
+      const queries = { raw: false, nest: true };
+      const offset = !page || +page <= 1 ? 0 : +page - 1;
+      const fLimit = +limit || +process.env.LIMIT_PET;
+      queries.distinct = true;
+      if (limit) {
+        queries.offset = offset * fLimit;
+        queries.limit = fLimit;
+      }
       const result = await db.MedicalRecord.findAndCountAll({
         where: { pet_id: petId, ...query },
         attributes: options,
+        ...queries,
         include: [
           {
             model: db.Pet,
