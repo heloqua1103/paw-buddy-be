@@ -159,13 +159,13 @@ export const getRecordsOfUser = (userId, query) =>
     }
   });
 
-export const getRecordsOfVet = (vetId, query) =>
+export const getRecordsOfVet = (vetId, { attributes, ...query }) =>
   new Promise(async (resolve, reject) => {
     try {
-      const { attributes } = query;
       if (attributes) var options = attributes.split(",");
+      if (query.pet_id) query.pet_id = +query.pet_id;
       const result = await db.MedicalRecord.findAndCountAll({
-        where: { vet_id: vetId },
+        where: { vet_id: vetId, ...query },
         attributes: options,
         include: [
           {
@@ -212,6 +212,13 @@ export const getRecordOfPet = (petId, query) =>
           {
             model: db.Pet,
             as: "petData",
+            include: [
+              {
+                model: db.User,
+                as: "userData",
+                attributes: ["fullName", "email", "phone", "avatar", "address"],
+              },
+            ],
           },
           {
             model: db.User,
