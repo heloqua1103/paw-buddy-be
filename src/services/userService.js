@@ -27,7 +27,7 @@ export const createUser = (body) =>
 
 export const getAllUsers = (
   roleId,
-  { order, page, limit, attributes, ...query }
+  { order, page, limit, attributes, ...query },
 ) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -127,6 +127,14 @@ export const getUser = (id) =>
           },
         ],
       });
+
+      if (!result)
+        resolve({
+          success: false,
+          message: "Something went wrong!",
+          data: null,
+        });
+
       const userChat = await User.findOne({
         email: result.email,
       }).select("_id");
@@ -201,7 +209,7 @@ export const updateUser = (body, userId, fileData) => {
         "refreshToken",
       ];
       const myFields = Object.keys(db.User.rawAttributes).filter(
-        (s) => !fieldsToExclude.includes(s)
+        (s) => !fieldsToExclude.includes(s),
       );
       const response = await db.User.update(body, {
         where: { id: userId },
@@ -209,7 +217,7 @@ export const updateUser = (body, userId, fileData) => {
       });
       User.updateOne(
         { email: fileImage.email },
-        { profilePic: fileData ? body.avatar : "" }
+        { profilePic: fileData ? body.avatar : "" },
       ),
         resolve({
           success: response[0] > 0 ? true : false,
@@ -239,11 +247,11 @@ export const changePassword = (userId, body) =>
           : await Promise.all([
               db.User.update(
                 { password: hashPassword(body.newPassword) },
-                { where: { id: userId } }
+                { where: { id: userId } },
               ),
               User.updateOne(
                 { email: user.email },
-                { password: hashPassword(body.newPassword) }
+                { password: hashPassword(body.newPassword) },
               ),
             ])
         : "The password is incorrect!";
