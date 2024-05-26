@@ -199,7 +199,10 @@ export const getRecordsOfVet = (vetId, { attributes, ...query }) =>
     }
   });
 
-export const getRecordOfPet = (petId, { attributes, limit, page, ...query }) =>
+export const getRecordOfPet = (
+  petId,
+  { attributes, limit, page, order, ...query }
+) =>
   new Promise(async (resolve, reject) => {
     try {
       if (attributes) var options = attributes.split(",");
@@ -211,6 +214,7 @@ export const getRecordOfPet = (petId, { attributes, limit, page, ...query }) =>
         queries.offset = offset * fLimit;
         queries.limit = fLimit;
       }
+      if (order) queries.order = [order];
       const result = await db.MedicalRecord.findAndCountAll({
         where: { pet_id: petId, ...query },
         attributes: options,
